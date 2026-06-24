@@ -32,7 +32,7 @@
    ========================================================= */
 
 const DataStore = (() => {
-  const STORAGE_KEY = "fukushi-navi-entries-v3";
+  const STORAGE_KEY = "fukushi-navi-entries-v4";
 
   // 初回だけ data/entries.json を読み込んで localStorage に保存する
   async function seedFromFileIfNeeded() {

@@ -2,6 +2,26 @@
    app.js ― UIロジック本体 (2026-06-24)
    ========================================================= */
 
+// ---------- 各区 基幹相談支援センター 情報 ----------
+const WARD_KIKAN_INFO = {
+  "千種区": { tel: "052-753-3567", url: "http://www.chikusa1.info/center/center1.html" },
+  "東区":   { tel: "052-325-6193", url: "https://higashi-kikan.com/" },
+  "北区":   { tel: "052-910-3133", url: "https://nagoyakita-kikancenter.jp/" },
+  "西区":   { tel: "052-504-2102", url: "https://www.nishiku-kyougikai.com/nishikukikansoudansien/" },
+  "中村区": { tel: "052-462-1500", url: "https://shin-ai1996.org/nagoya/nakamura" },
+  "中区":   { tel: "052-253-5855", url: "https://mutsumi-f.jp/naka-center/" },
+  "昭和区": { tel: "052-741-8800", url: "https://aju-cil.com/talk/johoc/supportcenter.html" },
+  "瑞穂区": { tel: "052-680-7111", url: "https://www.city.nagoya.jp/kenkofukushi/shougaisha/1016662/1016664.html" },
+  "熱田区": { tel: "052-228-3630", url: "https://www.nagoya-rehab.or.jp/1002864/1002870.html" },
+  "中川区": { tel: "052-354-4521", url: "https://nagoyaikuseikai.or.jp/ikuseikaijigyousyo/" },
+  "港区":   { tel: "052-653-2801", url: "https://nagoya-lighthouse.jp/kikan/" },
+  "南区":   { tel: "052-883-9257", url: "http://minamiku-kyogikai.nagoya/?page_id=323" },
+  "守山区": { tel: "052-737-0221", url: "https://www.ne.jp/asahi/moriyama/shien/" },
+  "緑区":   { tel: "052-892-6333", url: "https://www.city.nagoya.jp/kenkofukushi/shougaisha/1016662/1016664.html" },
+  "名東区": { tel: "052-739-7524", url: "https://www.city.nagoya.jp/kenkofukushi/shougaisha/1016662/1016664.html" },
+  "天白区": { tel: "052-804-8587", url: "https://www.city.nagoya.jp/kenkofukushi/shougaisha/1016662/1016664.html" },
+};
+
 // ---------- サービス種別コード参照表 ----------
 const SERVICE_CODE_MAP = {
   "11": "居宅介護",
@@ -347,9 +367,20 @@ function renderChatTab() {
       <div class="chat-results__header">${wardLabel}利用できる可能性のあるサービス（${matched.length}件）</div>
       ${matched.length
         ? matched.map(e => {
-            const display = chat.ward
+            let display = chat.ward
               ? { ...e, contact: substituteWard(e.contact, chat.ward) }
               : e;
+            // 区が選択されている場合、基幹相談支援センターを区別の情報に差し替え
+            if (chat.ward && e.wardDataType === "kikan") {
+              const info = WARD_KIKAN_INFO[chat.ward];
+              if (info) {
+                display = {
+                  ...display,
+                  contact: `${chat.ward}の障害者基幹相談支援センター\n☎ ${info.tel}\n（市全体の案内: 障害者支援課 052-972-2596）`,
+                  welnetUrl: info.url,
+                };
+              }
+            }
             return entryCardHtml(display);
           }).join("")
         : emptyStateHtml("条件に合うサービスが見つかりませんでした。検索タブからキーワードで探すか、基幹相談支援センターにご相談ください。")}
