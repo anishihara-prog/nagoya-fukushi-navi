@@ -1,0 +1,17 @@
+{
+  "name": "nagoya-fukushi-navi",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-20",
+  "forwardPorts": [5500],
+  "postCreateCommand": "npm install -g serve",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ritwickdey.LiveServer",
+        "anthropic.claude-code"
+      ],
+      "settings": {
+        "liveServer.settings.port": 5500
+      }
+    }
+  }
+}
