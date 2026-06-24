@@ -79,9 +79,13 @@ const CHAT_FLOW = [
   },
   {
     id: "ward",
-    botText: "お住まいの区を教えてください（窓口案内に使います。スキップも可）。",
-    type: "text",
-    placeholder: "例: 北区・千種区・天白区",
+    botText: "お住まいの区を教えてください（窓口の問合せ先に使います。スキップも可）。",
+    type: "select",
+    options: [
+      "千種区", "東区", "北区", "西区", "中村区", "中区",
+      "昭和区", "瑞穂区", "熱田区", "中川区", "港区", "南区",
+      "守山区", "緑区", "名東区", "天白区",
+    ],
   },
   {
     id: "situation",
@@ -298,13 +302,17 @@ function renderChatTab() {
   // 現在の選択肢
   let inputHtml = "";
   if (currentStep && chat.phase !== "done") {
-    if (currentStep.type === "text") {
+    if (currentStep.type === "select") {
       inputHtml = `
         <div class="chat-text-area">
-          <input id="chat-text-input" class="chat-text-input" type="text"
-                 placeholder="${escapeAttr(currentStep.placeholder || "")}" maxlength="20">
+          <select id="chat-select-input" class="chat-select-input">
+            <option value="">── 区を選んでください ──</option>
+            ${(currentStep.options || []).map(o =>
+              `<option value="${escapeAttr(o)}">${escapeHtml(o)}</option>`
+            ).join("")}
+          </select>
           <div style="display:flex; gap:8px; flex-wrap:wrap;">
-            <button class="btn btn--primary" id="btn-text-next">次へ →</button>
+            <button class="btn btn--primary" id="btn-text-next" disabled>次へ →</button>
             <button class="btn btn--ghost" id="btn-text-skip">スキップ</button>
           </div>
         </div>`;
@@ -337,7 +345,12 @@ function renderChatTab() {
       <hr class="chat-divider">
       <div class="chat-results__header">${wardLabel}利用できる可能性のあるサービス（${matched.length}件）</div>
       ${matched.length
-        ? matched.map(e => entryCardHtml(e)).join("")
+        ? matched.map(e => {
+            const display = chat.ward
+              ? { ...e, contact: substituteWard(e.contact, chat.ward) }
+              : e;
+            return entryCardHtml(display);
+          }).join("")
         : emptyStateHtml("条件に合うサービスが見つかりませんでした。検索タブからキーワードで探すか、基幹相談支援センターにご相談ください。")}
       <button class="btn btn--ghost" id="btn-chat-restart" style="width:100%;margin-top:12px;">↺ 最初からやり直す</button>`;
   }
@@ -350,9 +363,14 @@ function renderChatTab() {
       <div id="chat-bottom"></div>
     </div>`;
 
-  // イベント: テキスト入力（居住区）
-  document.getElementById("btn-text-next")?.addEventListener("click", () => {
-    const val = (document.getElementById("chat-text-input")?.value || "").trim();
+  // イベント: 区選択ドロップダウン
+  const selectEl = document.getElementById("chat-select-input");
+  const textNextBtn = document.getElementById("btn-text-next");
+  selectEl?.addEventListener("change", () => {
+    if (textNextBtn) textNextBtn.disabled = !selectEl.value;
+  });
+  textNextBtn?.addEventListener("click", () => {
+    const val = selectEl?.value || "";
     if (val) chat.ward = val;
     handleChatTextNext(val || null);
   });
@@ -446,6 +464,13 @@ function handleChatMultiNext() {
 
   renderChatTab();
   scrollChatToBottom();
+}
+
+function substituteWard(contact, ward) {
+  if (!ward) return contact;
+  return contact
+    .replace(/お住まいの区の区役所/g, ward + "役所")
+    .replace(/お住まいの区/g, ward);
 }
 
 function handleChatTextNext(value) {
