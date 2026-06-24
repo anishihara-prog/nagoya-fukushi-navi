@@ -198,7 +198,44 @@ button{ font-family: inherit; }
   font-size: 12px; font-weight: 600; margin: 2px 4px 2px 0;
 }
 
-/* ---------- Profile tab panel ---------- */
+/* ---------- Chat tab ---------- */
+.chat-wrap{ display:flex; flex-direction:column; gap:14px; padding-bottom:16px; }
+
+.chat-msg{ display:flex; gap:8px; align-items:flex-start; }
+.chat-avatar{
+  width:32px; height:32px; border-radius:50%;
+  background: var(--color-primary); color:#fff;
+  display:flex; align-items:center; justify-content:center;
+  font-size:16px; flex-shrink:0;
+}
+.chat-bubble{
+  padding: 10px 14px; font-size:14px; line-height:1.55;
+  border-radius: 4px 14px 14px 14px;
+  background: var(--color-primary-soft); color: var(--color-primary-dark);
+  max-width: 85%;
+}
+.chat-msg--user{ justify-content:flex-end; }
+.chat-msg--user .chat-bubble{
+  background: var(--color-primary); color:#fff;
+  border-radius: 14px 4px 14px 14px;
+}
+
+.chat-options{ display:flex; flex-wrap:wrap; gap:8px; padding-left:40px; }
+.chat-option-btn{
+  border: 1.5px solid var(--color-primary); background:#fff; color: var(--color-primary);
+  border-radius:999px; padding: 8px 16px; font-size:13.5px;
+  cursor:pointer; font-weight:600; font-family:inherit;
+}
+.chat-option-btn.is-selected,
+.chat-option-btn:active{ background: var(--color-primary); color:#fff; }
+
+.chat-multi-footer{ padding-left:40px; margin-top:6px; }
+.chat-divider{ border:none; border-top:2px dashed var(--color-border); margin:4px 0; }
+.chat-results__header{
+  font-weight:700; font-size:14px; color: var(--color-primary); margin-bottom:10px;
+}
+
+/* ---------- Profile tab panel (legacy, keep for reference) ---------- */
 .profile-panel{
   background: var(--color-surface); border: 1px solid var(--color-border);
   border-radius: var(--radius-lg); padding: 14px 16px; margin-bottom: 16px;

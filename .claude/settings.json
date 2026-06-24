@@ -6,7 +6,13 @@
       "Bash(python3 -m http.server 5500)",
       "Bash(echo \"PID=$!\")",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5500/)",
-      "Bash(python3 -m http.server 5500 &>/tmp/server2.log & *)"
+      "Bash(python3 -m http.server 5500 &>/tmp/server2.log & *)",
+      "Bash(git -C /workspaces/nagoya-fukushi-navi remote set-url origin https://github.com/anishihara-prog/nagoya-fukushi-navi.git)",
+      "Bash(git -C /workspaces/nagoya-fukushi-navi remote -v)",
+      "Bash(git -C /workspaces/nagoya-fukushi-navi log --oneline -3)",
+      "Bash(git -C /workspaces/nagoya-fukushi-navi branch -vv)",
+      "Bash(git -C /workspaces/nagoya-fukushi-navi add -A)",
+      "Bash(git -C /workspaces/nagoya-fukushi-navi status)"
     ],
     "additionalDirectories": [
       "/tmp"

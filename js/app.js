@@ -1,7 +1,5 @@
 /* =========================================================
    app.js ― UIロジック本体
-   data-store.js が用意した loadEntries / saveEntries だけを使い、
-   保存方法の詳細は意識しない。
    ========================================================= */
 
 // ---------- サービス種別コード参照表 ----------
@@ -33,7 +31,106 @@ const SERVICE_CODE_MAP = {
   "76": "障害児相談支援",
 };
 
-// ---------- タグの分類(検索チップ・フォームで共通利用) ----------
+// ---------- ケース相談 質問フロー ----------
+const CHAT_FLOW = [
+  {
+    id: "age",
+    botText: "相談者の年代を教えてください。",
+    type: "single",
+    options: [
+      { label: "児童（〜17歳）",    tags: ["児童(〜17歳)"] },
+      { label: "成人（18〜64歳）",  tags: ["成人(18〜64歳)"] },
+      { label: "65歳以上",          tags: ["65歳以上"] },
+    ],
+  },
+  {
+    id: "disability",
+    botText: "障害の種別を教えてください（複数選択可）。",
+    type: "multi",
+    options: [
+      { label: "身体障害",   tags: ["身体障害"] },
+      { label: "知的障害",   tags: ["知的障害"] },
+      { label: "精神障害",   tags: ["精神障害"] },
+      { label: "発達障害",   tags: ["発達障害"] },
+      { label: "難病",       tags: ["難病"] },
+      { label: "不明・複数", tags: ["重複・不明"] },
+    ],
+  },
+  {
+    id: "certificate",
+    botText: "障害者手帳はお持ちですか？",
+    type: "single",
+    options: [
+      { label: "身体障害者手帳あり",            tags: ["身体障害者手帳あり"] },
+      { label: "愛護手帳（療育手帳）あり",      tags: ["愛護手帳あり"] },
+      { label: "精神障害者保健福祉手帳あり",    tags: ["精神障害者保健福祉手帳あり"] },
+      { label: "手帳はない・まだ未申請",        tags: ["手帳なし・未申請"] },
+    ],
+  },
+  {
+    id: "situation",
+    botText: "今、一番お困りのこと・希望を教えてください。",
+    type: "single",
+    options: [
+      { label: "仕事がしたい・就労したい",            tags: ["就労の支援"],            followup: "work" },
+      { label: "日中の活動の場がほしい",              tags: ["日中の活動先"],          followup: "day" },
+      { label: "自宅での生活支援がほしい",            tags: ["在宅での生活支援"],      followup: "home" },
+      { label: "外出・移動のサポートがほしい",        tags: ["外出・移動の支援"],      followup: null },
+      { label: "住む場所（グループホーム等）を探している", tags: ["住まい(グループホーム等)"], followup: null },
+      { label: "医療費を減らしたい",                  tags: ["医療・医療費"],          followup: null },
+      { label: "手帳を取りたい・更新したい",          tags: ["手帳の取得・更新"],      followup: null },
+      { label: "年金・手当のことを知りたい",          tags: ["年金・手当などお金"],    followup: null },
+      { label: "緊急で困っている",                    tags: ["緊急時の対応"],          followup: null },
+      { label: "まず相談先を探したい",                tags: ["相談先を探したい"],      followup: null },
+    ],
+  },
+];
+
+// ---------- 深掘り質問（困りごとに応じて1問） ----------
+const FOLLOWUP_MAP = {
+  work: {
+    botText: "就労について、もう少し教えてください。",
+    type: "single",
+    options: [
+      { label: "一般企業への就職を目指したい",              addTags: [] },
+      { label: "支援を受けながら働く福祉的就労でよい",      addTags: [] },
+      { label: "すでに就職済み・職場定着が不安",            addTags: [] },
+    ],
+    hint: {
+      "一般企業への就職を目指したい":          "就労移行支援(コード43)が主な選択肢です。就職後は就労定着支援(コード46)も利用できます。",
+      "支援を受けながら働く福祉的就労でよい":  "就労継続支援B型(コード45)またはA型(コード44)が主な選択肢です。",
+      "すでに就職済み・職場定着が不安":        "就労定着支援(コード46)が利用できます。就労移行支援等を経て就職後6ヶ月から利用可能です。",
+    },
+  },
+  day: {
+    botText: "日中活動について、もう少し教えてください。",
+    type: "single",
+    options: [
+      { label: "作業や軽労働ができる（就労継続支援）",      addTags: [] },
+      { label: "介護を受けながら活動したい（生活介護）",    addTags: [] },
+      { label: "訓練・リハビリがしたい（自立訓練）",        addTags: [] },
+    ],
+    hint: {
+      "作業や軽労働ができる（就労継続支援）":    "就労継続支援B型(コード45)が適しています。能力によってはA型(コード44)も検討できます。",
+      "介護を受けながら活動したい（生活介護）":  "生活介護(コード16)が主な選択肢です。障害支援区分3以上が目安です。",
+      "訓練・リハビリがしたい（自立訓練）":      "自立訓練 機能訓練(コード41)または生活訓練(コード42)が利用できます。",
+    },
+  },
+  home: {
+    botText: "在宅での支援について、もう少し教えてください。",
+    type: "single",
+    options: [
+      { label: "家事・身体介護のヘルパーがほしい",              addTags: [] },
+      { label: "介護者が一時的にいない・短期入所が必要",        addTags: ["緊急時の対応"] },
+    ],
+    hint: {
+      "家事・身体介護のヘルパーがほしい":            "居宅介護(コード11)が利用できます。重度の方は重度訪問介護(コード12)も対象となる場合があります。",
+      "介護者が一時的にいない・短期入所が必要":      "短期入所(コード20: ショートステイ)が利用できます。緊急の場合は基幹相談支援センターへの相談もお勧めします。",
+    },
+  },
+};
+
+// ---------- タグの分類(編集フォームで共通利用) ----------
 const TYPE_OPTIONS = ["すべて", "サービス", "制度", "手続き", "相談窓口"];
 
 const TAG_GROUPS = {
@@ -65,9 +162,8 @@ const state = {
   activeTab: "search",
   searchKeyword: "",
   searchType: "すべて",
-  wizardSelected: new Set(),
   expandedId: null,
-  editingEntry: null,
+  chat: null,
 };
 
 const appEl = document.getElementById("app");
@@ -99,7 +195,7 @@ function bindTabbar() {
 // ---------- レンダリング振り分け ----------
 function render() {
   if (state.activeTab === "search") return renderSearchTab();
-  if (state.activeTab === "profile") return renderProfileTab();
+  if (state.activeTab === "chat")   return renderChatTab();
   if (state.activeTab === "manage") return renderManageTab();
 }
 
@@ -125,7 +221,7 @@ function renderSearchTab() {
     <div class="chip-row" id="type-chip-row">
       ${TYPE_OPTIONS.map((t) => `<button class="type-chip ${t === state.searchType ? "is-active" : ""}" data-type="${t}">${t}</button>`).join("")}
     </div>
-    <div id="search-results">${list.length ? list.map((e) => entryCardHtml(e)).join("") : emptyStateHtml("「" + (kw || "条件") + "」に一致する情報が見つかりません。キーワードを変えるか、「登録・編集」タブから情報を追加できます。")}</div>
+    <div id="search-results">${list.length ? list.map((e) => entryCardHtml(e)).join("") : emptyStateHtml("「" + (kw || "条件") + "」に一致する情報が見つかりません。")}</div>
   `;
 
   document.getElementById("search-input").addEventListener("input", (ev) => {
@@ -145,71 +241,188 @@ function renderSearchTab() {
 }
 
 // =====================================================
-// 👤 プロフィールで探すタブ
+// 💬 ケース相談タブ
 // =====================================================
-function renderProfileTab() {
-  const selected = state.wizardSelected;
-
-  const groupHtml = (groupKey) => {
-    const g = TAG_GROUPS[groupKey];
-    return `
-      <div class="tag-group">
-        <span class="tag-group__label">${g.label}</span>
-        ${g.tags.map((t) => `<button class="tag-chip ${selected.has(t) ? "is-selected" : ""}" data-tag="${escapeAttr(t)}">${t}</button>`).join("")}
-      </div>`;
+function initChat() {
+  state.chat = {
+    phase: "question",   // "question" | "followup" | "done"
+    stepIndex: 0,
+    collectedTags: new Set(),
+    multiTemp: new Set(),
+    followupKey: null,
+    history: [
+      { role: "bot", text: "相談者のプロフィールをもとに、利用できるサービスを一緒に考えます。" },
+      { role: "bot", text: CHAT_FLOW[0].botText },
+    ],
   };
+}
 
-  let resultsHtml;
-  let resultCount = 0;
-  if (selected.size === 0) {
-    resultsHtml = emptyStateHtml("上のプロフィールを入力すると、利用できるサービスが表示されます。");
-  } else {
-    const scored = state.entries
-      .map((e) => ({ e, score: (e.tags || []).filter((t) => selected.has(t)).length }))
-      .filter((x) => x.score > 0)
-      .sort((a, b) => b.score - a.score || a.e.name.localeCompare(b.e.name, "ja"));
-    resultCount = scored.length;
-    resultsHtml = scored.length
-      ? scored.map(({ e, score }) => entryCardHtml(e, score)).join("")
-      : emptyStateHtml("選択した条件に一致する情報がありません。条件を減らすか、「登録・編集」タブから情報を追加してください。");
+function renderChatTab() {
+  if (!state.chat) initChat();
+  const chat = state.chat;
+
+  // 現在の質問ステップ
+  const currentStep = chat.phase === "followup"
+    ? FOLLOWUP_MAP[chat.followupKey]
+    : (chat.phase === "question" ? CHAT_FLOW[chat.stepIndex] : null);
+
+  // 過去のメッセージ
+  const historyHtml = chat.history.map(msg =>
+    msg.role === "bot"
+      ? `<div class="chat-msg chat-msg--bot">
+           <div class="chat-avatar">🤝</div>
+           <div class="chat-bubble">${escapeHtml(msg.text)}</div>
+         </div>`
+      : `<div class="chat-msg chat-msg--user">
+           <div class="chat-bubble">${escapeHtml(msg.text)}</div>
+         </div>`
+  ).join("");
+
+  // 現在の選択肢
+  let inputHtml = "";
+  if (currentStep && chat.phase !== "done") {
+    if (currentStep.type === "multi") {
+      inputHtml = `
+        <div class="chat-options">
+          ${currentStep.options.map(opt =>
+            `<button class="chat-option-btn ${chat.multiTemp.has(opt.label) ? "is-selected" : ""}" data-option="${escapeAttr(opt.label)}">${escapeHtml(opt.label)}</button>`
+          ).join("")}
+        </div>
+        <div class="chat-multi-footer">
+          <button class="btn btn--primary" id="btn-multi-next" ${chat.multiTemp.size === 0 ? "disabled" : ""}>次へ →</button>
+        </div>`;
+    } else {
+      inputHtml = `
+        <div class="chat-options">
+          ${currentStep.options.map(opt =>
+            `<button class="chat-option-btn" data-option="${escapeAttr(opt.label)}">${escapeHtml(opt.label)}</button>`
+          ).join("")}
+        </div>`;
+    }
+  }
+
+  // 結果
+  let resultsHtml = "";
+  if (chat.phase === "done") {
+    const matched = getChatResults();
+    resultsHtml = `
+      <hr class="chat-divider">
+      <div class="chat-results__header">利用できる可能性のあるサービス（${matched.length}件）</div>
+      ${matched.length
+        ? matched.map(e => entryCardHtml(e)).join("")
+        : emptyStateHtml("条件に合うサービスが見つかりませんでした。検索タブから探してみてください。")}
+      <button class="btn btn--ghost" id="btn-chat-restart" style="width:100%;margin-top:12px;">↺ 最初からやり直す</button>`;
   }
 
   appEl.innerHTML = `
-    <div class="profile-panel">
-      <div class="profile-panel__header">
-        <p class="profile-panel__title">相談者のプロフィールを選択してください</p>
-        ${selected.size > 0 ? `<button class="btn btn--sm btn--ghost" id="btn-profile-clear">✕ クリア</button>` : ""}
-      </div>
-      ${groupHtml("disability")}
-      ${groupHtml("age")}
-      ${groupHtml("certificate")}
-      ${groupHtml("situation")}
-    </div>
-    ${selected.size > 0 ? `
-      <div class="results-section-label">
-        <span>該当するサービス・支援</span>
-        <span class="results-count-badge">${resultCount}件</span>
-      </div>
-    ` : ""}
-    <div id="wizard-results">${resultsHtml}</div>
-  `;
+    <div class="chat-wrap">
+      ${historyHtml}
+      ${inputHtml}
+      ${resultsHtml}
+      <div id="chat-bottom"></div>
+    </div>`;
 
-  if (selected.size > 0) {
-    document.getElementById("btn-profile-clear")?.addEventListener("click", () => {
-      state.wizardSelected.clear();
-      renderProfileTab();
-    });
+  // イベント: シングル選択
+  document.querySelectorAll(".chat-option-btn[data-option]").forEach(btn => {
+    if (currentStep && currentStep.type !== "multi") {
+      btn.addEventListener("click", () => handleChatSelect(btn.dataset.option));
+    } else {
+      btn.addEventListener("click", () => {
+        const label = btn.dataset.option;
+        if (chat.multiTemp.has(label)) chat.multiTemp.delete(label);
+        else chat.multiTemp.add(label);
+        renderChatTab();
+        scrollChatToBottom();
+      });
+    }
+  });
+
+  // イベント: マルチ選択の「次へ」
+  document.getElementById("btn-multi-next")?.addEventListener("click", handleChatMultiNext);
+
+  // イベント: やり直す
+  document.getElementById("btn-chat-restart")?.addEventListener("click", () => {
+    state.chat = null;
+    state.expandedId = null;
+    renderChatTab();
+  });
+
+  if (chat.phase === "done") bindCardEvents();
+  scrollChatToBottom();
+}
+
+function handleChatSelect(label) {
+  const chat = state.chat;
+  const step = chat.phase === "followup"
+    ? FOLLOWUP_MAP[chat.followupKey]
+    : CHAT_FLOW[chat.stepIndex];
+  const opt = step.options.find(o => o.label === label);
+  if (!opt) return;
+
+  // タグを収集
+  (opt.tags || opt.addTags || []).forEach(t => chat.collectedTags.add(t));
+  chat.history.push({ role: "user", text: label });
+
+  if (chat.phase === "followup") {
+    // 深掘り完了
+    const hint = FOLLOWUP_MAP[chat.followupKey].hint?.[label];
+    if (hint) chat.history.push({ role: "bot", text: hint });
+    chat.history.push({ role: "bot", text: "ありがとうございます。利用できる可能性のあるサービスをまとめました。" });
+    chat.phase = "done";
+
+  } else if (chat.stepIndex === CHAT_FLOW.length - 1) {
+    // situation ステップ完了
+    if (opt.followup) {
+      chat.followupKey = opt.followup;
+      chat.history.push({ role: "bot", text: FOLLOWUP_MAP[opt.followup].botText });
+      chat.phase = "followup";
+    } else {
+      chat.history.push({ role: "bot", text: "ありがとうございます。利用できる可能性のあるサービスをまとめました。" });
+      chat.phase = "done";
+    }
+  } else {
+    // 次の質問へ
+    chat.stepIndex++;
+    chat.history.push({ role: "bot", text: CHAT_FLOW[chat.stepIndex].botText });
   }
 
-  document.querySelectorAll(".tag-chip[data-tag]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const tag = btn.dataset.tag;
-      if (selected.has(tag)) selected.delete(tag);
-      else selected.add(tag);
-      renderProfileTab();
-    });
+  renderChatTab();
+  scrollChatToBottom();
+}
+
+function handleChatMultiNext() {
+  const chat = state.chat;
+  const step = CHAT_FLOW[chat.stepIndex];
+  const selected = [...chat.multiTemp];
+
+  // タグ収集
+  step.options
+    .filter(o => selected.includes(o.label))
+    .flatMap(o => o.tags)
+    .forEach(t => chat.collectedTags.add(t));
+
+  chat.history.push({ role: "user", text: selected.join("・") });
+  chat.multiTemp.clear();
+  chat.stepIndex++;
+  chat.history.push({ role: "bot", text: CHAT_FLOW[chat.stepIndex].botText });
+
+  renderChatTab();
+  scrollChatToBottom();
+}
+
+function getChatResults() {
+  const tags = state.chat.collectedTags;
+  return state.entries
+    .map(e => ({ e, score: (e.tags || []).filter(t => tags.has(t)).length }))
+    .filter(x => x.score > 0)
+    .sort((a, b) => b.score - a.score || a.e.name.localeCompare(b.e.name, "ja"))
+    .map(x => x.e);
+}
+
+function scrollChatToBottom() {
+  requestAnimationFrame(() => {
+    document.getElementById("chat-bottom")?.scrollIntoView({ behavior: "smooth" });
   });
-  bindCardEvents();
 }
 
 // =====================================================
@@ -294,7 +507,7 @@ function renderManageTab() {
 }
 
 // =====================================================
-// カード(検索結果・プロフィール結果で共通利用)
+// カード（共通）
 // =====================================================
 function entryCardHtml(e, matchScore) {
   const expanded = state.expandedId === e.id;
@@ -326,11 +539,11 @@ function entryCardHtml(e, matchScore) {
             </div>
           ` : ""}
           <dl style="margin:0;">
-            ${e.target ? `<dt>対象となる方</dt><dd>${escapeHtml(e.target)}</dd>` : ""}
+            ${e.target    ? `<dt>対象となる方</dt><dd>${escapeHtml(e.target)}</dd>` : ""}
             ${e.procedure ? `<dt>手続きの流れ</dt><dd>${escapeHtml(e.procedure)}</dd>` : ""}
             ${e.documents ? `<dt>必要なもの</dt><dd>${escapeHtml(e.documents)}</dd>` : ""}
-            ${e.contact ? `<dt>窓口・問い合わせ先</dt><dd>${escapeHtml(e.contact)}</dd>` : ""}
-            ${e.notes ? `<dt>備考</dt><dd>${escapeHtml(e.notes)}</dd>` : ""}
+            ${e.contact   ? `<dt>窓口・問い合わせ先</dt><dd>${escapeHtml(e.contact)}</dd>` : ""}
+            ${e.notes     ? `<dt>備考</dt><dd>${escapeHtml(e.notes)}</dd>` : ""}
           </dl>
           <div class="card__tags">${(e.tags || []).map((t) => `<span class="mini-tag">${escapeHtml(t)}</span>`).join("")}</div>
           <div class="card__actions">
@@ -469,28 +682,24 @@ function openEditModal(entry) {
 
   document.getElementById("btn-save").addEventListener("click", async () => {
     const name = document.getElementById("f-name").value.trim();
-    if (!name) {
-      showToast("名称を入力してください", "error");
-      return;
-    }
-    const rawCodes = document.getElementById("f-codes").value;
-    const serviceCodes = rawCodes.split(",").map(s => s.trim()).filter(Boolean);
+    if (!name) { showToast("名称を入力してください", "error"); return; }
+    const serviceCodes = document.getElementById("f-codes").value
+      .split(",").map(s => s.trim()).filter(Boolean);
     const updated = {
       id: e.id || `e${Date.now()}`,
       name,
       type: document.getElementById("f-type").value,
       serviceCodes,
-      overview: document.getElementById("f-overview").value.trim(),
-      target: document.getElementById("f-target").value.trim(),
-      procedure: document.getElementById("f-procedure").value.trim(),
-      documents: document.getElementById("f-documents").value.trim(),
-      contact: document.getElementById("f-contact").value.trim(),
-      notes: document.getElementById("f-notes").value.trim(),
+      overview:   document.getElementById("f-overview").value.trim(),
+      target:     document.getElementById("f-target").value.trim(),
+      procedure:  document.getElementById("f-procedure").value.trim(),
+      documents:  document.getElementById("f-documents").value.trim(),
+      contact:    document.getElementById("f-contact").value.trim(),
+      notes:      document.getElementById("f-notes").value.trim(),
       tags: Array.from(selectedTags),
-      updatedBy: document.getElementById("f-updatedby").value.trim(),
-      updatedAt: new Date().toISOString().slice(0, 10),
+      updatedBy:  document.getElementById("f-updatedby").value.trim(),
+      updatedAt:  new Date().toISOString().slice(0, 10),
     };
-
     if (isNew) {
       state.entries.push(updated);
     } else {
@@ -503,9 +712,7 @@ function openEditModal(entry) {
   });
 }
 
-function closeModal() {
-  modalRoot.innerHTML = "";
-}
+function closeModal() { modalRoot.innerHTML = ""; }
 
 // =====================================================
 // トースト通知
