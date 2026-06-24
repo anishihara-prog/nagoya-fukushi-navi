@@ -68,6 +68,22 @@ const CHAT_FLOW = [
     ],
   },
   {
+    id: "severity",
+    botText: "日常生活での介護・支援の必要度を教えてください。",
+    type: "single",
+    options: [
+      { label: "ほぼ自立（一部サポートで生活できる）",  tags: [] },
+      { label: "中程度（多くの場面でサポートが必要）",   tags: [] },
+      { label: "重度（常時介護・強い行動障害がある）",   tags: [] },
+    ],
+  },
+  {
+    id: "ward",
+    botText: "お住まいの区を教えてください（窓口案内に使います。スキップも可）。",
+    type: "text",
+    placeholder: "例: 北区・千種区・天白区",
+  },
+  {
     id: "situation",
     botText: "今、一番お困りのこと・希望を教えてください。",
     type: "single",
@@ -250,6 +266,7 @@ function initChat() {
     collectedTags: new Set(),
     multiTemp: new Set(),
     followupKey: null,
+    ward: "",
     history: [
       { role: "bot", text: "相談者のプロフィールをもとに、利用できるサービスを一緒に考えます。" },
       { role: "bot", text: CHAT_FLOW[0].botText },
@@ -281,7 +298,17 @@ function renderChatTab() {
   // 現在の選択肢
   let inputHtml = "";
   if (currentStep && chat.phase !== "done") {
-    if (currentStep.type === "multi") {
+    if (currentStep.type === "text") {
+      inputHtml = `
+        <div class="chat-text-area">
+          <input id="chat-text-input" class="chat-text-input" type="text"
+                 placeholder="${escapeAttr(currentStep.placeholder || "")}" maxlength="20">
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <button class="btn btn--primary" id="btn-text-next">次へ →</button>
+            <button class="btn btn--ghost" id="btn-text-skip">スキップ</button>
+          </div>
+        </div>`;
+    } else if (currentStep.type === "multi") {
       inputHtml = `
         <div class="chat-options">
           ${currentStep.options.map(opt =>
@@ -305,12 +332,13 @@ function renderChatTab() {
   let resultsHtml = "";
   if (chat.phase === "done") {
     const matched = getChatResults();
+    const wardLabel = chat.ward ? `📍 ${escapeHtml(chat.ward)} / ` : "";
     resultsHtml = `
       <hr class="chat-divider">
-      <div class="chat-results__header">利用できる可能性のあるサービス（${matched.length}件）</div>
+      <div class="chat-results__header">${wardLabel}利用できる可能性のあるサービス（${matched.length}件）</div>
       ${matched.length
         ? matched.map(e => entryCardHtml(e)).join("")
-        : emptyStateHtml("条件に合うサービスが見つかりませんでした。検索タブから探してみてください。")}
+        : emptyStateHtml("条件に合うサービスが見つかりませんでした。検索タブからキーワードで探すか、基幹相談支援センターにご相談ください。")}
       <button class="btn btn--ghost" id="btn-chat-restart" style="width:100%;margin-top:12px;">↺ 最初からやり直す</button>`;
   }
 
@@ -321,6 +349,16 @@ function renderChatTab() {
       ${resultsHtml}
       <div id="chat-bottom"></div>
     </div>`;
+
+  // イベント: テキスト入力（居住区）
+  document.getElementById("btn-text-next")?.addEventListener("click", () => {
+    const val = (document.getElementById("chat-text-input")?.value || "").trim();
+    if (val) chat.ward = val;
+    handleChatTextNext(val || null);
+  });
+  document.getElementById("btn-text-skip")?.addEventListener("click", () => {
+    handleChatTextNext(null);
+  });
 
   // イベント: シングル選択
   document.querySelectorAll(".chat-option-btn[data-option]").forEach(btn => {
@@ -410,11 +448,39 @@ function handleChatMultiNext() {
   scrollChatToBottom();
 }
 
+function handleChatTextNext(value) {
+  const chat = state.chat;
+  if (value) chat.history.push({ role: "user", text: value });
+  chat.stepIndex++;
+  chat.history.push({ role: "bot", text: CHAT_FLOW[chat.stepIndex].botText });
+  renderChatTab();
+  scrollChatToBottom();
+}
+
 function getChatResults() {
   const tags = state.chat.collectedTags;
+
+  // 「困りごと」ステップで選ばれたタグを特定し、必須条件にする
+  const situationTagSet = new Set(
+    CHAT_FLOW.find(s => s.id === "situation").options.flatMap(o => o.tags)
+  );
+  const selectedSituationTags = [...tags].filter(t => situationTagSet.has(t));
+
   return state.entries
-    .map(e => ({ e, score: (e.tags || []).filter(t => tags.has(t)).length }))
-    .filter(x => x.score > 0)
+    .map(e => {
+      const entryTags = new Set(e.tags || []);
+      const score = [...tags].filter(t => entryTags.has(t)).length;
+
+      // 困りごとタグが一致しない場合は除外
+      if (selectedSituationTags.length > 0 &&
+          !selectedSituationTags.some(t => entryTags.has(t))) return null;
+
+      // プロフィールタグが2つ以上一致する場合のみ表示
+      if (score < 2) return null;
+
+      return { e, score };
+    })
+    .filter(Boolean)
     .sort((a, b) => b.score - a.score || a.e.name.localeCompare(b.e.name, "ja"))
     .map(x => x.e);
 }

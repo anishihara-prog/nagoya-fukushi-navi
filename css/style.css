@@ -230,6 +230,11 @@ button{ font-family: inherit; }
 .chat-option-btn:active{ background: var(--color-primary); color:#fff; }
 
 .chat-multi-footer{ padding-left:40px; margin-top:6px; }
+.chat-text-area{ display:flex; flex-direction:column; gap:8px; padding-left:40px; }
+.chat-text-input{
+  padding: 10px 14px; border: 1.5px solid var(--color-primary); border-radius: var(--radius-md);
+  font-size: 15px; font-family: inherit; color: var(--color-text); background:#fff;
+}
 .chat-divider{ border:none; border-top:2px dashed var(--color-border); margin:4px 0; }
 .chat-results__header{
   font-weight:700; font-size:14px; color: var(--color-primary); margin-bottom:10px;
