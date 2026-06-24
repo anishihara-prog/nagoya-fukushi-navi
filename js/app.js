@@ -271,6 +271,7 @@ function initChat() {
     multiTemp: new Set(),
     followupKey: null,
     ward: "",
+    snapshots: [],
     history: [
       { role: "bot", text: "相談者のプロフィールをもとに、利用できるサービスを一緒に考えます。" },
       { role: "bot", text: CHAT_FLOW[0].botText },
@@ -355,10 +356,17 @@ function renderChatTab() {
       <button class="btn btn--ghost" id="btn-chat-restart" style="width:100%;margin-top:12px;">↺ 最初からやり直す</button>`;
   }
 
+  const backHtml = chat.snapshots.length > 0
+    ? `<div class="chat-back-row">
+         <button class="btn btn--sm btn--ghost" id="btn-chat-back">← 前の質問に戻る</button>
+       </div>`
+    : "";
+
   appEl.innerHTML = `
     <div class="chat-wrap">
       ${historyHtml}
       ${inputHtml}
+      ${backHtml}
       ${resultsHtml}
       <div id="chat-bottom"></div>
     </div>`;
@@ -396,6 +404,9 @@ function renderChatTab() {
   // イベント: マルチ選択の「次へ」
   document.getElementById("btn-multi-next")?.addEventListener("click", handleChatMultiNext);
 
+  // イベント: 戻る
+  document.getElementById("btn-chat-back")?.addEventListener("click", handleChatBack);
+
   // イベント: やり直す
   document.getElementById("btn-chat-restart")?.addEventListener("click", () => {
     state.chat = null;
@@ -408,6 +419,7 @@ function renderChatTab() {
 }
 
 function handleChatSelect(label) {
+  pushSnapshot();
   const chat = state.chat;
   const step = chat.phase === "followup"
     ? FOLLOWUP_MAP[chat.followupKey]
@@ -447,6 +459,7 @@ function handleChatSelect(label) {
 }
 
 function handleChatMultiNext() {
+  pushSnapshot();
   const chat = state.chat;
   const step = CHAT_FLOW[chat.stepIndex];
   const selected = [...chat.multiTemp];
@@ -466,6 +479,33 @@ function handleChatMultiNext() {
   scrollChatToBottom();
 }
 
+function pushSnapshot() {
+  const chat = state.chat;
+  chat.snapshots.push({
+    phase: chat.phase,
+    stepIndex: chat.stepIndex,
+    followupKey: chat.followupKey,
+    collectedTags: new Set(chat.collectedTags),
+    ward: chat.ward,
+    historyLength: chat.history.length,
+  });
+}
+
+function handleChatBack() {
+  const chat = state.chat;
+  if (!chat.snapshots.length) return;
+  const prev = chat.snapshots.pop();
+  chat.phase = prev.phase;
+  chat.stepIndex = prev.stepIndex;
+  chat.followupKey = prev.followupKey;
+  chat.collectedTags = prev.collectedTags;
+  chat.ward = prev.ward;
+  chat.history = chat.history.slice(0, prev.historyLength);
+  chat.multiTemp = new Set();
+  renderChatTab();
+  scrollChatToBottom();
+}
+
 function substituteWard(contact, ward) {
   if (!ward) return contact;
   return contact
@@ -474,6 +514,7 @@ function substituteWard(contact, ward) {
 }
 
 function handleChatTextNext(value) {
+  pushSnapshot();
   const chat = state.chat;
   if (value) chat.history.push({ role: "user", text: value });
   chat.stepIndex++;
