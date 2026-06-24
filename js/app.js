@@ -22,6 +22,26 @@ const WARD_KIKAN_INFO = {
   "天白区": { tel: "052-804-8587", url: "https://www.city.nagoya.jp/kenkofukushi/shougaisha/1016662/1016664.html" },
 };
 
+// ---------- 各区 区役所 福祉課（障害担当）電話番号 ----------
+const WARD_KUYAKUSHO_INFO = {
+  "千種区": { tel: "052-753-1844" },
+  "東区":   { tel: "052-934-1182" },
+  "北区":   { tel: "052-917-6516" },
+  "西区":   { tel: "052-523-4585" },
+  "中村区": { tel: "052-433-2932" },
+  "中区":   { tel: "052-265-2322" },
+  "昭和区": { tel: "052-735-3893" },
+  "瑞穂区": { tel: "052-852-9384" },
+  "熱田区": { tel: "052-683-9917" },
+  "中川区": { tel: "052-363-4403" },
+  "港区":   { tel: "052-654-9718" },
+  "南区":   { tel: "052-823-9392" },
+  "守山区": { tel: "052-796-4584" },
+  "緑区":   { tel: "052-625-3956" },
+  "名東区": { tel: "052-778-3092" },
+  "天白区": { tel: "052-807-3882" },
+};
+
 // ---------- サービス種別コード参照表 ----------
 const SERVICE_CODE_MAP = {
   "11": "居宅介護",
@@ -378,6 +398,19 @@ function renderChatTab() {
                   ...display,
                   contact: `${chat.ward}の障害者基幹相談支援センター\n☎ ${info.tel}\n（市全体の案内: 障害者支援課 052-972-2596）`,
                   welnetUrl: info.url,
+                };
+              }
+            }
+            // 区が選択されている場合、区役所 福祉課の連絡先に区別の電話番号を補完
+            if (chat.ward && e.contact && e.contact.includes("区役所 福祉課")) {
+              const info = WARD_KUYAKUSHO_INFO[chat.ward];
+              if (info) {
+                display = {
+                  ...display,
+                  contact: display.contact.replace(
+                    chat.ward + "役所 福祉課",
+                    `${chat.ward}役所 福祉課（障害担当） ☎ ${info.tel}`
+                  ),
                 };
               }
             }
