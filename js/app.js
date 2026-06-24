@@ -638,6 +638,7 @@ function entryCardHtml(e, matchScore) {
           </dl>
           <div class="card__tags">${(e.tags || []).map((t) => `<span class="mini-tag">${escapeHtml(t)}</span>`).join("")}</div>
           <div class="card__actions">
+            ${e.welnetUrl ? `<a href="${escapeAttr(e.welnetUrl)}" target="_blank" rel="noopener noreferrer" class="btn btn--sm btn--ghost" style="text-decoration:none;">🔗 ウェルネットで詳しく見る</a>` : ""}
             <button class="btn btn--sm btn--ghost" data-edit-card="${e.id}">✎ この情報を編集</button>
           </div>
         </div>
