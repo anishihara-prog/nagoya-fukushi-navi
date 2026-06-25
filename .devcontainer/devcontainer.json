@@ -3,6 +3,7 @@
   "image": "mcr.microsoft.com/devcontainers/javascript-node:1-20",
   "forwardPorts": [5500],
   "postCreateCommand": "npm install -g serve",
+  "postAttachCommand": "serve -l 5500 .",
   "customizations": {
     "vscode": {
       "extensions": [
