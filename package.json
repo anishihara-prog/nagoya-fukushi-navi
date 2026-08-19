@@ -1,0 +1,7 @@
+{
+  "name": "nagoya-fukushi-navi",
+  "private": true,
+  "scripts": {
+    "start": "bash serve.sh"
+  }
+}

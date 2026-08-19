@@ -1,0 +1,23 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "サーバー起動 + QRコード表示",
+      "type": "shell",
+      "command": "bash serve.sh",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "runOptions": {
+        "runOn": "folderOpen"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "tab": "serve"
+      },
+      "isBackground": true,
+      "problemMatcher": []
+    }
+  ]
+}

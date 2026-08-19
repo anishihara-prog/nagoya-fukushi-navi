@@ -1,2 +1,6 @@
 .DS_Store
 Thumbs.db
+.qr/
+cloudflared
+.claude/settings.local.json
+entries_export.xlsx

@@ -12,7 +12,22 @@
       "Bash(git -C /workspaces/nagoya-fukushi-navi log --oneline -3)",
       "Bash(git -C /workspaces/nagoya-fukushi-navi branch -vv)",
       "Bash(git -C /workspaces/nagoya-fukushi-navi add -A)",
-      "Bash(git -C /workspaces/nagoya-fukushi-navi status)"
+      "Bash(git -C /workspaces/nagoya-fukushi-navi status)",
+      "WebSearch",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(node -e ' *)",
+      "WebFetch(domain:www.city.nagoya.jp)",
+      "Bash(git commit -m '区役所 福祉課の問合せ先に区別の電話番号を表示 *)",
+      "Bash(python3 -c ' *)",
+      "Bash(/workspaces/nagoya-fukushi-navi/cloudflared tunnel *)",
+      "Bash(python3 -c \"import qrcode\")",
+      "Bash(pip3 install *)",
+      "Bash(apt-get install *)",
+      "Bash(sudo apt-get install -y qrencode)",
+      "Bash(pip install *)",
+      "Bash(python3 -m pip install qrcode)"
     ],
     "additionalDirectories": [
       "/tmp"

@@ -191,7 +191,7 @@ const FOLLOWUP_MAP = {
 };
 
 // ---------- タグの分類(編集フォームで共通利用) ----------
-const TYPE_OPTIONS = ["すべて", "サービス", "制度", "手続き", "相談窓口"];
+const TYPE_OPTIONS = ["すべて", "制度・手帳", "福祉サービス", "相談窓口"];
 
 const TAG_GROUPS = {
   disability: {
@@ -252,11 +252,150 @@ function bindTabbar() {
   });
 }
 
+// ---------- 関連リンク データ ----------
+const RELATED_LINKS = [
+  {
+    category: "名古屋市の機関",
+    items: [
+      {
+        name: "名古屋市社会福祉協議会",
+        desc: "名古屋市内の地域福祉・ボランティア活動・生活困窮者支援など市独自の相談窓口",
+        url: "https://nagoya-shakyo.jp/",
+      },
+      {
+        name: "名古屋市総合リハビリテーションセンター",
+        desc: "身体・精神・知的障害のリハビリ、就労訓練、相談支援を行う名古屋市の拠点施設",
+        url: "https://www.city.nagoya.jp/kenkofukushi/shougaisha/1016579/1016659.html",
+      },
+    ],
+  },
+  {
+    category: "総合・医療療育",
+    items: [
+      {
+        name: "愛知県医療療育総合センター",
+        desc: "身体障害・知的障害のある方への医療・療育・研究を総合的に行う愛知県の施設",
+        url: "https://www.pref.aichi.jp/addc/",
+      },
+      {
+        name: "あいち医療的ケア児支援センター",
+        desc: "医療的ケアが必要な子どもとその家族への相談・支援を行うセンター",
+        url: "https://aichi-iryocareji.jp/",
+      },
+    ],
+  },
+  {
+    category: "発達・精神障害支援",
+    items: [
+      {
+        name: "あいち発達障害者支援センター",
+        desc: "発達障害(自閉症・ADHD・LDなど)のある方・家族への相談・支援(無料)",
+        url: "https://www.pref.aichi.jp/site/asca/",
+      },
+      {
+        name: "愛知県精神保健福祉センター",
+        desc: "心の健康・精神疾患に関する相談・情報提供・関係機関支援",
+        url: "https://www.pref.aichi.jp/soshiki/seishin-c/",
+      },
+    ],
+  },
+  {
+    category: "聴覚・視覚障害支援",
+    items: [
+      {
+        name: "一般社団法人 愛知県聴覚障害者協会",
+        desc: "聴覚障害者の自立と社会参加促進を目的とした当事者団体",
+        url: "https://aichirou-hp.normanet.ne.jp/",
+      },
+      {
+        name: "あいち聴覚障害者センター",
+        desc: "手話通訳・要約筆記の派遣、情報提供、相談などを行う施設",
+        url: "https://ww100046-hp.normanet.ne.jp/",
+      },
+      {
+        name: "社会福祉法人 中部盲導犬協会",
+        desc: "視覚障害者への盲導犬の育成・貸与・歩行訓練を行う機関",
+        url: "http://www.chubu-moudouken.jp/",
+      },
+      {
+        name: "明生会館（点字図書館・盲人ホーム）",
+        desc: "点字・音声による図書の貸出・製作と視覚障害者の生活支援を行う施設",
+        url: "https://aimouren.org/",
+      },
+    ],
+  },
+  {
+    category: "当事者団体・協議会",
+    items: [
+      {
+        name: "愛知県社会福祉協議会",
+        desc: "福祉サービス・ボランティア活動・福祉人材育成などを支援する組織",
+        url: "https://www.aichi-fukushi.or.jp/",
+      },
+      {
+        name: "一般社団法人 愛知県身体障害者福祉団体連合会",
+        desc: "身体障害者の福祉増進と社会参加促進のための連合団体",
+        url: "https://aishinren.or.jp/",
+      },
+    ],
+  },
+  {
+    category: "施設検索・情報提供",
+    items: [
+      {
+        name: "ウェルネットなごや",
+        desc: "名古屋市の介護・障害福祉サービス事業所を検索できる公式ポータル",
+        url: "https://www.kaigo-wel.city.nagoya.jp/",
+      },
+      {
+        name: "WAMNET（ワムネット）",
+        desc: "全国の福祉・保健・医療サービス情報や事業所を横断検索できる情報ネットワーク",
+        url: "https://www.wam.go.jp/",
+      },
+      {
+        name: "らくらくおでかけネット",
+        desc: "全国の駅・バス・旅客船ターミナルのバリアフリー設備・経路情報を検索できるサイト",
+        url: "https://www.ecomo-rakuraku.jp/ja",
+      },
+    ],
+  },
+];
+
 // ---------- レンダリング振り分け ----------
 function render() {
   if (state.activeTab === "search") return renderSearchTab();
   if (state.activeTab === "chat")   return renderChatTab();
+  if (state.activeTab === "links")  return renderLinksTab();
   if (state.activeTab === "manage") return renderManageTab();
+}
+
+// =====================================================
+// 🔗 関連リンクタブ
+// =====================================================
+function renderLinksTab() {
+  const sectionsHtml = RELATED_LINKS.map((group) => `
+    <section class="links-section">
+      <h2 class="links-section__title">${escapeHtml(group.category)}</h2>
+      <ul class="links-list">
+        ${group.items.map((item) => `
+          <li class="links-card">
+            <a class="links-card__link" href="${escapeAttr(item.url)}" target="_blank" rel="noopener noreferrer">
+              <span class="links-card__name">${escapeHtml(item.name)}</span>
+              <span class="links-card__arrow">↗</span>
+            </a>
+            <p class="links-card__desc">${escapeHtml(item.desc)}</p>
+          </li>
+        `).join("")}
+      </ul>
+    </section>
+  `).join("");
+
+  appEl.innerHTML = `
+    <div class="links-tab">
+      <p class="links-tab__note">名古屋市で障害のある方の支援に関わる県・専門機関のリンク集です。</p>
+      ${sectionsHtml}
+    </div>
+  `;
 }
 
 // =====================================================
@@ -272,7 +411,7 @@ function renderSearchTab() {
     const hay = normalizeForSearch([e.name, e.overview, e.target, codes, codeNames, ...(e.tags || [])].join(" "));
     return hay.includes(normalizeForSearch(kw));
   });
-  list = list.sort((a, b) => a.name.localeCompare(b.name, "ja"));
+  list = list.sort((a, b) => (a.sortOrder ?? 99) - (b.sortOrder ?? 99));
 
   appEl.innerHTML = `
     <div class="search-row">
@@ -767,6 +906,13 @@ function bindCardEvents() {
       openEditModal(entry);
     });
   });
+  document.querySelectorAll(".card__actions a[href]").forEach((link) => {
+    link.addEventListener("click", (ev) => {
+      ev.stopPropagation();
+      ev.preventDefault();
+      window.open(link.href, "_blank", "noopener,noreferrer");
+    });
+  });
 }
 
 function emptyStateHtml(message) {
@@ -851,6 +997,14 @@ function openEditModal(entry) {
         ${tagGroupHtml("situation")}
 
         <div class="form-field">
+          <label for="f-welneturl">ウェルネットなごやURL(任意)</label>
+          <input id="f-welneturl" type="text" value="${escapeAttr(e.welnetUrl || "")}" placeholder="例: https://www.kaigo-wel.city.nagoya.jp/view/wel/...">
+        </div>
+        <div class="form-field">
+          <label for="f-sortorder">表示順(数値が小さいほど上に表示)</label>
+          <input id="f-sortorder" type="number" value="${escapeAttr(String(e.sortOrder ?? 99))}" placeholder="例: 10">
+        </div>
+        <div class="form-field">
           <label for="f-updatedby">入力者・所属(任意)</label>
           <input id="f-updatedby" type="text" value="${escapeAttr(e.updatedBy || "")}" placeholder="例: 中区 基幹相談支援センター">
         </div>
@@ -894,6 +1048,8 @@ function openEditModal(entry) {
       contact:    document.getElementById("f-contact").value.trim(),
       notes:      document.getElementById("f-notes").value.trim(),
       tags: Array.from(selectedTags),
+      welnetUrl:  document.getElementById("f-welneturl").value.trim(),
+      sortOrder:  Number(document.getElementById("f-sortorder").value) || 99,
       updatedBy:  document.getElementById("f-updatedby").value.trim(),
       updatedAt:  new Date().toISOString().slice(0, 10),
     };
