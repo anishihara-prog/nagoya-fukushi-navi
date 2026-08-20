@@ -358,6 +358,21 @@ const RELATED_LINKS = [
         desc: "全国の駅・バス・旅客船ターミナルのバリアフリー設備・経路情報を検索できるサイト",
         url: "https://www.ecomo-rakuraku.jp/ja",
       },
+      {
+        name: "なごやバリアフリーお出かけナビ",
+        desc: "名古屋市内の宿泊・観光・公園スポーツ施設等のバリアフリー情報を発信する市公式サイト",
+        url: "https://barrierfree.city.nagoya.jp",
+      },
+      {
+        name: "すてっぷサポート",
+        desc: "発達に支援が必要な子どもの家族向けに、相談機関や児童発達支援・放課後等デイサービス事業所等の情報を提供する市公式サイト",
+        url: "https://stepsupport.city.nagoya.jp",
+      },
+      {
+        name: "e・ga・o（えがお）",
+        desc: "医療的ケアが必要な子どもとその家族向けの福祉施策・サポート・相談窓口情報をまとめた市公式サイト",
+        url: "https://egao.city.nagoya.jp",
+      },
     ],
   },
 ];
