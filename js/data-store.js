@@ -33,24 +33,37 @@
 
 const DataStore = (() => {
   const STORAGE_KEY = "fukushi-navi-entries-v4";
+  // data/entries.json の内容が前回読み込み時から変わったかを検知するための保存キー
+  const SOURCE_SNAPSHOT_KEY = "fukushi-navi-entries-v4-source";
 
-  // 初回だけ data/entries.json を読み込んで localStorage に保存する
+  // data/entries.json を読み込む。
+  // ファイルの内容が前回読み込み時から変わっていれば、
+  // ローカルでの編集内容より新しいファイルの内容を優先する。
+  // ファイルが変わっていなければ、ローカルでの編集内容(あれば)を優先する。
   async function seedFromFileIfNeeded() {
-    const existing = localStorage.getItem(STORAGE_KEY);
-    if (existing) return JSON.parse(existing);
-
+    let fileText = null;
     try {
       const res = await fetch("data/entries.json");
       if (!res.ok) throw new Error("entries.json の取得に失敗しました");
-      const data = await res.json();
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-      return data;
+      fileText = await res.text();
     } catch (e) {
       console.error(e);
-      // fetch自体ができない環境(file://を直接開いた場合など)のための最終フォールバック
-      localStorage.setItem(STORAGE_KEY, JSON.stringify([]));
+      // fetch自体ができない環境(file://を直接開いた場合など)は、あれば保存済みデータを使う
+      const existing = localStorage.getItem(STORAGE_KEY);
+      if (existing) return JSON.parse(existing);
       return [];
     }
+
+    const prevSnapshot = localStorage.getItem(SOURCE_SNAPSHOT_KEY);
+    const existing = localStorage.getItem(STORAGE_KEY);
+    if (existing && prevSnapshot === fileText) {
+      return JSON.parse(existing);
+    }
+
+    const data = JSON.parse(fileText);
+    localStorage.setItem(STORAGE_KEY, fileText);
+    localStorage.setItem(SOURCE_SNAPSHOT_KEY, fileText);
+    return data;
   }
 
   async function loadEntries() {
@@ -95,6 +108,7 @@ const DataStore = (() => {
 
   function resetToSeed() {
     localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(SOURCE_SNAPSHOT_KEY);
     return seedFromFileIfNeeded();
   }
 
