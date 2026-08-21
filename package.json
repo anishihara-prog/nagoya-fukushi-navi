@@ -2,6 +2,10 @@
   "name": "nagoya-fukushi-navi",
   "private": true,
   "scripts": {
-    "start": "bash serve.sh"
+    "start": "bash serve.sh",
+    "export:xlsx": "node export_xlsx.js"
+  },
+  "devDependencies": {
+    "exceljs": "^4.4.0"
   }
 }

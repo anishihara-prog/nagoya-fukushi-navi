@@ -5,3 +5,4 @@ cloudflared
 .claude/settings.local.json
 entries_export*.xlsx
 ~$*.xlsx
+node_modules/
