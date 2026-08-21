@@ -6,10 +6,10 @@
     "serviceCodes": [],
     "target": "身体に障害のある方(等級は障害の程度により区が判定)",
     "overview": "手帳の交付を受けると、医療費助成や各種福祉サービスの利用、税の控除など様々な支援の対象になります。",
-    "procedure": "①区役所(福祉課)の窓口で申請書を受け取る\n②指定医による診断書・意見書を用意する\n③申請書類一式を区役所に提出する\n④審査後、手帳が交付される。名古屋市電子申請サービスからオンライン申請も可能です(https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/shintai.html)。",
+    "procedure": "①区役所(福祉課)の窓口で申請書を受け取る\n②指定医による診断書・意見書を用意する\n③申請書類一式を区役所に提出する\n④審査後、手帳が交付される",
     "documents": "申請書\n診断書・意見書(指定医作成)\n顔写真\n本人確認書類",
     "contact": "お住まいの区の区役所 福祉課",
-    "notes": "等級や障害の種類によって利用できるサービスが変わるため、手帳取得後は基幹相談支援センター等での相談につなぐとよい。",
+    "notes": "等級や障害の種類によって利用できるサービスが変わるため、手帳取得後は基幹相談支援センター等での相談につなぐとよい。 新規交付申請もオンライン申請できますが(名古屋市電子申請サービス: https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/shintai.html)、顔写真と指定医の診断書・意見書は別途郵送する必要があります。",
     "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/tetyou/shintai.html",
     "tags": [
       "身体障害",
@@ -118,10 +118,10 @@
     ],
     "target": "居宅介護・生活介護・グループホーム等の障害福祉サービスを利用したい方",
     "overview": "障害者総合支援法に基づく福祉サービスを利用する際に必要な手続きです。特定相談支援事業所等(コード61: 計画相談支援)が本人や家族と相談しながら「サービス等利用計画案」を作成します。",
-    "procedure": "①区役所窓口で利用申請する\n②特定(障害児)相談支援事業所等が利用計画案を作成する\n③区が調査・審査のうえ支給決定する\n④事業所と契約してサービス利用を開始する。名古屋市電子申請サービスからオンライン申請も可能です(https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/fukushi.html)。",
+    "procedure": "①区役所窓口で利用申請する\n②特定(障害児)相談支援事業所等が利用計画案を作成する\n③区が調査・審査のうえ支給決定する\n④事業所と契約してサービス利用を開始する",
     "documents": "申請書\nサービス等利用計画案\n障害者手帳または医師の意見書等",
     "contact": "お住まいの区の区役所 福祉課 / 特定相談支援事業所",
-    "notes": "",
+    "notes": "新規の支給申請(受給者証の交付等)はオンラインの電子申請システムではなく、お住まいの区役所福祉課または支所区民福祉課の窓口に直接相談・申請する必要があります。申請内容変更届(住所・氏名・連絡先の変更)と受給者証の再交付申請は名古屋市電子申請サービスからオンライン申請できます(https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/fukushi.html)。",
     "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/service/procedure.html",
     "tags": [
       "身体障害",
@@ -283,10 +283,10 @@
     ],
     "target": "未就学・就学中の障害のあるお子さん",
     "overview": "未就学児向けの児童発達支援(コード71)や、就学児向けの放課後等デイサービス(コード73)などの利用について、障害児相談支援(コード76)が相談・利用計画作成の支援を行います。保育所等訪問支援(コード74)は保育所等を訪問し集団生活への適応支援を、居宅訪問型児童発達支援(コード75)は外出が著しく困難なお子さんの自宅を訪問して発達支援を行います。",
-    "procedure": "障害児相談支援事業所等に相談し、利用計画案の作成支援を受けたうえで区に利用申請を行います。名古屋市電子申請サービスからオンライン申請も可能です(https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/tuusho.html)。",
+    "procedure": "障害児相談支援事業所等に相談し、利用計画案の作成支援を受けたうえで区に利用申請を行います。",
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課 / 障害児相談支援事業所",
-    "notes": "",
+    "notes": "新規の利用申請は窓口(区役所福祉課・支所区民福祉課)での手続きが必要です。利用中の申請内容変更届・受給者証の再交付申請は名古屋市電子申請サービスからオンラインでできます(https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/tuusho.html)。",
     "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/service/institution.html",
     "tags": [
       "身体障害",
@@ -301,7 +301,7 @@
       "愛護手帳あり"
     ],
     "updatedBy": "サンプルデータ",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 11
   },
   {
@@ -545,10 +545,10 @@
     "serviceCodes": [],
     "target": "20歳未満の障害のあるお子さんを養育している方(特別児童扶養手当) / 在宅の重度障害のある子ども本人(障害児福祉手当)",
     "overview": "特別児童扶養手当は精神または身体に障害のある20歳未満の子を家庭で養育している父母等に支給される手当です。障害児福祉手当は重度障害がある20歳未満の方本人への手当です。所得制限あり。",
-    "procedure": "①お住まいの区の区役所 福祉課に申請\n②認定請求書・診断書・所得関係書類等を提出\n③審査・支給決定(年3回払い)。名古屋市電子申請サービスからオンライン申請も可能です(特別児童扶養手当: https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/tokuji.html 、障害児福祉手当: https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/teate.html)。",
+    "procedure": "①お住まいの区の区役所 福祉課に申請\n②認定請求書・診断書・所得関係書類等を提出\n③審査・支給決定(年3回払い)",
     "documents": "認定請求書\n診断書(指定様式)\n戸籍謄本\n住民票\n振込先口座情報\n所得関係書類",
     "contact": "お住まいの区の区役所 福祉課",
-    "notes": "所得制限があります。手当を受給している方は、毎年8月に所得状況届の提出が必要です。",
+    "notes": "所得制限があります。手当を受給している方は、毎年8月に所得状況届の提出が必要です。 認定請求(新規)は名古屋市電子申請サービスからオンライン申請もできますが(特別児童扶養手当: https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/tokuji.html 、障害児福祉手当: https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/teate.html)、診断書の要否等を事前に区役所へ確認のうえ申請し、必要な場合は申請後1週間以内に診断書を郵送する必要があります。",
     "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/teate/tokuziteate.html",
     "tags": [
       "身体障害",
@@ -902,10 +902,10 @@
     "serviceCodes": [],
     "target": "厚生労働大臣が指定した341疾病（指定難病）に罹患し、国の認定基準を満たす方",
     "overview": "指定難病に罹患し国の認定基準を満たす場合、指定医療機関での医療費が公費助成されます。世帯所得に応じた月額自己負担上限額が設定されます。（国制度・窓口は区役所福祉課）",
-    "procedure": "①指定医に診断書を作成してもらう\n②区役所福祉課に申請書・診断書等を提出\n③審査後、医療受給者証が交付される。名古屋市電子申請サービスからオンライン申請も可能です(https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/shiteinanbyou.html)。",
+    "procedure": "①指定医に診断書を作成してもらう\n②区役所福祉課に申請書・診断書等を提出\n③審査後、医療受給者証が交付される",
     "documents": "申請書\n診断書（指定医作成）\n健康保険証\n所得確認書類\nマイナンバー確認書類",
     "contact": "お住まいの区の区役所 福祉課（社会福祉事務所）または支所区民福祉課",
-    "notes": "難病の方は障害福祉サービスの対象にもなる場合があります。保健センターでの難病相談も活用できます。",
+    "notes": "難病の方は障害福祉サービスの対象にもなる場合があります。保健センターでの難病相談も活用できます。 新規申請は窓口(区役所福祉課)での手続きが必要です。オンライン申請(名古屋市電子申請サービス: https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/shiteinanbyou.html)は受給者証の再交付申請のみ対応しています。",
     "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/medical/tokuteiiryouhi.html",
     "tags": [
       "難病",
@@ -916,7 +916,7 @@
       "手帳なし・未申請"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 23
   },
   {
@@ -955,10 +955,10 @@
     "serviceCodes": [],
     "target": "育成医療: 日常生活に支障をきたす疾患を持つ18歳未満の児童 / 更生医療: 身体障害者手帳所持者で障害の軽減・除去に手術等が必要な方",
     "overview": "育成医療は手術等で確実な治療効果が期待できる18歳未満の児童の医療費を公費助成します。更生医療は人工透析・心臓手術・人工関節置換術などが対象で身体障害者手帳所持者向けです。（精神通院医療はe6参照）（国制度）",
-    "procedure": "①区役所福祉課に申請書・要否判定意見書等を提出\n②審査後、受給者証が交付される\n③指定医療機関で受診。名古屋市電子申請サービスからオンライン申請も可能です(更生医療: https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/jirithukousei.html 、育成医療: https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/jirithuikusei.html)。",
+    "procedure": "①区役所福祉課に申請書・要否判定意見書等を提出\n②審査後、受給者証が交付される\n③指定医療機関で受診",
     "documents": "申請書\n要否判定意見書（医師作成）\n健康保険証\n所得確認書類\nマイナンバー確認書類",
     "contact": "お住まいの区の区役所 福祉課（社会福祉事務所）または支所区民福祉課",
-    "notes": "更生医療の対象手術かどうかは身体障害者更生相談所に確認することも有効です。",
+    "notes": "更生医療の対象手術かどうかは身体障害者更生相談所に確認することも有効です。 更生医療の新規申請は名古屋市電子申請サービスからオンライン申請できます(https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/jirithukousei.html)。ただし要否判定意見書は別途郵送が必要です。育成医療は新規申請のオンライン対応がなく窓口申請が必要です(オンラインは受給者証の再交付申請のみ: https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/jirithuikusei.html)。",
     "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/medical/jiritsushien.html",
     "tags": [
       "身体障害",
@@ -969,7 +969,7 @@
       "手帳なし・未申請"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 25
   },
   {
@@ -979,10 +979,10 @@
     "serviceCodes": [],
     "target": "小児がん等の特定疾病で長期療養が必要な18歳未満の児童（原則）",
     "overview": "小児がん等の特定疾病で長期療養が必要な児童の医療費を公費助成します。世帯所得に応じた月額自己負担上限額が設定されます。18歳到達時に治療継続が必要な場合は20歳未満まで延長可能です。（国/政令市制度）",
-    "procedure": "①区役所福祉課に申請書・診断書等を提出\n②審査後、医療受給者証が交付される。名古屋市電子申請サービスからオンライン申請も可能です(https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/shounimansei.html)。",
+    "procedure": "①区役所福祉課に申請書・診断書等を提出\n②審査後、医療受給者証が交付される",
     "documents": "申請書\n診断書（指定医作成）\n健康保険証\n所得確認書類",
     "contact": "お住まいの区の区役所 福祉課（社会福祉事務所）または支所区民福祉課",
-    "notes": "指定難病の特定医療費助成（e32）とは別制度です。対象疾病や要件が異なります。",
+    "notes": "指定難病の特定医療費助成（e32）とは別制度です。対象疾病や要件が異なります。 新規申請は窓口(区役所福祉課)での手続きが必要です。オンライン申請(名古屋市電子申請サービス: https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/shounimansei.html)は受給者証の再交付申請のみ対応しています。",
     "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/medical/tokutei.html",
     "tags": [
       "難病",
@@ -991,7 +991,7 @@
       "手帳なし・未申請"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 26
   },
   {
@@ -1026,10 +1026,10 @@
     "serviceCodes": [],
     "target": "在宅の重度障害者（1種: 身体1・2級かつ愛護1・2度 / 2種: 身体1・2級または愛護1・2度または身体3級かつ愛護3度）※平成20年4月1日以降に65歳以上で新規手帳交付を受けた方は対象外",
     "overview": "愛知県の制度で、在宅の重度障害者に手当を支給します。1種月額15,950円、2種月額6,950円。4月・8月・12月の年3回支給。（愛知県制度・窓口は区役所福祉課）",
-    "procedure": "①区役所福祉課に申請\n②審査・認定後、4月・8月・12月に支給。名古屋市電子申請サービスからオンライン申請も可能です(https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/kenzaijyu.html)。",
+    "procedure": "①区役所福祉課に申請\n②審査・認定後、4月・8月・12月に支給",
     "documents": "申請書\n障害者手帳\n本人確認書類\n所得確認書類",
     "contact": "お住まいの区の区役所 福祉課（社会福祉事務所）または支所区民福祉課",
-    "notes": "電子申請も可能です。特別障害者手当（e36）と合わせて案内することが多いです。",
+    "notes": "オンラインで申請できるのは毎年度の所得状況等届のみです(名古屋市電子申請サービス: https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/kenzaijyu.html)。新規の認定申請は区役所福祉課の窓口で手続きします。特別障害者手当(e36)と合わせて案内することが多いです。",
     "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/teate/kenteate.html",
     "tags": [
       "身体障害",
@@ -1041,7 +1041,7 @@
       "愛護手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 28
   },
   {
@@ -1520,10 +1520,10 @@
     "serviceCodes": [],
     "target": "身体障害者手帳所持者、難病患者等(本人または同一世帯の配偶者の市民税所得割が46万円以上の場合は対象外。障害児は除く)",
     "overview": "義肢・装具・車椅子・電動車椅子・補聴器・眼鏡・歩行器・歩行補助つえ・重度障害者用意思伝達装置など、補装具の購入・借受け・修理費用の一部を支給します。補装具ごとに耐用年数や必要書類が異なり、多くは身体障害者更生相談所の判定(児童は医師の意見書)が必要です。所得区分に応じた利用者負担上限月額があります(上限までは費用の1割負担)。",
-    "procedure": "事前にお住まいの区の区役所福祉課・支所区民福祉課へ申請・相談します。多くの補装具は身体障害者更生相談所の判定が必要です。名古屋市電子申請サービスからオンライン申請も可能です(https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/hosougu.html)。",
+    "procedure": "事前にお住まいの区の区役所福祉課・支所区民福祉課へ申請・相談します。多くの補装具は身体障害者更生相談所の判定が必要です。",
     "documents": "申請書、身体障害者更生相談所の判定書または医師の意見書(児童の場合)等、補装具により異なる",
     "contact": "お住まいの区の区役所 福祉課(社会福祉事務所)/ 支所区民福祉課",
-    "notes": "65歳以上の方や介護保険の要支援・要介護認定を受けた方は、介護保険でレンタル可能な用具(歩行器・歩行補助つえ・車椅子・電動車椅子)の補装具費支給は原則受けられません。",
+    "notes": "65歳以上の方や介護保険の要支援・要介護認定を受けた方は、介護保険でレンタル可能な用具(歩行器・歩行補助つえ・車椅子・電動車椅子)の補装具費支給は原則受けられません。 補装具の種類によりオンライン申請の可否が異なります。補聴器は名古屋市電子申請サービスの判定ツールで電子申請の可否を確認できます(https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/hosougu.html)。補聴器以外の補装具は区役所・支所窓口での申請が必要です。",
     "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/zaitaku/bosouguhi.html",
     "tags": [
       "身体障害",
@@ -1714,10 +1714,10 @@
     "serviceCodes": [],
     "target": "単独で外出することが困難な全身性障害児・者、知的障害児・者、精神障害児・者、大学修学支援事業対象者",
     "overview": "ヘルパーが付き添い、外出時の移動を支援する地域生活支援事業です。同行援護・行動援護(個別給付)とは別の市の事業です。",
-    "procedure": "区役所福祉課・支所区民福祉課で支給決定(受給者証交付)を受け、市登録の事業者と契約します。名古屋市電子申請サービスからオンライン申請も可能です(https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/idoushien.html)。",
+    "procedure": "区役所福祉課・支所区民福祉課で支給決定(受給者証交付)を受け、市登録の事業者と契約します。",
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課(社会福祉事務所)/ 支所区民福祉課",
-    "notes": "利用者負担は所得に応じた上限月額まで(上限まではサービス費用の1割)。",
+    "notes": "利用者負担は所得に応じた上限月額まで(上限まではサービス費用の1割)。 新規の支給決定申請は窓口(区役所福祉課・支所区民福祉課)での手続きが必要です。利用中の申請内容変更届・受給者証の再交付申請は名古屋市電子申請サービスからオンラインでできます(https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/idoushien.html)。",
     "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/service/living/",
     "tags": [
       "身体障害",
@@ -1849,10 +1849,10 @@
     "serviceCodes": [],
     "target": "身体障害者手帳所持者",
     "overview": "指定自動車教習所で普通運転免許を取得した場合、取得費用の3分の2(上限10万円)を補助します。",
-    "procedure": "お住まいの区の区役所福祉課・支所区民福祉課に申請します。名古屋市電子申請サービスからオンライン申請も可能です(https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/menkyohojyo.html)。",
+    "procedure": "お住まいの区の区役所福祉課・支所区民福祉課に申請します。",
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課(社会福祉事務所)/ 支所区民福祉課",
-    "notes": "",
+    "notes": "名古屋市電子申請サービスからオンライン申請できますが(https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/menkyohojyo.html)、教習所発行の証明書等を添えた申請書を別途郵送する必要があります。",
     "welnetUrl": "",
     "tags": [
       "身体障害",
@@ -1861,7 +1861,7 @@
       "身体障害者手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 85
   },
   {
@@ -1947,10 +1947,10 @@
     "serviceCodes": [],
     "target": "障害者(身体・知的・精神・一定範囲の難病)",
     "overview": "在宅の障害者の自立を促進し、生活の質や生きがいを高めるため、入浴・給食サービス、創作活動、機能訓練等を行う地域活動支援事業所です。",
-    "procedure": "お住まいの区の区役所福祉課・支所区民福祉課に相談・申請します。事業所は「障害者福祉のしおり(別冊)事業所等一覧」やウェルネットなごやで検索できます。名古屋市電子申請サービスからオンライン申請も可能です(https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/dei.html)。",
+    "procedure": "お住まいの区の区役所福祉課・支所区民福祉課に相談・申請します。事業所は「障害者福祉のしおり(別冊)事業所等一覧」やウェルネットなごやで検索できます。",
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課(社会福祉事務所)/ 支所区民福祉課",
-    "notes": "利用者負担は所得に応じた上限月額まで(上限まではサービス費用の1割)。低所得者以外は食事代の負担があります。",
+    "notes": "利用者負担は所得に応じた上限月額まで(上限まではサービス費用の1割)。低所得者以外は食事代の負担があります。 新規の利用相談・申請は窓口(区役所福祉課・支所区民福祉課)で行います。利用中の申請内容変更届・受給者証の再交付申請は名古屋市電子申請サービスからオンラインでできます(https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/dei.html)。",
     "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/jigyosho/",
     "tags": [
       "身体障害",
@@ -1965,7 +1965,7 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 89
   },
   {
@@ -2263,10 +2263,10 @@
     "serviceCodes": [],
     "target": "重度訪問介護・同行援護・行動援護の支給決定を受けている重度障害者等で、自営業等に週10時間以上従事する方、またはそうした方を雇用する民間企業",
     "overview": "自営業者として働く重度障害者等の通勤・就労中の支援をヘルパーが行う「自営業者向け」と、重度障害者等を雇用する民間企業が業務委託により通勤・就労中の支援を提供する費用を助成する「被雇用者向け」があります。",
-    "procedure": "自営業者向けは区役所福祉課で支給決定を受け事業者と契約します。被雇用者向けは民間企業がJEED(高齢・障害・求職者雇用支援機構)の確認を経て健康福祉局障害者支援課に申請します。名古屋市電子申請サービスからオンライン申請も可能です(https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/shurou.html)。",
+    "procedure": "自営業者向けは区役所福祉課で支給決定を受け事業者と契約します。被雇用者向けは民間企業がJEED(高齢・障害・求職者雇用支援機構)の確認を経て健康福祉局障害者支援課に申請します。",
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課(社会福祉事務所、自営業者向け)/ 健康福祉局 障害者支援課(被雇用者向け)",
-    "notes": "被雇用者向けはJEEDの職場介助助成金・通勤援助助成金を活用してもなお支障が残る部分に限ります。",
+    "notes": "被雇用者向けはJEEDの職場介助助成金・通勤援助助成金を活用してもなお支障が残る部分に限ります。 新規の利用相談・契約は窓口で行います。利用中の申請内容変更届・受給者証の再交付申請は名古屋市電子申請サービスからオンラインでできます(https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/shurou.html)。",
     "welnetUrl": "",
     "tags": [
       "身体障害",
@@ -2279,7 +2279,7 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 102
   },
   {
@@ -2371,10 +2371,10 @@
     "serviceCodes": [],
     "target": "身体障害者手帳の肢体不自由1〜3級・視覚障害1〜3級・内部障害1〜2級の方、愛護手帳1〜3度の方、精神障害者保健福祉手帳1〜2級の方、医師に自閉症状群と診断された方",
     "overview": "住宅環境を改善するため、訪問による住宅改造相談で専門的助言を行うとともに、居室の改造や浴室・便所の増改築など障害の状況に即した工事費用を80万円(介護保険の要支援・要介護認定を受けた方は60万円)を限度に助成します。所得により助成率が異なります。",
-    "procedure": "改造前にお住まいの区の区役所福祉課・支所区民福祉課へ申請します。補助金申請前に訪問相談申請による家庭訪問が必要です。名古屋市電子申請サービスからオンライン申請も可能です(https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/jyutakukaizou.html)。",
+    "procedure": "改造前にお住まいの区の区役所福祉課・支所区民福祉課へ申請します。補助金申請前に訪問相談申請による家庭訪問が必要です。",
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課(社会福祉事務所)/ 支所区民福祉課",
-    "notes": "新築・全面改修等は対象外です。",
+    "notes": "新築・全面改修等は対象外です。 名古屋市電子申請サービスでオンライン申請できるのは、補助金申請前に必要な「訪問相談申請」のみです(https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/jyutakukaizou.html)。補助金の申請自体は区役所福祉課・支所区民福祉課の窓口で行います。",
     "welnetUrl": "",
     "tags": [
       "身体障害",
@@ -2388,7 +2388,7 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 106
   },
   {
@@ -3053,10 +3053,10 @@
     "serviceCodes": [],
     "target": "障害児(者)の保護者(65歳未満で名古屋市に住所を有し、特別の疾病・障害がなく制度に加入できる方)",
     "overview": "保護者が掛金を納付することで、保護者が死亡または重度障害となったときに障害児(者)へ年金(1口あたり月額20,000円)が支給される任意加入の共済制度です。1年以上加入後に障害児(者)が先に死亡した場合の弔慰金、5年以上加入後に任意脱退する場合の脱退一時金もあります。加入口数は1人につき2口までです。",
-    "procedure": "お住まいの区の区役所福祉課・支所区民福祉課で加入手続きをします。名古屋市電子申請サービスからオンライン申請も可能です(https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/fuyoukyousai.html)。",
+    "procedure": "お住まいの区の区役所福祉課・支所区民福祉課で加入手続きをします。",
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課(社会福祉事務所)/ 支所区民福祉課",
-    "notes": "所得等により掛金の一部減免制度があります。掛金は全額所得控除の対象です。",
+    "notes": "所得等により掛金の一部減免制度があります。掛金は全額所得控除の対象です。 新規加入の申請は窓口(区役所福祉課・支所区民福祉課)で行います。氏名・住所変更届と年金受給者現況届は名古屋市電子申請サービスからオンラインでできます(https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/fuyoukyousai.html)。",
     "welnetUrl": "",
     "tags": [
       "身体障害",
@@ -3070,7 +3070,7 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 132
   },
   {
