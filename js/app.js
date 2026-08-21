@@ -417,7 +417,7 @@ function renderLinksTab() {
 // =====================================================
 // 🔍 検索タブ
 // =====================================================
-function renderSearchTab() {
+function filteredSortedEntries() {
   const kw = state.searchKeyword.trim();
   let list = state.entries.filter((e) => {
     if (state.searchType !== "すべて" && e.type !== state.searchType) return false;
@@ -427,7 +427,22 @@ function renderSearchTab() {
     const hay = normalizeForSearch([e.name, e.overview, e.target, codes, codeNames, ...(e.tags || [])].join(" "));
     return hay.includes(normalizeForSearch(kw));
   });
-  list = list.sort((a, b) => (a.sortOrder ?? 99) - (b.sortOrder ?? 99));
+  return list.sort((a, b) => (a.sortOrder ?? 99) - (b.sortOrder ?? 99));
+}
+
+function renderSearchResults() {
+  const kw = state.searchKeyword.trim();
+  const list = filteredSortedEntries();
+  const results = document.getElementById("search-results");
+  results.innerHTML = list.length
+    ? list.map((e) => entryCardHtml(e)).join("")
+    : emptyStateHtml("「" + (kw || "条件") + "」に一致する情報が見つかりません。");
+  bindCardEvents();
+}
+
+function renderSearchTab() {
+  const list = filteredSortedEntries();
+  const kw = state.searchKeyword.trim();
 
   appEl.innerHTML = `
     <div class="search-row">
@@ -439,12 +454,18 @@ function renderSearchTab() {
     <div id="search-results">${list.length ? list.map((e) => entryCardHtml(e)).join("") : emptyStateHtml("「" + (kw || "条件") + "」に一致する情報が見つかりません。")}</div>
   `;
 
-  document.getElementById("search-input").addEventListener("input", (ev) => {
+  const searchInput = document.getElementById("search-input");
+  let isComposing = false;
+  searchInput.addEventListener("compositionstart", () => { isComposing = true; });
+  searchInput.addEventListener("compositionend", (ev) => {
+    isComposing = false;
     state.searchKeyword = ev.target.value;
-    renderSearchTab();
-    const input = document.getElementById("search-input");
-    input.focus();
-    input.selectionStart = input.selectionEnd = input.value.length;
+    renderSearchResults();
+  });
+  searchInput.addEventListener("input", (ev) => {
+    state.searchKeyword = ev.target.value;
+    if (isComposing) return; // IME変換中はまだ確定していないので絞り込まない
+    renderSearchResults();
   });
   document.querySelectorAll("#type-chip-row .type-chip").forEach((btn) => {
     btn.addEventListener("click", () => {
