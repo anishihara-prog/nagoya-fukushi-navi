@@ -1270,8 +1270,8 @@
     "procedure": "お住まいの区の区役所福祉課(社会福祉事務所)・支所区民福祉課に問い合わせると、担当の相談員を紹介してもらえます。",
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課(社会福祉事務所)",
-    "notes": "個々の相談員名・連絡先は区ごとに異なるため、区役所福祉課を通じて確認してください。",
-    "welnetUrl": "",
+    "notes": "個々の相談員名・連絡先は区ごとに異なるため、区役所福祉課を通じて確認してください。知的障害者相談員の名簿はこちら: https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/soudan/titekimeibo.html",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/soudan/meibo.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -1281,7 +1281,7 @@
       "相談先を探したい"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 62
   },
   {
