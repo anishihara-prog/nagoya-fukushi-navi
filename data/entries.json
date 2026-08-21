@@ -1218,7 +1218,7 @@
     "documents": "",
     "contact": "なごや福祉用具プラザ: 052-851-0051\n住所: 昭和区御器所通3-12-1(御器所ステーションビル3階)\n開館時間: 10:00〜18:00(月曜・祝休日・年末年始休館)",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/fukushi_shisetsu/fukushi_yogu.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -1232,7 +1232,7 @@
       "在宅での生活支援"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 60
   },
   {
@@ -1246,7 +1246,7 @@
     "documents": "",
     "contact": "視覚支援課: 052-835-3523\nなごや高次脳機能障害支援センター: 052-835-3814\n住所: 瑞穂区弥富町字密柑山1-2",
     "notes": "補装具費支給判定や施設入所支援など、他の相談窓口としても機能しています。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/fukushi_shisetsu/sogo_rihabiri.html",
     "tags": [
       "身体障害",
       "児童(〜17歳)",
@@ -1257,7 +1257,7 @@
       "手帳なし・未申請"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 61
   },
   {
@@ -1343,7 +1343,7 @@
     "documents": "",
     "contact": "名古屋北歯科保健医療センター: 052-915-8844(北区平手町1-1-5)\n名古屋南歯科保健医療センター: 052-611-8044(南区弥次ヱ町5-12-1)\n(参考)あいち口腔保健センター: 052-962-9102(中区丸の内3-5-18)",
     "notes": "開設日・時間はセンターにより異なります(北・南とも火〜土曜9:00〜17:00)。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/medical/shika.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -1357,7 +1357,7 @@
       "愛護手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 64
   },
   {
@@ -1371,7 +1371,7 @@
     "documents": "",
     "contact": "身体障害者更生相談所: 052-835-3821",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/medical/nouseimahi.html",
     "tags": [
       "身体障害",
       "児童(〜17歳)",
@@ -1381,7 +1381,7 @@
       "身体障害者手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 65
   },
   {
@@ -1395,7 +1395,7 @@
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課(社会福祉事務所)/ 支所区民福祉課 / 保健センター保健予防課",
     "notes": "手帳(身体障害者手帳・愛護手帳・精神障害者保健福祉手帳)を持っていない方でも利用できます。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/medical/jyusin.html",
     "tags": [
       "知的障害",
       "精神障害",
@@ -1409,7 +1409,7 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 66
   },
   {
@@ -1740,7 +1740,7 @@
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課(社会福祉事務所)/ 支所区民福祉課",
     "notes": "利用者負担は所得に応じた上限月額まで(上限まではサービス費用の1割)。 新規の支給決定申請は窓口(区役所福祉課・支所区民福祉課)での手続きが必要です。利用中の申請内容変更届・受給者証の再交付申請は名古屋市電子申請サービスからオンラインでできます(https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/idoushien.html)。",
-    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/service/living/",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/social/idoushien.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -1768,7 +1768,7 @@
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課(社会福祉事務所)/ 支所区民福祉課",
     "notes": "福祉タクシー利用券・リフト付きタクシー利用券・敬老パス等との選択制です。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/social/koueikoutu.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -1783,7 +1783,7 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 81
   },
   {
@@ -1797,7 +1797,7 @@
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課(社会福祉事務所)/ 支所区民福祉課",
     "notes": "福祉特別乗車券・敬老パス等との選択制、福祉タクシー利用券とリフト付タクシー利用券も選択制です。有料道路通行料金・駐車料金・介助料金等は対象外。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/social/josei_taxi.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -1810,7 +1810,7 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 82
   },
   {
@@ -1824,7 +1824,7 @@
     "documents": "",
     "contact": "各タクシー会社",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/social/waribiki.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -1838,7 +1838,7 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 83
   },
   {
@@ -1852,7 +1852,7 @@
     "documents": "利用登録申請書(区役所福祉課・支所区民福祉課にもあり)",
     "contact": "AJU自立の家 わだちコンピュータハウス リフトカー係: 052-841-8882",
     "notes": "リフト付タクシー利用券を選択している方は登録できません。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/social/operation.html",
     "tags": [
       "身体障害",
       "成人(18〜64歳)",
@@ -1861,7 +1861,7 @@
       "身体障害者手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 84
   },
   {
@@ -1875,7 +1875,7 @@
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課(社会福祉事務所)/ 支所区民福祉課",
     "notes": "名古屋市電子申請サービスからオンライン申請できますが(https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/menkyohojyo.html)、教習所発行の証明書等を添えた申請書を別途郵送する必要があります。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/social/hojyokin.html",
     "tags": [
       "身体障害",
       "成人(18〜64歳)",
@@ -1897,7 +1897,7 @@
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課(社会福祉事務所)/ 支所区民福祉課",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/social/hojyokin_kaizou.html",
     "tags": [
       "身体障害",
       "成人(18〜64歳)",
@@ -1906,7 +1906,7 @@
       "身体障害者手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 86
   },
   {
@@ -1920,7 +1920,7 @@
     "documents": "",
     "contact": "住所地を管轄する警察署 交通課",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/social/hyosyo.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -1935,7 +1935,7 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 87
   },
   {
@@ -1949,7 +1949,7 @@
     "documents": "",
     "contact": "AJU車いすセンター 本部: 052-851-5240(昭和区恵方町2-15)",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/social/jiritsu_sokushin.html",
     "tags": [
       "身体障害",
       "成人(18〜64歳)",
@@ -1959,7 +1959,7 @@
       "身体障害者手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 88
   },
   {
@@ -2051,7 +2051,7 @@
     "documents": "派遣申込書",
     "contact": "名身連聴覚言語障害者情報文化センター(手話通訳者・要約筆記者派遣): 052-413-5885\nあいち聴覚障害者センター(盲ろう者向け通訳・介助員): 052-228-6660\n愛知県言語聴覚士会(失語症者向け意思疎通支援者): shitugo-ishisotu@aaslht.jp\n日々のくらし相談室(代筆・代読支援員): 052-211-7461\n入院時・通院時コミュニケーション支援事業: お住まいの区の区役所 福祉課",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/social/syuwa_tsuyaku.html",
     "tags": [
       "身体障害",
       "児童(〜17歳)",
@@ -2063,7 +2063,7 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 92
   },
   {
@@ -2077,7 +2077,7 @@
     "documents": "",
     "contact": "なごや福祉用具プラザ(総合相談): 052-851-0051\nわだちコンピュータハウス(聴覚・肢体・重複障害者向け): 052-841-9888\n名古屋ライトハウス情報文化センター(視覚障害者向け): 052-654-4521\n名身連聴覚言語障害者情報文化センター(聴覚障害者向け): 052-413-5885",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/social/it_support.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -2088,7 +2088,7 @@
       "身体障害者手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 93
   },
   {
@@ -2102,7 +2102,7 @@
     "documents": "",
     "contact": "盲導犬総合訓練センター: 052-661-3111(港区寛政町3-41-1)\n介助犬総合訓練センター〜シンシアの丘〜: 0561-64-1277(長久手市福井1590-51)",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/social/hojyoken.html",
     "tags": [
       "身体障害",
       "成人(18〜64歳)",
@@ -2111,7 +2111,7 @@
       "身体障害者手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 94
   },
   {
@@ -2125,7 +2125,7 @@
     "documents": "",
     "contact": "健康福祉局 障害企画課: 052-972-2587\n盲導犬総合訓練センター(盲導犬飼育費のみ): 052-661-3111",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/social/shiikuhi.html",
     "tags": [
       "身体障害",
       "成人(18〜64歳)",
@@ -2134,7 +2134,7 @@
       "身体障害者手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 95
   },
   {
@@ -2148,7 +2148,7 @@
     "documents": "",
     "contact": "名古屋市総合リハビリテーションセンター 相談課: 052-835-4005\n健康福祉局 障害企画課(受入れ苦情相談): 052-972-2587",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/social/kaijyoken.html",
     "tags": [
       "身体障害",
       "成人(18〜64歳)",
@@ -2156,7 +2156,7 @@
       "身体障害者手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 96
   },
   {
@@ -2170,7 +2170,7 @@
     "documents": "",
     "contact": "名古屋市障害者スポーツセンター: 052-703-6633\nスポーツ市民局 スポーツ振興課(補装具助成): 052-972-3262",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/fukushi_shisetsu/sports_center.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -2182,7 +2182,7 @@
       "身体障害者手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 97
   },
   {
@@ -2196,7 +2196,7 @@
     "documents": "",
     "contact": "名古屋ライトハウス情報文化センター: 052-654-4521\n名古屋市身体障害者福祉連合会: 052-682-0878\n愛知視覚障害者援護促進協議会事務局: 080-2617-5352\n愛知盲ろう者友の会: 080-3436-7641",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/social/syakai_sanka.html",
     "tags": [
       "身体障害",
       "成人(18〜64歳)",
@@ -2205,7 +2205,7 @@
       "身体障害者手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 98
   },
   {
@@ -2219,7 +2219,7 @@
     "documents": "経路計画書(利用者作成)",
     "contact": "名古屋市身体障害者福祉連合会事務局: 052-682-0878(熱田区横田2-4-16)",
     "notes": "利用料金は8時〜17時・走行200kmまでで1日10,000円、1泊2日25,000円(超過分は別途加算)。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/social/fukushi_bus.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -2230,7 +2230,7 @@
       "日中の活動先"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 99
   },
   {
@@ -2244,7 +2244,7 @@
     "documents": "",
     "contact": "社会福祉法人 名古屋手をつなぐ育成会: 052-671-6211",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/social/fureai.html",
     "tags": [
       "知的障害",
       "児童(〜17歳)",
@@ -2253,7 +2253,7 @@
       "愛護手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 100
   },
   {
@@ -2267,7 +2267,7 @@
     "documents": "",
     "contact": "社会福祉法人AJU自立の家 サマリアハウス: 052-841-5554(昭和区恵方町2-15)",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/social/tiiki_taiken.html",
     "tags": [
       "身体障害",
       "成人(18〜64歳)",
@@ -2275,7 +2275,7 @@
       "身体障害者手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 101
   },
   {
@@ -2288,8 +2288,8 @@
     "procedure": "自営業者向けは区役所福祉課で支給決定を受け事業者と契約します。被雇用者向けは民間企業がJEED(高齢・障害・求職者雇用支援機構)の確認を経て健康福祉局障害者支援課に申請します。",
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課(社会福祉事務所、自営業者向け)/ 健康福祉局 障害者支援課(被雇用者向け)",
-    "notes": "被雇用者向けはJEEDの職場介助助成金・通勤援助助成金を活用してもなお支障が残る部分に限ります。 新規の利用相談・契約は窓口で行います。利用中の申請内容変更届・受給者証の再交付申請は名古屋市電子申請サービスからオンラインでできます(https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/shurou.html)。",
-    "welnetUrl": "",
+    "notes": "被雇用者向けはJEEDの職場介助助成金・通勤援助助成金を活用してもなお支障が残る部分に限ります。 新規の利用相談・契約は窓口で行います。利用中の申請内容変更届・受給者証の再交付申請は名古屋市電子申請サービスからオンラインでできます(https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/shurou.html)。 被雇用者向けの制度紹介ページ: https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/social/judosyurou_koyou.html",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/social/judosyurou_jiei.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -2315,7 +2315,7 @@
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課(社会福祉事務所)/ 支所区民福祉課\n名古屋尾張住宅管理事務所(県営住宅): 052-973-1791",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/jyutaku/assen.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -2329,7 +2329,7 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 103
   },
   {
@@ -2343,7 +2343,7 @@
     "documents": "",
     "contact": "団地内の管理事務所 または 住宅供給公社(東部・西部・南部・北部事務所)",
     "notes": "100円未満の端数は切り上げです。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/jyutaku/sieijyutaku.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -2356,7 +2356,7 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 104
   },
   {
@@ -2370,7 +2370,7 @@
     "documents": "",
     "contact": "団地内の管理事務所 または 住宅供給公社(東部・西部・南部・北部事務所)",
     "notes": "100円未満の端数は切り上げです。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/jyutaku/tyusyajyo.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -2383,7 +2383,7 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 105
   },
   {
@@ -2397,7 +2397,7 @@
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課(社会福祉事務所)/ 支所区民福祉課",
     "notes": "新築・全面改修等は対象外です。 名古屋市電子申請サービスでオンライン申請できるのは、補助金申請前に必要な「訪問相談申請」のみです(https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/jyutakukaizou.html)。補助金の申請自体は区役所福祉課・支所区民福祉課の窓口で行います。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/jyutaku/jyutaku_hojyokin.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -2479,7 +2479,7 @@
     "documents": "",
     "contact": "お住まいの区の障害者基幹相談支援センター",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/jyutaku/nyukyo_support.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -2492,7 +2492,7 @@
       "相談先を探したい"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 109
   },
   {
@@ -2560,7 +2560,7 @@
     "documents": "",
     "contact": "税務署(所得税)/ 市税事務所 市民税課(市民税・県民税)/ 県税事務所(事業税)",
     "notes": "相続税・贈与税の取扱いは国税庁ホームページを確認してください。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/kokyo_ryokin/zeigenmen.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -2573,7 +2573,7 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 112
   },
   {
@@ -2587,7 +2587,7 @@
     "documents": "",
     "contact": "県税事務所(自動車税・環境性能割)/ 金山市税事務所(軽自動車税の問い合わせ)/ お住まいの区の区役所・支所 税務窓口",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/kokyo_ryokin/jidosya_zei.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -2599,7 +2599,7 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 113
   },
   {
@@ -2613,7 +2613,7 @@
     "documents": "",
     "contact": "利用する金融機関(問い合わせ: 税務署)",
     "notes": "郵便貯金の非課税制度は平成19年9月30日に廃止済みです(民営化前預入の定期性郵便貯金は満期まで非課税)。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/kokyo_ryokin/hikazei.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -2626,7 +2626,7 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 114
   },
   {
@@ -2640,7 +2640,7 @@
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課(社会福祉事務所)/ 支所区民福祉課",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/kokyo_ryokin/suidoryo.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -2651,7 +2651,7 @@
       "手帳なし・未申請"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 115
   },
   {
@@ -2665,7 +2665,7 @@
     "documents": "",
     "contact": "お住まいの区の区役所 保険年金課 / 支所区民福祉課",
     "notes": "他の減額・減免の適用を受けている場合は、本制度の減免を受けられないことがあります。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/kokyo_ryokin/kokuho.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -2678,7 +2678,7 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 116
   },
   {
@@ -2692,7 +2692,7 @@
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課(社会福祉事務所)/ 支所区民福祉課",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/kokyo_ryokin/jyushinryo.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -2705,7 +2705,7 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 117
   },
   {
@@ -2745,7 +2745,7 @@
     "documents": "身体障害者手帳、またはパピーウォーカー証明書",
     "contact": "お住まいの区の保健センター",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/kokyo_ryokin/modoken.html",
     "tags": [
       "身体障害",
       "成人(18〜64歳)",
@@ -2754,7 +2754,7 @@
       "身体障害者手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 119
   },
   {
@@ -2768,7 +2768,7 @@
     "documents": "",
     "contact": "各鉄道・バス会社の窓口、各航空会社の窓口",
     "notes": "精神障害者保健福祉手帳は私鉄・バスでは同様の割引がある場合があるため各社に要確認です。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/kokyo_ryokin/kakusyu_untin.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -2782,7 +2782,7 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 120
   },
   {
@@ -2796,7 +2796,7 @@
     "documents": "身体障害者手帳または愛護手帳、自動車検査証、運転免許証等",
     "contact": "お住まいの区の区役所 福祉課(社会福祉事務所)/ 支所区民福祉課\n中日本高速道路株式会社: 0120-922-229",
     "notes": "登録は1人につき1台、個人所有の自動車に限ります(営業用車は対象外)。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/kokyo_ryokin/yuryodouro.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -2807,7 +2807,7 @@
       "愛護手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 121
   },
   {
@@ -2821,7 +2821,7 @@
     "documents": "",
     "contact": "住宅都市局 都市計画部 交通企画・モビリティ都市推進課(市営駐車場): 052-972-2774\n緑政土木局 路政部 自転車利用課(自転車駐車場): 052-972-2877\n観光文化交流局 文化歴史まちづくり部 文化芸術推進課(文化施設駐車場): 052-972-3175",
     "notes": "名古屋市の施設の駐車場でも減額される場合があるため各施設に要確認です。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/kokyo_ryokin/shiei_tyusyajyo.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -2835,7 +2835,7 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 122
   },
   {
@@ -2849,7 +2849,7 @@
     "documents": "",
     "contact": "各施設(詳細は各施設に要確認)",
     "notes": "特別展(共催展)は半額減免になる場合があります。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/kokyo_ryokin/shiritu.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -2864,7 +2864,7 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 123
   },
   {
@@ -2878,7 +2878,7 @@
     "documents": "",
     "contact": "名古屋市民御岳休暇村(長野県木曽郡王滝村): 0264-48-2111",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/kokyo_ryokin/kyukamura.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -2892,7 +2892,7 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 124
   },
   {
@@ -2906,7 +2906,7 @@
     "documents": "",
     "contact": "NTT ふれあい案内: 0120-104-174",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/kokyo_ryokin/muryoannai.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -2919,7 +2919,7 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 125
   },
   {
@@ -2933,7 +2933,7 @@
     "documents": "",
     "contact": "ハローワーク名古屋中(千種・北・西・中村・中・中川区): 052-855-3740\nハローワーク名古屋南(瑞穂・熱田・港・南・緑区): 052-681-1211\nハローワーク名古屋東(東・昭和・守山・名東・天白区): 052-774-1115",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/koyo_soudan/madoguchi.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -2948,7 +2948,7 @@
       "手帳なし・未申請"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 126
   },
   {
@@ -2962,7 +2962,7 @@
     "documents": "",
     "contact": "居住地を管轄する公共職業安定所(ハローワーク)",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/koyo_soudan/syokugyou.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -2973,7 +2973,7 @@
       "愛護手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 127
   },
   {
@@ -2987,7 +2987,7 @@
     "documents": "",
     "contact": "名古屋市総合リハビリテーションセンター 相談課: 052-835-4005",
     "notes": "障害者総合支援法及び市が定めた自己負担があります。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/koyo_soudan/rihabirisenta.html",
     "tags": [
       "身体障害",
       "成人(18〜64歳)",
@@ -2995,7 +2995,7 @@
       "身体障害者手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 128
   },
   {
@@ -3009,7 +3009,7 @@
     "documents": "",
     "contact": "健康福祉局 障害者支援課",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/koyo_soudan/syokuoya.html",
     "tags": [
       "知的障害",
       "成人(18〜64歳)",
@@ -3017,7 +3017,7 @@
       "愛護手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 129
   },
   {
@@ -3056,7 +3056,7 @@
     "documents": "",
     "contact": "居住地を管轄する公共職業安定所(ハローワーク)",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/koyo_soudan/commission.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -3065,7 +3065,7 @@
       "就労の支援"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 131
   },
   {
@@ -3079,7 +3079,7 @@
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課(社会福祉事務所)/ 支所区民福祉課",
     "notes": "所得等により掛金の一部減免制度があります。掛金は全額所得控除の対象です。 新規加入の申請は窓口(区役所福祉課・支所区民福祉課)で行います。氏名・住所変更届と年金受給者現況届は名古屋市電子申請サービスからオンラインでできます(https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/fuyoukyousai.html)。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/teate/kyousai.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -3106,7 +3106,7 @@
     "documents": "",
     "contact": "お住まいの区を担当する療育センター(e25 療育センターを参照)",
     "notes": "名古屋手をつなぐ育成会・愛知県自閉症協会・愛知県筋ジストロフィー協会等の障害児関係団体でも療育相談を行っています。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/raises/ryoiku.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -3118,7 +3118,7 @@
       "手帳なし・未申請"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 133
   },
   {
@@ -3132,7 +3132,7 @@
     "documents": "",
     "contact": "お住まいの区の区役所 民生子ども課(社会福祉事務所)/ 支所区民福祉課",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/raises/hoiku.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -3143,7 +3143,7 @@
       "日中の活動先"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 134
   },
   {
@@ -3157,7 +3157,7 @@
     "documents": "",
     "contact": "名古屋市教育委員会 特別支援教育課: 052-972-3233\n愛知県教育委員会 特別支援教育課: 052-954-6798",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/raises/kyouiku.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -3168,7 +3168,7 @@
       "相談先を探したい"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 135
   },
   {
@@ -3182,7 +3182,7 @@
     "documents": "",
     "contact": "各精神科医療機関",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/seisin_hoken/seisiniryou.html",
     "tags": [
       "精神障害",
       "児童(〜17歳)",
@@ -3193,7 +3193,7 @@
       "手帳なし・未申請"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 136
   },
   {
@@ -3207,7 +3207,7 @@
     "documents": "",
     "contact": "最寄りの市立図書館",
     "notes": "来館での利用も可能です。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/taifu/yuso_taifu.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -3218,7 +3218,7 @@
       "愛護手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 137
   },
   {
@@ -3232,7 +3232,7 @@
     "documents": "交付申請書",
     "contact": "お住まいの区の区選挙管理委員会(区役所内)",
     "notes": "郵便等投票証明書の交付申請はいつでもできます。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/taifu/fuzaisya.html",
     "tags": [
       "身体障害",
       "成人(18〜64歳)",
@@ -3241,7 +3241,7 @@
       "身体障害者手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 138
   },
   {
@@ -3255,7 +3255,7 @@
     "documents": "",
     "contact": "名古屋ライトハウス情報文化センター: 052-654-4521\n名身連聴覚言語障害者情報文化センター: 052-413-5885\n日々のくらし相談室(視覚総合相談室): 052-211-7461\n鶴舞中央図書館 点字文庫: 052-741-3132",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/taifu/riyou_shisetsu.html",
     "tags": [
       "身体障害",
       "成人(18〜64歳)",
@@ -3265,7 +3265,7 @@
       "身体障害者手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 139
   },
   {
@@ -3279,7 +3279,7 @@
     "documents": "",
     "contact": "健康福祉局 障害企画課: 052-972-2587",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/taifu/tablet.html",
     "tags": [
       "身体障害",
       "成人(18〜64歳)",
@@ -3288,7 +3288,7 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 140
   },
   {
@@ -3302,7 +3302,7 @@
     "documents": "",
     "contact": "一般社団法人愛知県セルプセンター: 052-304-7890(中川区小本本町1-71)",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/taifu/serupusenta.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -3311,7 +3311,7 @@
       "就労の支援"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 141
   },
   {
@@ -3325,7 +3325,7 @@
     "documents": "",
     "contact": "障害者就労支援窓口 ウェルジョブなごや: 052-684-9007(中区丸の内2-10-30)",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/taifu/weljob.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -3335,7 +3335,7 @@
       "相談先を探したい"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 142
   },
   {
@@ -3349,7 +3349,7 @@
     "documents": "",
     "contact": "独立行政法人自動車事故対策機構 名古屋主管支所(ナスバ): 052-218-3017",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/taifu/kouisyou.html",
     "tags": [
       "身体障害",
       "児童(〜17歳)",
@@ -3360,7 +3360,7 @@
       "手帳なし・未申請"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 143
   },
   {
@@ -3374,7 +3374,7 @@
     "documents": "",
     "contact": "市長室 広報課: 052-972-3134",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/taifu/kouhou.html",
     "tags": [
       "身体障害",
       "成人(18〜64歳)",
@@ -3382,7 +3382,7 @@
       "身体障害者手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 144
   },
   {
@@ -3396,7 +3396,7 @@
     "documents": "",
     "contact": "上下水道局 料金課: 052-972-3640",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/taifu/tenjiban_20260309155417.html",
     "tags": [
       "身体障害",
       "成人(18〜64歳)",
@@ -3405,7 +3405,7 @@
       "身体障害者手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 145
   },
   {
@@ -3419,7 +3419,7 @@
     "documents": "",
     "contact": "健康福祉局 障害企画課: 052-972-2585",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/taifu/helpcard.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -3433,7 +3433,7 @@
       "手帳なし・未申請"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 146
   },
   {
@@ -3447,7 +3447,7 @@
     "documents": "",
     "contact": "健康福祉局 障害企画課: 052-972-2538",
     "notes": "マークにより問い合わせ先(全日本ろうあ連盟、日本オストミー協会等)が異なります。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/taifu/emblem.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -3459,7 +3459,7 @@
       "65歳以上"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 147
   },
   {
@@ -3501,7 +3501,7 @@
     "documents": "",
     "contact": "お住まいの区の社会福祉協議会(e26参照)",
     "notes": "借入申込時から償還完了まで社会福祉協議会と民生委員が世帯の支援に関わります。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/taifu/shikin.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -3515,7 +3515,7 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 149
   },
   {
@@ -3529,7 +3529,7 @@
     "documents": "",
     "contact": "名古屋ライトハウス情報文化センター: 052-654-4523(港区港陽1-1-65)",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/taifu/tenjiban.html",
     "tags": [
       "身体障害",
       "成人(18〜64歳)",
@@ -3537,7 +3537,7 @@
       "身体障害者手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 150
   },
   {
@@ -3551,7 +3551,7 @@
     "documents": "",
     "contact": "名古屋市重症心身障害児者施設 ティンクルなごや: 052-916-0333(北区平手町1-1-5)",
     "notes": "ご家族等によるケアが一時的にできない場合などに利用できる短期入所も行っています。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/fukushi_shisetsu/thinkuru.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -3563,7 +3563,7 @@
       "愛護手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 151
   },
   {
