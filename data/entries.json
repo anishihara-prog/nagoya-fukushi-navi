@@ -1317,7 +1317,7 @@
     "documents": "",
     "contact": "お住まいの区の区役所 保険年金課 / 支所区民福祉課",
     "notes": "65歳以上で障害者医療費助成の対象要件に該当する方が後期高齢者医療制度へ移行する場合、福祉給付金制度で自己負担額が助成されます(e33 障害者医療費の助成を参照)。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/medical/koukikourei.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -1329,7 +1329,7 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 63
   },
   {
