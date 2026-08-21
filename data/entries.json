@@ -10,7 +10,7 @@
     "documents": "申請書\n診断書・意見書(指定医作成)\n顔写真\n本人確認書類",
     "contact": "お住まいの区の区役所 福祉課",
     "notes": "等級や障害の種類によって利用できるサービスが変わるため、手帳取得後は基幹相談支援センター等での相談につなぐとよい。",
-    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/tetyou/",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/tetyou/shintai.html",
     "tags": [
       "身体障害",
       "児童(〜17歳)",
@@ -20,7 +20,7 @@
       "手帳なし・未申請"
     ],
     "updatedBy": "サンプルデータ",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 30
   },
   {
@@ -34,7 +34,7 @@
     "documents": "申請書\n顔写真\n本人確認書類",
     "contact": "お住まいの区の区役所 福祉課 / 児童相談所",
     "notes": "",
-    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/tetyou/",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/tetyou/aigo.html",
     "tags": [
       "知的障害",
       "児童(〜17歳)",
@@ -44,7 +44,7 @@
       "手帳なし・未申請"
     ],
     "updatedBy": "サンプルデータ",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 31
   },
   {
@@ -54,11 +54,11 @@
     "serviceCodes": [],
     "target": "精神障害により長期にわたり日常生活・社会生活に制約のある方",
     "overview": "手帳の等級に応じて税の控除や福祉サービス、公共交通機関の割引等を受けられます。自立支援医療(精神通院医療)の申請と同時に行うケースも多いです。",
-    "procedure": "①区役所窓口で申請書・診断書を提出する\n②審査を受ける\n③交付される(原則2年ごとに更新が必要)。名古屋市電子申請サービスからオンライン申請も可能です(https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/seishin.html)。",
+    "procedure": "①区役所窓口で申請書・診断書を提出する\n②審査を受ける\n③交付される(原則2年ごとに更新が必要)",
     "documents": "申請書\n診断書(または障害年金の証書等の写し)\n顔写真",
     "contact": "お住まいの区の区役所 福祉課",
-    "notes": "",
-    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/tetyou/",
+    "notes": "新規交付は窓口申請のみ。更新・等級変更はオンライン申請可(名古屋市電子申請サービス、令和7年3月24日〜: https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/seishin.html)。ただし診断書は別途郵送が必要で、到着確認後の受理となるため、急ぐ場合は窓口申請が確実です。",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/tetyou/seishin.html",
     "tags": [
       "精神障害",
       "児童(〜17歳)",
@@ -69,7 +69,7 @@
       "手帳なし・未申請"
     ],
     "updatedBy": "サンプルデータ",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 32
   },
   {
@@ -83,7 +83,7 @@
     "documents": "",
     "contact": "お住まいの区の障害者基幹相談支援センター(区ごとに異なる)。市全体の案内窓口として健康福祉局障害福祉部障害者支援課(052-972-2596)でも相談可能。",
     "notes": "",
-    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/soudan/",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/soudan/seikatsu.html",
     "wardDataType": "kikan",
     "tags": [
       "身体障害",
@@ -106,7 +106,7 @@
       "手帳なし・未申請"
     ],
     "updatedBy": "サンプルデータ",
-    "updatedAt": "2026-06-24",
+    "updatedAt": "2026-08-21",
     "sortOrder": 10
   },
   {
@@ -185,7 +185,7 @@
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課 / 居宅介護事業所",
     "notes": "65歳以上の方で介護保険が適用される場合は、原則として介護保険のホームヘルプサービスが優先されます。",
-    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/zaitaku/",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/zaitaku/homehelp.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -199,7 +199,7 @@
       "愛護手帳あり"
     ],
     "updatedBy": "サンプルデータ",
-    "updatedAt": "2026-06-24",
+    "updatedAt": "2026-08-21",
     "sortOrder": 40
   },
   {
@@ -317,7 +317,7 @@
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課 / 同行援護事業所",
     "notes": "障害支援区分の認定は原則不要。ただし身体介護を伴う場合は区分2以上が必要。",
-    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/zaitaku/",
+    "welnetUrl": "",
     "tags": [
       "身体障害",
       "成人(18〜64歳)",
@@ -326,7 +326,7 @@
       "身体障害者手帳あり"
     ],
     "updatedBy": "サンプルデータ",
-    "updatedAt": "2026-06-24",
+    "updatedAt": "2026-08-21",
     "sortOrder": 43
   },
   {
@@ -342,7 +342,7 @@
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課 / 行動援護事業所",
     "notes": "障害支援区分3以上かつ行動関連項目の合計点数10点以上が利用の目安。",
-    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/zaitaku/",
+    "welnetUrl": "",
     "tags": [
       "知的障害",
       "精神障害",
@@ -353,7 +353,7 @@
       "愛護手帳あり"
     ],
     "updatedBy": "サンプルデータ",
-    "updatedAt": "2026-06-24",
+    "updatedAt": "2026-08-21",
     "sortOrder": 44
   },
   {
@@ -369,7 +369,7 @@
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課 / 短期入所事業所",
     "notes": "利用できる日数には上限があります(支給量の決定は個別に行います)。事業所によって受け入れ対象者や設備が異なります。",
-    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/zaitaku/",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/zaitaku/shortstay.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -385,7 +385,7 @@
       "愛護手帳あり"
     ],
     "updatedBy": "サンプルデータ",
-    "updatedAt": "2026-06-24",
+    "updatedAt": "2026-08-21",
     "sortOrder": 45
   },
   {
@@ -401,7 +401,7 @@
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課 / 就労定着支援事業所",
     "notes": "障害支援区分の認定は不要。就労移行支援または就労継続支援等の利用歴が要件となる場合があります。",
-    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/koyo_soudan/",
+    "welnetUrl": "",
     "tags": [
       "身体障害",
       "知的障害",
@@ -414,7 +414,7 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "サンプルデータ",
-    "updatedAt": "2026-06-24",
+    "updatedAt": "2026-08-21",
     "sortOrder": 46
   },
   {
@@ -430,7 +430,7 @@
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課 / 自立生活援助事業所",
     "notes": "障害支援区分の認定は不要。",
-    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/zaitaku/",
+    "welnetUrl": "",
     "tags": [
       "知的障害",
       "精神障害",
@@ -444,7 +444,7 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "サンプルデータ",
-    "updatedAt": "2026-06-24",
+    "updatedAt": "2026-08-21",
     "sortOrder": 47
   },
   {
@@ -461,7 +461,7 @@
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課 / 特定相談支援事業所",
     "notes": "施設や病院から地域へのステップアップを検討している方には、まず基幹相談支援センターへの相談を勧めることも有効です。",
-    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/soudan/",
+    "welnetUrl": "",
     "tags": [
       "身体障害",
       "知的障害",
@@ -476,7 +476,7 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "サンプルデータ",
-    "updatedAt": "2026-06-24",
+    "updatedAt": "2026-08-21",
     "sortOrder": 48
   },
   {
@@ -519,7 +519,7 @@
     "documents": "年金請求書\n診断書(指定様式)\n病歴就労状況等申立書\n戸籍謄本・住民票\n年金手帳\n振込先口座情報",
     "contact": "日本年金機構 名古屋北・東・西年金事務所 / お住まいの区の区役所 国民年金課",
     "notes": "申請には初診日の特定が重要です。初診から1年6ヶ月以上経過していることが原則必要(一部例外あり)。請求期限は5年で時効になります。",
-    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/teate/",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/teate/kakuteate.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -535,7 +535,7 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "サンプルデータ",
-    "updatedAt": "2026-06-24",
+    "updatedAt": "2026-08-21",
     "sortOrder": 21
   },
   {
@@ -549,7 +549,7 @@
     "documents": "認定請求書\n診断書(指定様式)\n戸籍謄本\n住民票\n振込先口座情報\n所得関係書類",
     "contact": "お住まいの区の区役所 福祉課",
     "notes": "所得制限があります。手当を受給している方は、毎年8月に所得状況届の提出が必要です。",
-    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/teate/",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/teate/tokuziteate.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -563,7 +563,7 @@
       "愛護手帳あり"
     ],
     "updatedBy": "サンプルデータ",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 22
   },
   {
@@ -1401,7 +1401,7 @@
     "documents": "申請書(用具により異なる。医師の意見書等が必要な場合あり)",
     "contact": "お住まいの区の区役所 福祉課(社会福祉事務所)/ 支所区民福祉課",
     "notes": "種目は40種類以上あり、対象となる障害種別・等級・年齢が用具ごとに細かく定められています。詳細はウェルネットなごやまたは区役所窓口でご確認ください。介護保険の第1号被保険者等は一部用具(入浴補助用具、移動用リフト、特殊寝台等)の給付を受けられません。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/zaitaku/nichijyohin.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -1416,7 +1416,7 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 67
   },
   {
@@ -1430,7 +1430,7 @@
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課(社会福祉事務所)/ 支所区民福祉課",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/zaitaku/telfax.html",
     "tags": [
       "身体障害",
       "成人(18〜64歳)",
@@ -1440,7 +1440,7 @@
       "身体障害者手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 68
   },
   {
@@ -1454,7 +1454,7 @@
     "documents": "",
     "contact": "消防局 消防部指令課(119番関連)/ 愛知県警察本部 地域部通信指令課(110番関連)",
     "notes": "119番通報時は、搬送先医療機関への手話通訳者・要約筆記者の派遣も併せて依頼できます。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/zaitaku/kinkyu.html",
     "tags": [
       "身体障害",
       "児童(〜17歳)",
@@ -1464,7 +1464,7 @@
       "身体障害者手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 69
   },
   {
@@ -1478,7 +1478,7 @@
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課(社会福祉事務所)/ 支所区民福祉課",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/zaitaku/kashidashi.html",
     "tags": [
       "身体障害",
       "成人(18〜64歳)",
@@ -1488,7 +1488,7 @@
       "身体障害者手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 70
   },
   {
@@ -1502,7 +1502,7 @@
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課(社会福祉事務所)/ 支所区民福祉課",
     "notes": "介護保険の要支援・要介護認定を受けた方は対象外です。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/zaitaku/nyuyoku.html",
     "tags": [
       "身体障害",
       "成人(18〜64歳)",
@@ -1510,7 +1510,7 @@
       "身体障害者手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 71
   },
   {
@@ -1524,7 +1524,7 @@
     "documents": "申請書、身体障害者更生相談所の判定書または医師の意見書(児童の場合)等、補装具により異なる",
     "contact": "お住まいの区の区役所 福祉課(社会福祉事務所)/ 支所区民福祉課",
     "notes": "65歳以上の方や介護保険の要支援・要介護認定を受けた方は、介護保険でレンタル可能な用具(歩行器・歩行補助つえ・車椅子・電動車椅子)の補装具費支給は原則受けられません。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/zaitaku/bosouguhi.html",
     "tags": [
       "身体障害",
       "難病",
@@ -1535,7 +1535,7 @@
       "身体障害者手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 72
   },
   {
@@ -1549,7 +1549,7 @@
     "documents": "",
     "contact": "子ども青少年局 子ども福祉課: 052-972-2520",
     "notes": "助成決定日から5年を経過していない場合は再度の助成対象外です。18歳到達時点で引き続き対象の場合は18歳到達年度の3月まで延長できます。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/zaitaku/nantyouji.html",
     "tags": [
       "身体障害",
       "児童(〜17歳)",
@@ -1557,7 +1557,7 @@
       "手帳なし・未申請"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 73
   },
   {
@@ -1571,7 +1571,7 @@
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課(社会福祉事務所)/ 支所区民福祉課",
     "notes": "特殊寝台は65歳以上、または40歳以上で介護保険の要支援・要介護認定を受けている方は対象外です。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/zaitaku/shingu.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -1582,7 +1582,7 @@
       "愛護手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 74
   },
   {
@@ -1596,7 +1596,7 @@
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課(社会福祉事務所)/ 支所区民福祉課",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/zaitaku/tenjitosyo.html",
     "tags": [
       "身体障害",
       "児童(〜17歳)",
@@ -1606,7 +1606,7 @@
       "身体障害者手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 75
   },
   {
@@ -1620,7 +1620,7 @@
     "documents": "",
     "contact": "名身連福祉センター: 052-413-5811(中村区中村町7-84-1)\nライトハウス情報文化センター: 052-654-4521(港区港陽1-1-65)\n総合社会福祉会館: 052-911-3191(北区清水4-17-1)\n障害者スポーツセンター: 052-703-6633(名東区勢子坊2-1501)",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/zaitaku/kyoudou.html",
     "tags": [
       "身体障害",
       "成人(18〜64歳)",
@@ -1629,7 +1629,7 @@
       "身体障害者手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 76
   },
   {
@@ -1643,7 +1643,7 @@
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課(社会福祉事務所)/ 支所区民福祉課",
     "notes": "費用は無料です。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/zaitaku/rehabilitation.html",
     "tags": [
       "身体障害",
       "成人(18〜64歳)",
@@ -1653,7 +1653,7 @@
       "身体障害者手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 77
   },
   {
@@ -1667,7 +1667,7 @@
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課(社会福祉事務所)/ 支所区民福祉課",
     "notes": "短期入所(e13)とセットで検討するとよいサービスです。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/zaitaku/ichijiukeire.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -1678,7 +1678,7 @@
       "在宅での生活支援"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 78
   },
   {
@@ -1718,7 +1718,7 @@
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課(社会福祉事務所)/ 支所区民福祉課",
     "notes": "利用者負担は所得に応じた上限月額まで(上限まではサービス費用の1割)。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/service/living/",
     "tags": [
       "身体障害",
       "知的障害",
@@ -1732,7 +1732,7 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-21",
     "sortOrder": 80
   },
   {
