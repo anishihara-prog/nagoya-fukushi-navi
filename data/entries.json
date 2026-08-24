@@ -2312,7 +2312,7 @@
     "procedure": "自営業者向けは区役所福祉課で支給決定を受け事業者と契約します。被雇用者向けは民間企業がJEED(高齢・障害・求職者雇用支援機構)の確認を経て健康福祉局障害者支援課に申請します。",
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課(社会福祉事務所、自営業者向け)/ 健康福祉局 障害者支援課(被雇用者向け)",
-    "notes": "被雇用者向けはJEEDの職場介助助成金・通勤援助助成金を活用してもなお支障が残る部分に限ります。 新規の利用相談・契約は窓口で行います。利用中の申請内容変更届・受給者証の再交付申請は名古屋市電子申請サービスからオンラインでできます(https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/shurou.html)。 被雇用者向けの制度紹介ページ: https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/social/judosyurou_koyou.html",
+    "notes": "被雇用者向けはJEEDの職場介助助成金・通勤援助助成金を活用してもなお支障が残る部分に限ります。 新規の利用相談・契約は窓口で行います。利用中の申請内容変更届・受給者証の再交付申請は名古屋市電子申請サービスからオンラインでできます(https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/shurou.html)。",
     "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/social/judosyurou_jiei.html",
     "tags": [
       "身体障害",
@@ -2326,7 +2326,9 @@
     ],
     "updatedBy": "福祉のしおり",
     "updatedAt": "2026-08-21",
-    "sortOrder": 102
+    "sortOrder": 102,
+    "welnetUrl2": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/social/judosyurou_koyou.html",
+    "welnetUrl2Label": "被雇用者向けページ"
   },
   {
     "id": "e88",
