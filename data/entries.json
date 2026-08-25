@@ -1997,7 +1997,7 @@
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課(社会福祉事務所)/ 支所区民福祉課",
     "notes": "利用者負担は所得に応じた上限月額まで(上限まではサービス費用の1割)。低所得者以外は食事代の負担があります。 新規の利用相談・申請は窓口(区役所福祉課・支所区民福祉課)で行います。利用中の申請内容変更届・受給者証の再交付申請は名古屋市電子申請サービスからオンラインでできます(https://www.kaigo-wel.city.nagoya.jp/view/wel/service/denshi/dei.html)。",
-    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/jigyosho/",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/social/day_care.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -2011,7 +2011,7 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-21",
+    "updatedAt": "2026-08-25",
     "sortOrder": 89
   },
   {
