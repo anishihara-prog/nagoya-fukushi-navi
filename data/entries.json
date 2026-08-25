@@ -2092,7 +2092,7 @@
   },
   {
     "id": "e78",
-    "name": "ICTサポート事業",
+    "name": "ICTサポート事業(ITサポート事業)",
     "type": "福祉サービス",
     "serviceCodes": [],
     "target": "障害のある方",
@@ -2112,7 +2112,7 @@
       "身体障害者手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-21",
+    "updatedAt": "2026-08-25",
     "sortOrder": 93
   },
   {
