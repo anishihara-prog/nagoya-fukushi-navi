@@ -2991,8 +2991,10 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-21",
-    "sortOrder": 122
+    "updatedAt": "2026-08-26",
+    "sortOrder": 122,
+    "welnetUrl2": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/kokyo_ryokin/yuryo_tyusyajyo.html",
+    "welnetUrl2Label": "有料自転車駐車場のページ"
   },
   {
     "id": "e108",
