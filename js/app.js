@@ -935,6 +935,35 @@ function renderManageTab() {
   });
 }
 
+// 等級の配列を「1〜3級」「1・2・4級」のように読みやすい文字列にする
+function formatGradeLevels(levels, unit) {
+  const sorted = [...levels].sort((a, b) => a - b);
+  const parts = [];
+  let start = sorted[0];
+  let prev = sorted[0];
+  for (let i = 1; i <= sorted.length; i++) {
+    const cur = sorted[i];
+    if (cur === prev + 1) {
+      prev = cur;
+      continue;
+    }
+    if (start === prev) parts.push(`${start}`);
+    else if (prev === start + 1) parts.push(`${start}`, `${prev}`);
+    else parts.push(`${start}〜${prev}`);
+    start = cur;
+    prev = cur;
+  }
+  return parts.join("・") + unit;
+}
+
+// 対象等級(gradeShintai/gradeAigo/gradeSeishin)をカード表示用の文字列にする
+function gradeSummaryHtml(e) {
+  const parts = Object.values(GRADE_OPTIONS)
+    .filter((info) => Array.isArray(e[info.field]) && e[info.field].length)
+    .map((info) => `${escapeHtml(info.label)} ${formatGradeLevels(e[info.field], info.unit)}`);
+  return parts.join("<br>");
+}
+
 // =====================================================
 // カード（共通）
 // =====================================================
@@ -969,6 +998,7 @@ function entryCardHtml(e, matchScore) {
           ` : ""}
           <dl style="margin:0;">
             ${e.target    ? `<dt>対象となる方</dt><dd>${escapeHtml(e.target)}</dd>` : ""}
+            ${gradeSummaryHtml(e) ? `<dt>対象等級</dt><dd>${gradeSummaryHtml(e)}</dd>` : ""}
             ${e.procedure ? `<dt>手続きの流れ</dt><dd>${escapeHtml(e.procedure)}</dd>` : ""}
             ${e.documents ? `<dt>必要なもの</dt><dd>${escapeHtml(e.documents)}</dd>` : ""}
             ${e.contact   ? `<dt>窓口・問い合わせ先</dt><dd>${escapeHtml(e.contact)}</dd>` : ""}
