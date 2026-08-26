@@ -1007,7 +1007,7 @@ function entryCardHtml(e, matchScore) {
           <div class="card__tags">${(e.tags || []).map((t) => `<span class="mini-tag">${escapeHtml(t)}</span>`).join("")}</div>
           <div class="card__actions">
             ${e.welnetUrl ? `<a href="${escapeAttr(e.welnetUrl)}" target="_blank" rel="noopener noreferrer" class="btn btn--sm btn--ghost" style="text-decoration:none;">🔗 ウェルネットで詳しく見る</a>` : ""}
-            ${e.welnetUrl2 ? `<a href="${escapeAttr(e.welnetUrl2)}" target="_blank" rel="noopener noreferrer" class="btn btn--sm btn--ghost" style="text-decoration:none;">🔗 ${escapeHtml(e.welnetUrl2Label || "関連ページを見る")}</a>` : ""}
+            ${(e.extraLinks || []).map((l) => `<a href="${escapeAttr(l.url)}" target="_blank" rel="noopener noreferrer" class="btn btn--sm btn--ghost" style="text-decoration:none;">🔗 ${escapeHtml(l.label || "関連ページを見る")}</a>`).join("")}
             <button class="btn btn--sm btn--ghost" data-edit-card="${e.id}">✎ この情報を編集</button>
           </div>
         </div>
@@ -1126,12 +1126,8 @@ function openEditModal(entry) {
           <input id="f-welneturl" type="text" value="${escapeAttr(e.welnetUrl || "")}" placeholder="例: https://www.kaigo-wel.city.nagoya.jp/view/wel/...">
         </div>
         <div class="form-field">
-          <label for="f-welneturl2">2つ目の関連URL(任意)</label>
-          <input id="f-welneturl2" type="text" value="${escapeAttr(e.welnetUrl2 || "")}" placeholder="例: https://www.kaigo-wel.city.nagoya.jp/view/wel/...">
-        </div>
-        <div class="form-field">
-          <label for="f-welneturl2label">2つ目のボタンの表示名(任意)</label>
-          <input id="f-welneturl2label" type="text" value="${escapeAttr(e.welnetUrl2Label || "")}" placeholder="例: 被雇用者向けページ">
+          <label for="f-extralinks">追加の関連URL(任意、1行に1件「表示名|URL」の形式)</label>
+          <textarea id="f-extralinks" placeholder="例:&#10;被雇用者向けページ|https://www.kaigo-wel.city.nagoya.jp/view/wel/...&#10;公園駐車場のページ|https://www.kaigo-wel.city.nagoya.jp/view/wel/...">${escapeHtml((e.extraLinks || []).map((l) => `${l.label || ""}|${l.url}`).join("\n"))}</textarea>
         </div>
         <div class="form-field">
           <label for="f-sortorder">表示順(数値が小さいほど上に表示)</label>
@@ -1182,8 +1178,15 @@ function openEditModal(entry) {
       notes:      document.getElementById("f-notes").value.trim(),
       tags: Array.from(selectedTags),
       welnetUrl:  document.getElementById("f-welneturl").value.trim(),
-      welnetUrl2: document.getElementById("f-welneturl2").value.trim(),
-      welnetUrl2Label: document.getElementById("f-welneturl2label").value.trim(),
+      extraLinks: document.getElementById("f-extralinks").value
+        .split("\n").map(s => s.trim()).filter(Boolean)
+        .map(line => {
+          const idx = line.indexOf("|");
+          return idx === -1
+            ? { label: "", url: line.trim() }
+            : { label: line.slice(0, idx).trim(), url: line.slice(idx + 1).trim() };
+        })
+        .filter(l => l.url),
       sortOrder:  Number(document.getElementById("f-sortorder").value) || 99,
       updatedBy:  document.getElementById("f-updatedby").value.trim(),
       updatedAt:  new Date().toISOString().slice(0, 10),

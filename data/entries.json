@@ -2415,10 +2415,14 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-21",
+    "updatedAt": "2026-08-26",
     "sortOrder": 102,
-    "welnetUrl2": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/social/judosyurou_koyou.html",
-    "welnetUrl2Label": "被雇用者向けページ"
+    "extraLinks": [
+      {
+        "label": "被雇用者向けページ",
+        "url": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/social/judosyurou_koyou.html"
+      }
+    ]
   },
   {
     "id": "e88",
@@ -2993,8 +2997,20 @@
     "updatedBy": "福祉のしおり",
     "updatedAt": "2026-08-26",
     "sortOrder": 122,
-    "welnetUrl2": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/kokyo_ryokin/yuryo_tyusyajyo.html",
-    "welnetUrl2Label": "有料自転車駐車場のページ"
+    "extraLinks": [
+      {
+        "label": "有料自転車駐車場のページ",
+        "url": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/kokyo_ryokin/yuryo_tyusyajyo.html"
+      },
+      {
+        "label": "公園駐車場のページ",
+        "url": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/kokyo_ryokin/koen_tyusyajyo.html"
+      },
+      {
+        "label": "市立文化施設駐車場のページ",
+        "url": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/kokyo_ryokin/bunkashisetsu.html"
+      }
+    ]
   },
   {
     "id": "e108",
