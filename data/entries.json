@@ -945,8 +945,17 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
-    "sortOrder": 24
+    "updatedAt": "2026-08-26",
+    "sortOrder": 24,
+    "gradeShintai": [
+      1,
+      2,
+      3
+    ],
+    "gradeSeishin": [
+      1,
+      2
+    ]
   },
   {
     "id": "e34",
@@ -1041,8 +1050,18 @@
       "愛護手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-21",
-    "sortOrder": 28
+    "updatedAt": "2026-08-26",
+    "sortOrder": 28,
+    "gradeShintai": [
+      1,
+      2,
+      3
+    ],
+    "gradeAigo": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "e38",
@@ -1329,8 +1348,22 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-21",
-    "sortOrder": 63
+    "updatedAt": "2026-08-26",
+    "sortOrder": 63,
+    "gradeShintai": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "gradeAigo": [
+      1,
+      2
+    ],
+    "gradeSeishin": [
+      1,
+      2
+    ]
   },
   {
     "id": "e49",
@@ -1357,8 +1390,18 @@
       "愛護手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-21",
-    "sortOrder": 64
+    "updatedAt": "2026-08-26",
+    "sortOrder": 64,
+    "gradeShintai": [
+      1,
+      2,
+      3
+    ],
+    "gradeAigo": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "e50",
@@ -1462,8 +1505,13 @@
       "身体障害者手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-21",
-    "sortOrder": 68
+    "updatedAt": "2026-08-26",
+    "sortOrder": 68,
+    "gradeShintai": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "e54",
@@ -1534,8 +1582,12 @@
       "身体障害者手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-21",
-    "sortOrder": 70
+    "updatedAt": "2026-08-26",
+    "sortOrder": 70,
+    "gradeShintai": [
+      1,
+      2
+    ]
   },
   {
     "id": "e56",
@@ -1556,8 +1608,12 @@
       "身体障害者手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-21",
-    "sortOrder": 71
+    "updatedAt": "2026-08-26",
+    "sortOrder": 71,
+    "gradeShintai": [
+      1,
+      2
+    ]
   },
   {
     "id": "e57",
@@ -1628,8 +1684,12 @@
       "愛護手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-21",
-    "sortOrder": 74
+    "updatedAt": "2026-08-26",
+    "sortOrder": 74,
+    "gradeShintai": [
+      1,
+      2
+    ]
   },
   {
     "id": "e60",
@@ -1807,8 +1867,25 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-21",
-    "sortOrder": 81
+    "updatedAt": "2026-08-26",
+    "sortOrder": 81,
+    "gradeShintai": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "gradeAigo": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "gradeSeishin": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "e67",
@@ -1834,8 +1911,21 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-21",
-    "sortOrder": 82
+    "updatedAt": "2026-08-26",
+    "sortOrder": 82,
+    "gradeShintai": [
+      1,
+      2,
+      3
+    ],
+    "gradeAigo": [
+      1,
+      2,
+      3
+    ],
+    "gradeSeishin": [
+      1
+    ]
   },
   {
     "id": "e68",
@@ -2355,8 +2445,14 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-21",
-    "sortOrder": 103
+    "updatedAt": "2026-08-26",
+    "sortOrder": 103,
+    "gradeShintai": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "e89",
@@ -2436,8 +2532,22 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-21",
-    "sortOrder": 106
+    "updatedAt": "2026-08-26",
+    "sortOrder": 106,
+    "gradeShintai": [
+      1,
+      2,
+      3
+    ],
+    "gradeAigo": [
+      1,
+      2,
+      3
+    ],
+    "gradeSeishin": [
+      1,
+      2
+    ]
   },
   {
     "id": "e92",
@@ -2463,8 +2573,23 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
-    "sortOrder": 107
+    "updatedAt": "2026-08-26",
+    "sortOrder": 107,
+    "gradeShintai": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "gradeAigo": [
+      1,
+      2,
+      3
+    ],
+    "gradeSeishin": [
+      1,
+      2
+    ]
   },
   {
     "id": "e93",
@@ -2780,8 +2905,13 @@
       "身体障害者手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-21",
-    "sortOrder": 119
+    "updatedAt": "2026-08-26",
+    "sortOrder": 119,
+    "gradeShintai": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "e105",
@@ -3244,8 +3374,17 @@
       "愛護手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-21",
-    "sortOrder": 137
+    "updatedAt": "2026-08-26",
+    "sortOrder": 137,
+    "gradeShintai": [
+      1,
+      2,
+      3
+    ],
+    "gradeAigo": [
+      1,
+      2
+    ]
   },
   {
     "id": "e123",
@@ -3267,8 +3406,13 @@
       "身体障害者手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-21",
-    "sortOrder": 138
+    "updatedAt": "2026-08-26",
+    "sortOrder": 138,
+    "gradeShintai": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "e124",
@@ -3513,8 +3657,19 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
-    "sortOrder": 148
+    "updatedAt": "2026-08-26",
+    "sortOrder": 148,
+    "gradeShintai": [
+      1,
+      2
+    ],
+    "gradeAigo": [
+      1,
+      2
+    ],
+    "gradeSeishin": [
+      1
+    ]
   },
   {
     "id": "e134",

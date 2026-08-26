@@ -225,6 +225,15 @@ const state = {
   searchType: "すべて",
   expandedId: null,
   chat: null,
+  gradeTecho: "",   // "" | "shintai" | "aigo" | "seishin"
+  gradeLevel: "",   // "" | 数値の文字列
+};
+
+// ---------- 等級での絞り込み ----------
+const GRADE_OPTIONS = {
+  shintai: { label: "身体障害者手帳", field: "gradeShintai", levels: [1, 2, 3, 4, 5, 6], unit: "級" },
+  aigo:    { label: "愛護手帳(療育手帳)", field: "gradeAigo", levels: [1, 2, 3, 4], unit: "度" },
+  seishin: { label: "精神障害者保健福祉手帳", field: "gradeSeishin", levels: [1, 2, 3], unit: "級" },
 };
 
 const appEl = document.getElementById("app");
@@ -419,8 +428,16 @@ function renderLinksTab() {
 // =====================================================
 function filteredSortedEntries() {
   const kw = state.searchKeyword.trim();
+  const gradeInfo = GRADE_OPTIONS[state.gradeTecho];
+  const gradeLevel = gradeInfo && state.gradeLevel ? Number(state.gradeLevel) : null;
   let list = state.entries.filter((e) => {
     if (state.searchType !== "すべて" && e.type !== state.searchType) return false;
+    if (gradeInfo && gradeLevel) {
+      const allowed = e[gradeInfo.field];
+      // 等級の指定が無い項目は「どの等級でも対象になりうる」ものとして表示する。
+      // 等級の指定がある項目は、選んだ等級が含まれているものだけ表示する。
+      if (Array.isArray(allowed) && !allowed.includes(gradeLevel)) return false;
+    }
     if (!kw) return true;
     const codes = (e.serviceCodes || []).join(" ");
     const codeNames = (e.serviceCodes || []).map(c => SERVICE_CODE_MAP[c] || "").join(" ");
@@ -440,6 +457,17 @@ function renderSearchResults() {
   bindCardEvents();
 }
 
+function gradeLevelOptionsHtml() {
+  const info = GRADE_OPTIONS[state.gradeTecho];
+  if (!info) return `<select id="grade-level-select" class="grade-select" disabled><option value="">まず手帳を選択</option></select>`;
+  return `
+    <select id="grade-level-select" class="grade-select">
+      <option value="">等級を選択</option>
+      ${info.levels.map((lv) => `<option value="${lv}" ${String(lv) === state.gradeLevel ? "selected" : ""}>${lv}${info.unit}</option>`).join("")}
+    </select>
+  `;
+}
+
 function renderSearchTab() {
   const list = filteredSortedEntries();
   const kw = state.searchKeyword.trim();
@@ -451,6 +479,15 @@ function renderSearchTab() {
     <div class="chip-row" id="type-chip-row">
       ${TYPE_OPTIONS.map((t) => `<button class="type-chip ${t === state.searchType ? "is-active" : ""}" data-type="${t}">${t}</button>`).join("")}
     </div>
+    <div class="grade-filter-row" id="grade-filter-row">
+      <select id="grade-techo-select" class="grade-select">
+        <option value="">等級で絞り込む(任意)</option>
+        ${Object.entries(GRADE_OPTIONS).map(([key, info]) => `<option value="${key}" ${key === state.gradeTecho ? "selected" : ""}>${info.label}</option>`).join("")}
+      </select>
+      <span id="grade-level-wrap">${gradeLevelOptionsHtml()}</span>
+      ${state.gradeTecho || state.gradeLevel ? `<button id="grade-clear" class="btn btn--sm btn--ghost" type="button">✕ 解除</button>` : ""}
+    </div>
+    ${state.gradeTecho && state.gradeLevel ? `<p class="grade-filter-note">※等級が書かれている項目のみで絞り込んでいます。等級の記載が無い項目は等級を問わず表示されます。最終的な対象判定は各項目の「対象者」欄でご確認ください。</p>` : ""}
     <div id="search-results">${list.length ? list.map((e) => entryCardHtml(e)).join("") : emptyStateHtml("「" + (kw || "条件") + "」に一致する情報が見つかりません。")}</div>
   `;
 
@@ -473,6 +510,26 @@ function renderSearchTab() {
       renderSearchTab();
     });
   });
+  document.getElementById("grade-techo-select").addEventListener("change", (ev) => {
+    state.gradeTecho = ev.target.value;
+    state.gradeLevel = "";
+    renderSearchTab();
+  });
+  const gradeLevelSelect = document.getElementById("grade-level-select");
+  if (gradeLevelSelect) {
+    gradeLevelSelect.addEventListener("change", (ev) => {
+      state.gradeLevel = ev.target.value;
+      renderSearchTab();
+    });
+  }
+  const gradeClearBtn = document.getElementById("grade-clear");
+  if (gradeClearBtn) {
+    gradeClearBtn.addEventListener("click", () => {
+      state.gradeTecho = "";
+      state.gradeLevel = "";
+      renderSearchTab();
+    });
+  }
   bindCardEvents();
 }
 
