@@ -563,8 +563,14 @@
       "愛護手帳あり"
     ],
     "updatedBy": "サンプルデータ",
-    "updatedAt": "2026-08-21",
-    "sortOrder": 22
+    "updatedAt": "2026-08-27",
+    "sortOrder": 22,
+    "extraLinks": [
+      {
+        "label": "障害児福祉手当のページ",
+        "url": "https://www.kaigo-wel.city.nagoya.jp/view/wel/shiori/teate/ziteate.html"
+      }
+    ]
   },
   {
     "id": "e19",
