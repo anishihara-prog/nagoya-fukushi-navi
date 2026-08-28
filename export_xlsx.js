@@ -4,7 +4,7 @@ const ExcelJS = require("exceljs");
 
 const root = __dirname;
 const entries = JSON.parse(fs.readFileSync(path.join(root, "data/entries.json"), "utf8"));
-const outPath = path.join(root, "entries_export項目確認.xlsx");
+const outPath = path.join(root, "entries_export.xlsx");
 
 const columns = [
   ["id", "ID"],
