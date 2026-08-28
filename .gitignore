@@ -5,4 +5,6 @@ cloudflared
 .claude/settings.local.json
 entries_export*.xlsx
 ~$*.xlsx
+NagoyaApp*.xlsx
+_nagoyaapp-ref/
 node_modules/
