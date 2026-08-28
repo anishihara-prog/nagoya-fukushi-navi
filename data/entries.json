@@ -1151,7 +1151,8 @@
     ],
     "updatedBy": "福祉のしおり",
     "updatedAt": "2026-08-28",
-    "sortOrder": 29
+    "sortOrder": 29,
+    "welnetUrlLabel": "名古屋市公式サイトで詳しく見る"
   },
   {
     "id": "e42",
@@ -2599,7 +2600,8 @@
     "gradeSeishin": [
       1,
       2
-    ]
+    ],
+    "welnetUrlLabel": "名古屋市公式サイトで詳しく見る"
   },
   {
     "id": "e93",
@@ -2627,7 +2629,8 @@
     ],
     "updatedBy": "福祉のしおり",
     "updatedAt": "2026-08-28",
-    "sortOrder": 108
+    "sortOrder": 108,
+    "welnetUrlLabel": "名古屋市公式サイトで詳しく見る"
   },
   {
     "id": "e94",
@@ -2708,7 +2711,8 @@
     ],
     "updatedBy": "福祉のしおり",
     "updatedAt": "2026-08-28",
-    "sortOrder": 111
+    "sortOrder": 111,
+    "welnetUrlLabel": "名古屋市公式サイトで詳しく見る"
   },
   {
     "id": "e97",
@@ -2893,7 +2897,8 @@
     ],
     "updatedBy": "福祉のしおり",
     "updatedAt": "2026-08-28",
-    "sortOrder": 118
+    "sortOrder": 118,
+    "welnetUrlLabel": "名古屋市公式サイトで詳しく見る"
   },
   {
     "id": "e104",
@@ -3223,7 +3228,8 @@
     ],
     "updatedBy": "福祉のしおり",
     "updatedAt": "2026-08-28",
-    "sortOrder": 130
+    "sortOrder": 130,
+    "welnetUrlLabel": "JEED公式サイトで詳しく見る"
   },
   {
     "id": "e116",
@@ -3693,7 +3699,8 @@
     ],
     "gradeSeishin": [
       1
-    ]
+    ],
+    "welnetUrlLabel": "名古屋市公式サイトで詳しく見る"
   },
   {
     "id": "e134",

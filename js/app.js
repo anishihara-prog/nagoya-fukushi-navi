@@ -1006,7 +1006,7 @@ function entryCardHtml(e, matchScore) {
           </dl>
           <div class="card__tags">${(e.tags || []).map((t) => `<span class="mini-tag">${escapeHtml(t)}</span>`).join("")}</div>
           <div class="card__actions">
-            ${e.welnetUrl ? `<a href="${escapeAttr(e.welnetUrl)}" target="_blank" rel="noopener noreferrer" class="btn btn--sm btn--ghost" style="text-decoration:none;">🔗 ウェルネットで詳しく見る</a>` : ""}
+            ${e.welnetUrl ? `<a href="${escapeAttr(e.welnetUrl)}" target="_blank" rel="noopener noreferrer" class="btn btn--sm btn--ghost" style="text-decoration:none;">🔗 ${escapeHtml(e.welnetUrlLabel || "ウェルネットで詳しく見る")}</a>` : ""}
             ${(e.extraLinks || []).map((l) => `<a href="${escapeAttr(l.url)}" target="_blank" rel="noopener noreferrer" class="btn btn--sm btn--ghost" style="text-decoration:none;">🔗 ${escapeHtml(l.label || "関連ページを見る")}</a>`).join("")}
             <button class="btn btn--sm btn--ghost" data-edit-card="${e.id}">✎ この情報を編集</button>
           </div>
@@ -1122,8 +1122,12 @@ function openEditModal(entry) {
         ${tagGroupHtml("situation")}
 
         <div class="form-field">
-          <label for="f-welneturl">ウェルネットなごやURL(任意)</label>
+          <label for="f-welneturl">関連URL(任意、ウェルネットなごや以外でも可)</label>
           <input id="f-welneturl" type="text" value="${escapeAttr(e.welnetUrl || "")}" placeholder="例: https://www.kaigo-wel.city.nagoya.jp/view/wel/...">
+        </div>
+        <div class="form-field">
+          <label for="f-welneturllabel">上記ボタンの表示名(任意、未入力なら「ウェルネットで詳しく見る」)</label>
+          <input id="f-welneturllabel" type="text" value="${escapeAttr(e.welnetUrlLabel || "")}" placeholder="例: 名古屋市公式サイトで詳しく見る">
         </div>
         <div class="form-field">
           <label for="f-extralinks">追加の関連URL(任意、1行に1件「表示名|URL」の形式)</label>
@@ -1178,6 +1182,7 @@ function openEditModal(entry) {
       notes:      document.getElementById("f-notes").value.trim(),
       tags: Array.from(selectedTags),
       welnetUrl:  document.getElementById("f-welneturl").value.trim(),
+      welnetUrlLabel: document.getElementById("f-welneturllabel").value.trim(),
       extraLinks: document.getElementById("f-extralinks").value
         .split("\n").map(s => s.trim()).filter(Boolean)
         .map(line => {
