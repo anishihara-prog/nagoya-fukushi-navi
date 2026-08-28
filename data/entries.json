@@ -1135,7 +1135,7 @@
     "documents": "申請書\n収入・資産が確認できる書類\n健康保険証\n通帳",
     "contact": "お住まいの区の区役所 民生子ども課（福祉事務所）",
     "notes": "「申請権の侵害」は禁止されており、申請を断られた場合は不服申立てが可能です。障害年金・各種手当との併給調整があります。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.city.nagoya.jp/kenkofukushi/fukushi/1051323/1016734.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -1150,7 +1150,7 @@
       "手帳なし・未申請"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-06-30",
+    "updatedAt": "2026-08-28",
     "sortOrder": 29
   },
   {
@@ -2570,7 +2570,7 @@
     "documents": "",
     "contact": "住宅都市局 住宅部 住宅企画課: 052-972-2772",
     "notes": "住宅扶助または住居確保給付金を受給している方は減額補助を受けられません。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.city.nagoya.jp/kurashi/juutaku/1014583/1014633/1014634.html",
     "tags": [
       "身体障害",
       "精神障害",
@@ -2583,7 +2583,7 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-26",
+    "updatedAt": "2026-08-28",
     "sortOrder": 107,
     "gradeShintai": [
       1,
@@ -2612,7 +2612,7 @@
     "documents": "",
     "contact": "住まいの窓口: 052-961-4555(東区東桜1-11-1 オアシス21バスターミナル内)",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.city.nagoya.jp/kurashi/juutaku/1014713/1014716.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -2626,7 +2626,7 @@
       "相談先を探したい"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-28",
     "sortOrder": 108
   },
   {
@@ -2694,7 +2694,7 @@
     "documents": "",
     "contact": "住まいの窓口: 052-961-4555(東区東桜1-11-1 オアシス21バスターミナル内)",
     "notes": "入居可否の最終判断は不動産業者等が行うため、入居を確約するものではありません。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.city.nagoya.jp/kurashi/juutaku/1014713/1014722.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -2707,7 +2707,7 @@
       "相談先を探したい"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-28",
     "sortOrder": 111
   },
   {
@@ -2880,7 +2880,7 @@
     "documents": "",
     "contact": "名古屋市がん検診サポートセンター: 052-263-3120",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.city.nagoya.jp/kenkofukushi/kenkoinfo/1009456/1009457/1009458/1009472.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -2892,7 +2892,7 @@
       "身体障害者手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-28",
     "sortOrder": 118
   },
   {
@@ -3211,7 +3211,7 @@
     "documents": "",
     "contact": "愛知障害者職業センター: 052-218-2380(中区錦1-10-1)",
     "notes": "",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.jeed.go.jp/location/chiiki/aichi/",
     "tags": [
       "身体障害",
       "知的障害",
@@ -3222,7 +3222,7 @@
       "相談先を探したい"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-28",
     "sortOrder": 130
   },
   {
@@ -3667,7 +3667,7 @@
     "documents": "",
     "contact": "防災危機管理局 地域防災課: 052-972-3591",
     "notes": "社会福祉施設に入所している方等は個別避難計画作成モデル事業の対象外です。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.city.nagoya.jp/bousaiportal/jigyousha/1013604.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -3681,7 +3681,7 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-26",
+    "updatedAt": "2026-08-28",
     "sortOrder": 148,
     "gradeShintai": [
       1,
