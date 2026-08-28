@@ -1804,7 +1804,7 @@
     "documents": "",
     "contact": "お住まいの区の障害者基幹相談支援センター",
     "notes": "食費・日用品費等は自己負担です。お助けショートステイは概ね1週間前からの事前登録制です。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.kaigo-wel.city.nagoya.jp/view/wel/fukushi/kyotenjigyou.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -1816,7 +1816,7 @@
       "住まい(グループホーム等)"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-20",
+    "updatedAt": "2026-08-28",
     "sortOrder": 79
   },
   {
@@ -3854,7 +3854,11 @@
       "身体障害者手帳あり",
       "愛護手帳あり"
     ],
-    "gradeShintai": [1, 2, 3],
+    "gradeShintai": [
+      1,
+      2,
+      3
+    ],
     "updatedBy": "福祉のしおり",
     "updatedAt": "2026-08-27",
     "sortOrder": 28
@@ -3906,9 +3910,17 @@
       "愛護手帳あり",
       "精神障害者保健福祉手帳あり"
     ],
-    "gradeShintai": [1, 2],
-    "gradeAigo": [1, 2],
-    "gradeSeishin": [1],
+    "gradeShintai": [
+      1,
+      2
+    ],
+    "gradeAigo": [
+      1,
+      2
+    ],
+    "gradeSeishin": [
+      1
+    ],
     "updatedBy": "福祉のしおり",
     "updatedAt": "2026-08-27",
     "sortOrder": 30
