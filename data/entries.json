@@ -461,7 +461,7 @@
     "documents": "",
     "contact": "お住まいの区の区役所 福祉課 / 特定相談支援事業所",
     "notes": "施設や病院から地域へのステップアップを検討している方には、まず基幹相談支援センターへの相談を勧めることも有効です。",
-    "welnetUrl": "",
+    "welnetUrl": "https://www.city.nagoya.jp/kenkofukushi/shougaisha/1016579/1016586/1016591/1016597.html",
     "tags": [
       "身体障害",
       "知的障害",
@@ -476,8 +476,9 @@
       "精神障害者保健福祉手帳あり"
     ],
     "updatedBy": "サンプルデータ",
-    "updatedAt": "2026-08-21",
-    "sortOrder": 48
+    "updatedAt": "2026-08-28",
+    "sortOrder": 48,
+    "welnetUrlLabel": "名古屋市公式サイト(地域移行支援ガイドブック)"
   },
   {
     "id": "e41",
