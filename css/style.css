@@ -250,10 +250,23 @@ button{ font-family: inherit; }
 .chat-results__header{
   font-weight:700; font-size:14px; color: var(--color-primary); margin-bottom:10px;
 }
-.chat-results__group{ margin-bottom:18px; }
+.chat-results__group{ margin-bottom:14px; }
+.chat-results__group-toggle{
+  display:flex; align-items:center; justify-content:space-between; gap:8px;
+  width:100%; text-align:left; cursor:pointer; font-family:inherit;
+  background: var(--color-surface); color: var(--color-text);
+  border:1px solid var(--color-border); border-radius: var(--radius-md);
+  padding:10px 12px; margin-bottom:8px;
+}
+.chat-results__group-toggle:hover{ border-color: var(--color-primary); }
+.chat-results__group-toggle[aria-expanded="true"]{
+  border-color: var(--color-primary); background: var(--color-primary-soft);
+}
 .chat-results__group-title{
   font-size:13px; font-weight:700; color: var(--color-text-soft);
-  margin:0 0 8px; padding-bottom:4px; border-bottom:1px solid var(--color-border);
+}
+.chat-results__group-caret{
+  font-size:12px; font-weight:700; color: var(--color-primary); white-space:nowrap;
 }
 
 /* ---------- Profile tab panel (legacy, keep for reference) ---------- */

@@ -549,6 +549,7 @@ function initChat() {
     multiTemp: new Set(),
     followupKey: null,
     ward: "",
+    openGroups: new Set(),   // 結果のカテゴリー別グループで開いているもの
     snapshots: [],
     history: [
       { role: "bot", text: "相談者のプロフィールをもとに、利用できるサービスを一緒に考えます。" },
@@ -653,15 +654,21 @@ function renderChatTab() {
       return entryCardHtml(display);
     };
 
-    // カテゴリー別にまとめて表示する
+    // カテゴリー別にまとめて表示する（見出しをタップで開閉）
     const CHAT_RESULT_TYPE_ORDER = ["相談窓口", "制度・手帳", "福祉サービス"];
     const knownTypes = new Set(CHAT_RESULT_TYPE_ORDER);
-    const groupHtml = (title, items) => items.length
-      ? `<div class="chat-results__group">
-           <h4 class="chat-results__group-title">${escapeHtml(title)}（${items.length}件）</h4>
-           ${items.map(renderResultCard).join("")}
-         </div>`
-      : "";
+    if (!chat.openGroups) chat.openGroups = new Set();
+    const groupHtml = (title, items) => {
+      if (!items.length) return "";
+      const open = chat.openGroups.has(title);
+      return `<div class="chat-results__group">
+        <button type="button" class="chat-results__group-toggle" data-group-toggle="${escapeAttr(title)}" aria-expanded="${open}">
+          <span class="chat-results__group-title">${escapeHtml(title)}（${items.length}件）</span>
+          <span class="chat-results__group-caret">${open ? "▲ 閉じる" : "▼ 開く"}</span>
+        </button>
+        ${open ? `<div class="chat-results__group-body">${items.map(renderResultCard).join("")}</div>` : ""}
+      </div>`;
+    };
     const groupedHtml =
       CHAT_RESULT_TYPE_ORDER.map(type => groupHtml(type, matched.filter(e => e.type === type))).join("")
       + groupHtml("その他", matched.filter(e => !knownTypes.has(e.type)));
@@ -734,7 +741,23 @@ function renderChatTab() {
     renderChatTab();
   });
 
-  if (chat.phase === "done") bindCardEvents();
+  if (chat.phase === "done") {
+    bindCardEvents();
+    // 結果グループの見出しをタップで開閉（画面位置は保つ）
+    document.querySelectorAll("[data-group-toggle]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const g = btn.dataset.groupToggle;
+        const beforeTop = btn.getBoundingClientRect().top;
+        if (chat.openGroups.has(g)) chat.openGroups.delete(g);
+        else chat.openGroups.add(g);
+        state.suppressChatAutoScroll = true;
+        renderChatTab();
+        state.suppressChatAutoScroll = false;
+        const newBtn = document.querySelector('[data-group-toggle="' + g + '"]');
+        if (newBtn) window.scrollBy(0, newBtn.getBoundingClientRect().top - beforeTop);
+      });
+    });
+  }
   scrollChatToBottom();
 }
 
