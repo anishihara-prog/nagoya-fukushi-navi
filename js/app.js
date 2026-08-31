@@ -667,6 +667,7 @@ function renderChatTab() {
       + groupHtml("その他", matched.filter(e => !knownTypes.has(e.type)));
 
     resultsHtml = `
+      <div id="chat-results-top"></div>
       <hr class="chat-divider">
       <div class="chat-results__header">${wardLabel}利用できる可能性のあるサービス（${matched.length}件）</div>
       ${matched.length
@@ -903,7 +904,15 @@ function scrollChatToBottom() {
     return;
   }
   requestAnimationFrame(() => {
-    document.getElementById("chat-bottom")?.scrollIntoView({ behavior: "smooth" });
+    // 結果表示になったときは、最下部ではなく結果の先頭（見出し）を画面上端に合わせる
+    const resultsTop = state.chat?.phase === "done"
+      ? document.getElementById("chat-results-top")
+      : null;
+    if (resultsTop) {
+      resultsTop.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      document.getElementById("chat-bottom")?.scrollIntoView({ behavior: "smooth" });
+    }
   });
 }
 
