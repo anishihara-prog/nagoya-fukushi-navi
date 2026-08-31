@@ -229,6 +229,7 @@ const state = {
   searchType: "すべて",
   expandedId: null,
   chat: null,
+  suppressChatAutoScroll: false,   // 詳細カード開閉時に自動スクロールを抑止するフラグ
   gradeTecho: "",   // "" | "shintai" | "aigo" | "seishin"
   gradeLevel: "",   // "" | 数値の文字列
 };
@@ -619,40 +620,57 @@ function renderChatTab() {
   if (chat.phase === "done") {
     const matched = getChatResults();
     const wardLabel = chat.ward ? `📍 ${escapeHtml(chat.ward)} / ` : "";
+
+    // 1件を区情報で補完してカードHTMLにする
+    const renderResultCard = (e) => {
+      let display = chat.ward
+        ? { ...e, contact: substituteWard(e.contact, chat.ward) }
+        : e;
+      // 区が選択されている場合、基幹相談支援センターを区別の情報に差し替え
+      if (chat.ward && e.wardDataType === "kikan") {
+        const info = WARD_KIKAN_INFO[chat.ward];
+        if (info) {
+          display = {
+            ...display,
+            contact: `${chat.ward}の障害者基幹相談支援センター\n☎ ${info.tel}\n（市全体の案内: 障害者支援課 052-972-2596）`,
+            welnetUrl: info.url,
+          };
+        }
+      }
+      // 区が選択されている場合、区役所 福祉課の連絡先に区別の電話番号を補完
+      if (chat.ward && e.contact && e.contact.includes("区役所 福祉課")) {
+        const info = WARD_KUYAKUSHO_INFO[chat.ward];
+        if (info) {
+          display = {
+            ...display,
+            contact: display.contact.replace(
+              chat.ward + "役所 福祉課",
+              `${chat.ward}役所 福祉課（障害担当） ☎ ${info.tel}`
+            ),
+          };
+        }
+      }
+      return entryCardHtml(display);
+    };
+
+    // カテゴリー別にまとめて表示する
+    const CHAT_RESULT_TYPE_ORDER = ["相談窓口", "制度・手帳", "福祉サービス"];
+    const knownTypes = new Set(CHAT_RESULT_TYPE_ORDER);
+    const groupHtml = (title, items) => items.length
+      ? `<div class="chat-results__group">
+           <h4 class="chat-results__group-title">${escapeHtml(title)}（${items.length}件）</h4>
+           ${items.map(renderResultCard).join("")}
+         </div>`
+      : "";
+    const groupedHtml =
+      CHAT_RESULT_TYPE_ORDER.map(type => groupHtml(type, matched.filter(e => e.type === type))).join("")
+      + groupHtml("その他", matched.filter(e => !knownTypes.has(e.type)));
+
     resultsHtml = `
       <hr class="chat-divider">
       <div class="chat-results__header">${wardLabel}利用できる可能性のあるサービス（${matched.length}件）</div>
       ${matched.length
-        ? matched.map(e => {
-            let display = chat.ward
-              ? { ...e, contact: substituteWard(e.contact, chat.ward) }
-              : e;
-            // 区が選択されている場合、基幹相談支援センターを区別の情報に差し替え
-            if (chat.ward && e.wardDataType === "kikan") {
-              const info = WARD_KIKAN_INFO[chat.ward];
-              if (info) {
-                display = {
-                  ...display,
-                  contact: `${chat.ward}の障害者基幹相談支援センター\n☎ ${info.tel}\n（市全体の案内: 障害者支援課 052-972-2596）`,
-                  welnetUrl: info.url,
-                };
-              }
-            }
-            // 区が選択されている場合、区役所 福祉課の連絡先に区別の電話番号を補完
-            if (chat.ward && e.contact && e.contact.includes("区役所 福祉課")) {
-              const info = WARD_KUYAKUSHO_INFO[chat.ward];
-              if (info) {
-                display = {
-                  ...display,
-                  contact: display.contact.replace(
-                    chat.ward + "役所 福祉課",
-                    `${chat.ward}役所 福祉課（障害担当） ☎ ${info.tel}`
-                  ),
-                };
-              }
-            }
-            return entryCardHtml(display);
-          }).join("")
+        ? groupedHtml
         : emptyStateHtml("条件に合うサービスが見つかりませんでした。検索タブからキーワードで探すか、基幹相談支援センターにご相談ください。")}
       <button class="btn btn--ghost" id="btn-chat-restart" style="width:100%;margin-top:12px;">↺ 最初からやり直す</button>`;
   }
@@ -833,6 +851,20 @@ function getChatResults() {
   );
   const selectedSituationTags = [...tags].filter(t => situationTagSet.has(t));
 
+  // 年代・障害種別はハード条件にする。
+  // ただし項目側にその区分のタグが1つも無い場合は「区分を問わない項目」とみなし除外しない。
+  const ageTagSet = new Set(
+    CHAT_FLOW.find(s => s.id === "age").options.flatMap(o => o.tags)
+  );
+  const selectedAgeTags = [...tags].filter(t => ageTagSet.has(t));
+
+  const disabilityTagSet = new Set(
+    CHAT_FLOW.find(s => s.id === "disability").options.flatMap(o => o.tags)
+  );
+  // 「不明・複数」(重複・不明) を選んだ場合は障害種別で絞り込まない
+  const disabilityFilterActive = !tags.has("重複・不明");
+  const selectedDisabilityTags = [...tags].filter(t => disabilityTagSet.has(t) && t !== "重複・不明");
+
   return state.entries
     .map(e => {
       const entryTags = new Set(e.tags || []);
@@ -841,6 +873,18 @@ function getChatResults() {
       // 困りごとタグが一致しない場合は除外
       if (selectedSituationTags.length > 0 &&
           !selectedSituationTags.some(t => entryTags.has(t))) return null;
+
+      // 年代: 項目に年代タグがあるのに、選んだ年代が含まれない場合は除外
+      if (selectedAgeTags.length > 0) {
+        const entryAgeTags = [...entryTags].filter(t => ageTagSet.has(t));
+        if (entryAgeTags.length > 0 && !selectedAgeTags.some(t => entryTags.has(t))) return null;
+      }
+
+      // 障害種別: 項目に障害種別タグがあるのに、選んだ種別がどれも含まれない場合は除外
+      if (disabilityFilterActive && selectedDisabilityTags.length > 0) {
+        const entryDisabilityTags = [...entryTags].filter(t => disabilityTagSet.has(t));
+        if (entryDisabilityTags.length > 0 && !selectedDisabilityTags.some(t => entryTags.has(t))) return null;
+      }
 
       // プロフィールタグが2つ以上一致する場合のみ表示
       if (score < 2) return null;
@@ -853,6 +897,11 @@ function getChatResults() {
 }
 
 function scrollChatToBottom() {
+  // 詳細カードの開閉など、位置を保ちたい再描画では自動スクロールを1回スキップする
+  if (state.suppressChatAutoScroll) {
+    state.suppressChatAutoScroll = false;
+    return;
+  }
   requestAnimationFrame(() => {
     document.getElementById("chat-bottom")?.scrollIntoView({ behavior: "smooth" });
   });
@@ -1025,7 +1074,19 @@ function bindCardEvents() {
     el.addEventListener("click", () => {
       const id = el.dataset.toggle;
       state.expandedId = state.expandedId === id ? null : id;
+      // 詳細の開閉では画面位置を保つ（自動で最下部までスクロールさせない・
+      // 再描画で押した項目がずれないように補正する）
+      const card = el.closest("[data-card]");
+      const beforeTop = card ? card.getBoundingClientRect().top : null;
+      state.suppressChatAutoScroll = true;
       render();
+      state.suppressChatAutoScroll = false;
+      if (beforeTop !== null) {
+        const newCard = document.querySelector('[data-card="' + id + '"]');
+        if (newCard) {
+          window.scrollBy(0, newCard.getBoundingClientRect().top - beforeTop);
+        }
+      }
     });
   });
   document.querySelectorAll("[data-edit-card]").forEach((btn) => {
