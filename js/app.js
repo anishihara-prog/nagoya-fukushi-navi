@@ -494,7 +494,9 @@ function filteredSortedEntries() {
     const fields = [e.name, codes, codeNames, linkLabels, ...(e.tags || [])];
     if (state.searchInBody) fields.push(e.overview, e.target);
     const hay = normalizeForSearch(fields.join(" "));
-    return hay.includes(normalizeForSearch(kw));
+    // スペース区切りは AND 検索(すべての語を含むものだけ)
+    const terms = normalizeForSearch(kw).split(/[\s　]+/).filter(Boolean);
+    return terms.every((t) => hay.includes(t));
   });
   return list.sort((a, b) => (a.sortOrder ?? 99) - (b.sortOrder ?? 99));
 }
@@ -541,7 +543,7 @@ function renderSearchTab() {
 
   appEl.innerHTML = `
     <div class="search-row">
-      <input id="search-input" class="search-input" type="text" placeholder="サービス名・コード番号・キーワードで検索(例: 11, グループホーム)" value="${escapeAttr(state.searchKeyword)}">
+      <input id="search-input" class="search-input" type="text" placeholder="サービス名・コード番号・キーワード(スペース区切りで絞り込み)" value="${escapeAttr(state.searchKeyword)}">
     </div>
     <label class="search-scope">
       <input type="checkbox" id="search-in-body" ${state.searchInBody ? "checked" : ""}>

@@ -49,6 +49,21 @@ describe("キーワード検索", () => {
     );
   });
 
+  test("スペース区切りは AND 検索（すべての語を含むものだけ）", async () => {
+    const ctx = await openSearchTab();
+    setSearch(ctx, "グループホーム");
+    await ctx.wait();
+    const one = ctx.document.querySelectorAll("#search-results .card").length;
+    setSearch(ctx, "グループホーム 精神");
+    await ctx.wait();
+    const two = ctx.document.querySelectorAll("#search-results .card").length;
+    assert.ok(two > 0 && two < one, `AND で件数が減るはず (${one} -> ${two})`);
+    // 全角スペースでも同じ
+    setSearch(ctx, "グループホーム　精神");
+    await ctx.wait();
+    assert.equal(ctx.document.querySelectorAll("#search-results .card").length, two);
+  });
+
   test("該当なしのときは空状態メッセージ", async () => {
     const ctx = await openSearchTab();
     setSearch(ctx, "ぜったいにヒットしない語xyz");
