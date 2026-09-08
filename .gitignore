@@ -14,3 +14,7 @@ node_modules/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# 無関係な作業ディレクトリ(誤コミット防止)
+poster-app/
+Claude outputs/
