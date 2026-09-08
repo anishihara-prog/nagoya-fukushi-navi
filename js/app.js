@@ -231,16 +231,18 @@ const state = {
   expandedId: null,
   chat: null,
   suppressChatAutoScroll: false,   // 詳細カード開閉時に自動スクロールを抑止するフラグ
-  gradeTecho: "",   // "" | "shintai" | "aigo" | "seishin"
+  gradeTecho: "",   // "" | "shintai" | "aigo" | "seishin" | "other"(どの手帳にも紐づかない項目)
   gradeLevel: "",   // "" | 数値の文字列
 };
 
 // ---------- 等級での絞り込み ----------
 const GRADE_OPTIONS = {
-  shintai: { label: "身体障害者手帳", field: "gradeShintai", levels: [1, 2, 3, 4, 5, 6], unit: "級" },
-  aigo:    { label: "愛護手帳(療育手帳)", field: "gradeAigo", levels: [1, 2, 3, 4], unit: "度" },
-  seishin: { label: "精神障害者保健福祉手帳", field: "gradeSeishin", levels: [1, 2, 3], unit: "級" },
+  shintai: { label: "身体障害者手帳", field: "gradeShintai", techoTag: "身体障害者手帳あり", levels: [1, 2, 3, 4, 5, 6], unit: "級" },
+  aigo:    { label: "愛護手帳(療育手帳)", field: "gradeAigo", techoTag: "愛護手帳あり", levels: [1, 2, 3, 4], unit: "度" },
+  seishin: { label: "精神障害者保健福祉手帳", field: "gradeSeishin", techoTag: "精神障害者保健福祉手帳あり", levels: [1, 2, 3], unit: "級" },
 };
+// 「等級で絞り込む」の特別な選択肢: どの手帳にも紐づかない項目だけを表示する
+const GRADE_OTHER = "other";
 
 const appEl = document.getElementById("app");
 const modalRoot = document.getElementById("modal-root");
@@ -438,12 +440,28 @@ function filteredSortedEntries() {
   const gradeLevel = gradeInfo && state.gradeLevel ? Number(state.gradeLevel) : null;
   let list = state.entries.filter((e) => {
     if (state.searchType !== "すべて" && e.type !== state.searchType) return false;
-    if (gradeInfo && gradeLevel) {
-      const allowed = e[gradeInfo.field];
-      // 等級の指定が無い項目は「どの等級でも対象になりうる」ものとして表示する。
-      // 等級の指定がある項目は、選んだ等級が含まれているものだけ表示する。
-      if (Array.isArray(allowed) && !allowed.includes(gradeLevel)) return false;
+
+    if (state.gradeTecho === GRADE_OTHER) {
+      // どの手帳(等級)にも紐づかない項目だけを表示する
+      const tags = e.tags || [];
+      const boundToTecho = Object.values(GRADE_OPTIONS).some(
+        (info) =>
+          tags.includes(info.techoTag) ||
+          (Array.isArray(e[info.field]) && e[info.field].length > 0)
+      );
+      if (boundToTecho) return false;
+    } else if (gradeInfo) {
+      // 選んだ手帳用の項目だけに絞る
+      // (その手帳の「○○手帳あり」タグを持つ、またはその手帳の等級が記載されている)
+      const gradeArr = e[gradeInfo.field];
+      const hasGradeArr = Array.isArray(gradeArr) && gradeArr.length > 0;
+      const forThisTecho = (e.tags || []).includes(gradeInfo.techoTag) || hasGradeArr;
+      if (!forThisTecho) return false;
+      // 等級も選ばれていれば、等級が記載されている項目はその等級を含むものだけ。
+      // 等級の記載が無い項目は、その手帳向けであれば等級を問わず表示する。
+      if (gradeLevel && hasGradeArr && !gradeArr.includes(gradeLevel)) return false;
     }
+
     if (!kw) return true;
     const codes = (e.serviceCodes || []).join(" ");
     const codeNames = (e.serviceCodes || []).map(c => SERVICE_CODE_MAP[c] || "").join(" ");
@@ -468,7 +486,22 @@ function renderSearchResults() {
   bindCardEvents();
 }
 
+function gradeFilterNoteHtml() {
+  if (state.gradeTecho === GRADE_OTHER) {
+    return `<p class="grade-filter-note">※どの手帳(等級)にも紐づかない項目だけを表示しています(相談窓口・手当など、手帳の有無を問わず利用できるもの)。</p>`;
+  }
+  const info = GRADE_OPTIONS[state.gradeTecho];
+  if (!info) return "";
+  if (state.gradeLevel) {
+    return `<p class="grade-filter-note">※「${info.label}」${state.gradeLevel}${info.unit}で利用できる項目だけを表示しています。等級の記載が無い項目も、その手帳向けであれば表示されます。最終的な対象判定は各項目の「対象者」欄でご確認ください。</p>`;
+  }
+  return `<p class="grade-filter-note">※「${info.label}」に対応する項目だけを表示しています。等級を選ぶとさらに絞り込めます。</p>`;
+}
+
 function gradeLevelOptionsHtml() {
+  if (state.gradeTecho === GRADE_OTHER) {
+    return `<select id="grade-level-select" class="grade-select" disabled><option value="">―</option></select>`;
+  }
   const info = GRADE_OPTIONS[state.gradeTecho];
   if (!info) return `<select id="grade-level-select" class="grade-select" disabled><option value="">まず手帳を選択</option></select>`;
   return `
@@ -496,13 +529,14 @@ function renderSearchTab() {
     </div>
     <div class="grade-filter-row" id="grade-filter-row">
       <select id="grade-techo-select" class="grade-select">
-        <option value="">等級で絞り込む(任意)</option>
+        <option value="">手帳・等級で絞り込む(任意)</option>
         ${Object.entries(GRADE_OPTIONS).map(([key, info]) => `<option value="${key}" ${key === state.gradeTecho ? "selected" : ""}>${info.label}</option>`).join("")}
+        <option value="${GRADE_OTHER}" ${state.gradeTecho === GRADE_OTHER ? "selected" : ""}>それ以外(手帳を問わない項目)</option>
       </select>
       <span id="grade-level-wrap">${gradeLevelOptionsHtml()}</span>
       ${state.gradeTecho || state.gradeLevel ? `<button id="grade-clear" class="btn btn--sm btn--ghost" type="button">✕ 解除</button>` : ""}
     </div>
-    ${state.gradeTecho && state.gradeLevel ? `<p class="grade-filter-note">※等級が書かれている項目のみで絞り込んでいます。等級の記載が無い項目は等級を問わず表示されます。最終的な対象判定は各項目の「対象者」欄でご確認ください。</p>` : ""}
+    ${gradeFilterNoteHtml()}
     <div id="search-results">${list.length ? list.map((e) => entryCardHtml(e)).join("") : emptyStateHtml("「" + (kw || "条件") + "」に一致する情報が見つかりません。")}</div>
   `;
 

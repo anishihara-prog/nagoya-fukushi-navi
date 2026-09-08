@@ -111,27 +111,98 @@ describe("種別チップ", () => {
   });
 });
 
-describe("等級フィルタ", () => {
-  test("身体障害者手帳 6級 を選ぶと、等級指定のある不適合項目が消える", async () => {
-    const ctx = await openSearchTab();
+describe("手帳・等級フィルタ", () => {
+  async function selectTecho(ctx, techo, level) {
     const { document, window, wait } = ctx;
-    const techo = document.getElementById("grade-techo-select");
-    techo.value = "shintai";
-    techo.dispatchEvent(new window.Event("change", { bubbles: true }));
+    const t = document.getElementById("grade-techo-select");
+    t.value = techo;
+    t.dispatchEvent(new window.Event("change", { bubbles: true }));
     await wait();
-    const lvl = document.getElementById("grade-level-select");
-    lvl.value = "6";
-    lvl.dispatchEvent(new window.Event("change", { bubbles: true }));
-    await wait();
+    if (level != null) {
+      const l = document.getElementById("grade-level-select");
+      l.value = String(level);
+      l.dispatchEvent(new window.Event("change", { bubbles: true }));
+      await wait();
+    }
+  }
 
+  test("手帳種別を選ぶだけで、その手帳用の項目だけに絞られる", async () => {
+    const ctx = await openSearchTab();
+    await selectTecho(ctx, "seishin");
     const shown = ctx.G(`filteredSortedEntries().map(e => e.id)`);
+    assert.ok(shown.length > 0 && shown.length < ctx.G("state.entries.length"));
+    // すべて「精神障害者保健福祉手帳あり」タグ か gradeSeishin を持つ
+    const allForSeishin = ctx.G(`
+      filteredSortedEntries().every(e =>
+        (e.tags||[]).includes("精神障害者保健福祉手帳あり") ||
+        (Array.isArray(e.gradeSeishin) && e.gradeSeishin.length > 0)
+      )
+    `);
+    assert.equal(allForSeishin, true);
+    // 身体手帳専用(身体タグのみ・精神と無関係)の項目は出ない
+    const bodyOnly = ctx.G(`
+      state.entries.find(e =>
+        (e.tags||[]).includes("身体障害者手帳あり") &&
+        !(e.tags||[]).includes("精神障害者保健福祉手帳あり") &&
+        !(Array.isArray(e.gradeSeishin) && e.gradeSeishin.length)
+      )?.id
+    `);
+    if (bodyOnly) assert.ok(!shown.includes(bodyOnly), `${bodyOnly} が混入`);
+  });
+
+  test("身体障害者手帳 6級 を選ぶと、身体手帳向けかつ6級対象の項目だけになる", async () => {
+    const ctx = await openSearchTab();
+    await selectTecho(ctx, "shintai", 6);
+    const shown = ctx.G(`filteredSortedEntries().map(e => e.id)`);
+
+    // 6級対象外の等級記載がある項目は消える
     const violating = ctx.G(`
       state.entries.filter(e =>
         Array.isArray(e.gradeShintai) && e.gradeShintai.length && !e.gradeShintai.includes(6)
       ).map(e => e.id)
     `);
-    for (const id of violating) {
-      assert.ok(!shown.includes(id), `${id} は6級対象外なのに表示されている`);
-    }
+    for (const id of violating) assert.ok(!shown.includes(id), `${id} が残っている`);
+
+    // 残ったものは全て身体手帳向け
+    const allForShintai = ctx.G(`
+      filteredSortedEntries().every(e =>
+        (e.tags||[]).includes("身体障害者手帳あり") ||
+        (Array.isArray(e.gradeShintai) && e.gradeShintai.length > 0)
+      )
+    `);
+    assert.equal(allForShintai, true);
+  });
+
+  test("『それ以外』でどの手帳にも紐づかない項目だけ表示（手帳の等級・手帳ありタグを持たない）", async () => {
+    const ctx = await openSearchTab();
+    await selectTecho(ctx, "other");
+    const ok = ctx.G(`
+      filteredSortedEntries().every(e => {
+        const tags = e.tags || [];
+        const boundTag = ["身体障害者手帳あり","愛護手帳あり","精神障害者保健福祉手帳あり"].some(t => tags.includes(t));
+        const boundField = ["gradeShintai","gradeAigo","gradeSeishin"].some(f => Array.isArray(e[f]) && e[f].length);
+        return !boundTag && !boundField;
+      })
+    `);
+    assert.equal(ok, true);
+    // 相談窓口系(e4 障害者基幹相談支援センター)は含まれる
+    assert.ok(ctx.G(`filteredSortedEntries().some(e => e.id === "e4")`));
+    // レベル選択は無効化されている
+    assert.equal(ctx.document.getElementById("grade-level-select").disabled, true);
+  });
+
+  test("『それ以外』選択時に注意書きが出て、解除で全件に戻る", async () => {
+    const ctx = await openSearchTab();
+    await selectTecho(ctx, "other");
+    assert.match(
+      ctx.document.querySelector(".grade-filter-note").textContent,
+      /どの手帳.*紐づかない/
+    );
+    ctx.document.getElementById("grade-clear").dispatchEvent(clickEv(ctx.window));
+    await ctx.wait();
+    assert.equal(
+      ctx.document.querySelectorAll("#search-results .card").length,
+      ctx.G("state.entries.length")
+    );
   });
 });
