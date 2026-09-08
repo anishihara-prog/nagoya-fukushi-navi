@@ -36,7 +36,7 @@ describe("キーワード検索", () => {
     assert.ok(names.includes("障害者自立支援配食サービス"), names.join(" | "));
   });
 
-  test("『特別支援教育就学奨励費』でも e120 がヒットする(概要に文言追加済み)", async () => {
+  test("『特別支援教育就学奨励費』でも e120 がヒットする(関連リンク名に含まれる)", async () => {
     const ctx = await openSearchTab();
     setSearch(ctx, "特別支援教育就学奨励費");
     await ctx.wait();
@@ -55,6 +55,41 @@ describe("キーワード検索", () => {
     await ctx.wait();
     assert.equal(ctx.document.querySelectorAll("#search-results .card").length, 0);
     assert.ok(ctx.document.querySelector("#search-results .empty-state"));
+  });
+});
+
+describe("検索範囲（本文も検索チェックボックス）", () => {
+  test("既定では概要にしか無い語(安否確認)はヒットしない", async () => {
+    const ctx = await openSearchTab();
+    assert.equal(ctx.G("state.searchInBody"), false);
+    setSearch(ctx, "安否確認");
+    await ctx.wait();
+    assert.equal(ctx.document.querySelectorAll("#search-results .card").length, 0);
+  });
+
+  test("チェックを入れると概要も対象になり、配食サービスがヒットする", async () => {
+    const ctx = await openSearchTab();
+    setSearch(ctx, "安否確認");
+    await ctx.wait();
+    const box = ctx.document.getElementById("search-in-body");
+    box.checked = true;
+    box.dispatchEvent(new ctx.window.Event("change", { bubbles: true }));
+    await ctx.wait();
+    const names = [...ctx.document.querySelectorAll("#search-results .card__title")].map((el) =>
+      el.textContent
+    );
+    assert.ok(names.includes("障害者自立支援配食サービス"), names.join(" | "));
+  });
+
+  test("チェックの有無で結果は「本文あり ⊇ 本文なし」の関係", async () => {
+    const ctx = await openSearchTab();
+    setSearch(ctx, "相談");
+    await ctx.wait();
+    const narrow = ctx.G(`filteredSortedEntries().map(e => e.id)`);
+    ctx.window.eval("state.searchInBody = true;");
+    const wide = ctx.G(`filteredSortedEntries().map(e => e.id)`);
+    assert.ok(wide.length >= narrow.length);
+    for (const id of narrow) assert.ok(wide.includes(id), `${id} が本文ありで消えた`);
   });
 });
 

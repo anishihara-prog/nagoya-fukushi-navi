@@ -18,6 +18,15 @@ test("キーワード『配食』で配食サービスに絞り込める", async
   ]);
 });
 
+test("『本文も検索』オフでは概要だけの語はヒットせず、オンでヒットする", async ({ page }) => {
+  await page.fill("#search-input", "安否確認");
+  await expect(page.locator("#search-results .card")).toHaveCount(0);
+  await page.check("#search-in-body");
+  await expect(page.locator("#search-results .card__title")).toHaveText([
+    "障害者自立支援配食サービス",
+  ]);
+});
+
 test("種別チップ『相談窓口』で相談窓口だけになる", async ({ page }) => {
   await page.click('.type-chip[data-type="相談窓口"]');
   const badges = page.locator("#search-results .card .badge--相談窓口");

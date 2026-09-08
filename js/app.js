@@ -227,6 +227,7 @@ const state = {
   activeTab: "search",
   searchKeyword: "",
   searchType: "すべて",
+  searchInBody: false,   // フリーワード検索で概要・対象者の本文まで対象にするか
   expandedId: null,
   chat: null,
   suppressChatAutoScroll: false,   // 詳細カード開閉時に自動スクロールを抑止するフラグ
@@ -446,7 +447,12 @@ function filteredSortedEntries() {
     if (!kw) return true;
     const codes = (e.serviceCodes || []).join(" ");
     const codeNames = (e.serviceCodes || []).map(c => SERVICE_CODE_MAP[c] || "").join(" ");
-    const hay = normalizeForSearch([e.name, e.overview, e.target, codes, codeNames, ...(e.tags || [])].join(" "));
+    const linkLabels = (e.extraLinks || []).map(l => l.label || "").join(" ");
+    // 既定は「名称・タグ・コード・関連リンク名」だけを対象にして絞り込みすぎを防ぐ。
+    // 「本文も検索」がオンのときだけ概要・対象者の文章まで広げる。
+    const fields = [e.name, codes, codeNames, linkLabels, ...(e.tags || [])];
+    if (state.searchInBody) fields.push(e.overview, e.target);
+    const hay = normalizeForSearch(fields.join(" "));
     return hay.includes(normalizeForSearch(kw));
   });
   return list.sort((a, b) => (a.sortOrder ?? 99) - (b.sortOrder ?? 99));
@@ -481,6 +487,10 @@ function renderSearchTab() {
     <div class="search-row">
       <input id="search-input" class="search-input" type="text" placeholder="サービス名・コード番号・キーワードで検索(例: 11, グループホーム)" value="${escapeAttr(state.searchKeyword)}">
     </div>
+    <label class="search-scope">
+      <input type="checkbox" id="search-in-body" ${state.searchInBody ? "checked" : ""}>
+      概要・対象者の本文も検索する（オフだと名称・タグ・コードのみ）
+    </label>
     <div class="chip-row" id="type-chip-row">
       ${TYPE_OPTIONS.map((t) => `<button class="type-chip ${t === state.searchType ? "is-active" : ""}" data-type="${t}">${t}</button>`).join("")}
     </div>
@@ -507,6 +517,10 @@ function renderSearchTab() {
   searchInput.addEventListener("input", (ev) => {
     state.searchKeyword = ev.target.value;
     if (isComposing) return; // IME変換中はまだ確定していないので絞り込まない
+    renderSearchResults();
+  });
+  document.getElementById("search-in-body").addEventListener("change", (ev) => {
+    state.searchInBody = ev.target.checked;
     renderSearchResults();
   });
   document.querySelectorAll("#type-chip-row .type-chip").forEach((btn) => {
