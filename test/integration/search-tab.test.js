@@ -111,6 +111,61 @@ describe("種別チップ", () => {
   });
 });
 
+describe("目的・場面しぼり込み", () => {
+  function setPurpose(ctx, value) {
+    const sel = ctx.document.getElementById("purpose-select");
+    sel.value = value;
+    sel.dispatchEvent(new ctx.window.Event("change", { bubbles: true }));
+  }
+
+  test("選択肢は TAG_GROUPS.situation の12件", async () => {
+    const ctx = await openSearchTab();
+    const values = [...ctx.document.querySelectorAll("#purpose-select option")]
+      .map((o) => o.value)
+      .filter(Boolean);
+    assert.deepEqual(values, ctx.G("TAG_GROUPS.situation.tags"));
+  });
+
+  test("目的を選ぶと、そのタグを持つ項目だけになる（もう1段階の絞り込み）", async () => {
+    const ctx = await openSearchTab();
+    // まず種別で福祉サービスに
+    [...ctx.document.querySelectorAll("#type-chip-row .type-chip")]
+      .find((b) => b.dataset.type === "福祉サービス")
+      .dispatchEvent(clickEv(ctx.window));
+    await ctx.wait();
+    const beforeCount = ctx.G("filteredSortedEntries().length");
+
+    setPurpose(ctx, "在宅での生活支援");
+    await ctx.wait();
+    const afterCount = ctx.G("filteredSortedEntries().length");
+    assert.ok(afterCount > 0 && afterCount < beforeCount);
+    assert.equal(
+      ctx.G(`filteredSortedEntries().every(e => (e.tags||[]).includes("在宅での生活支援"))`),
+      true
+    );
+    // 種別の条件も維持されている
+    assert.equal(ctx.G(`filteredSortedEntries().every(e => e.type === "福祉サービス")`), true);
+  });
+
+  test("「✕ 解除」で目的の絞り込みだけ外れる（種別は維持）", async () => {
+    const ctx = await openSearchTab();
+    [...ctx.document.querySelectorAll("#type-chip-row .type-chip")]
+      .find((b) => b.dataset.type === "福祉サービス")
+      .dispatchEvent(clickEv(ctx.window));
+    await ctx.wait();
+    const fukushiOnly = ctx.G("filteredSortedEntries().length");
+
+    setPurpose(ctx, "就労の支援");
+    await ctx.wait();
+    assert.ok(ctx.G("filteredSortedEntries().length") < fukushiOnly);
+
+    ctx.document.getElementById("purpose-clear").dispatchEvent(clickEv(ctx.window));
+    await ctx.wait();
+    assert.equal(ctx.G("filteredSortedEntries().length"), fukushiOnly);
+    assert.equal(ctx.G("state.searchPurpose"), "");
+  });
+});
+
 describe("年代しぼり込み", () => {
   const AGE_TAGS = ["児童(〜17歳)", "成人(18〜64歳)", "65歳以上"];
 

@@ -35,6 +35,19 @@ test("種別チップ『相談窓口』で相談窓口だけになる", async ({
   await expect(page.locator("#search-results .badge--制度・手帳")).toHaveCount(0);
 });
 
+test("『目的・場面で絞り込む』で福祉サービスをさらに絞れる", async ({ page }) => {
+  await page.click('#type-chip-row [data-type="福祉サービス"]');
+  const fukushi = await page.locator("#search-results .card").count();
+
+  await page.selectOption("#purpose-select", "在宅での生活支援");
+  const narrowed = await page.locator("#search-results .card").count();
+  expect(narrowed).toBeGreaterThan(0);
+  expect(narrowed).toBeLessThan(fukushi);
+
+  await page.click("#purpose-clear");
+  expect(await page.locator("#search-results .card").count()).toBe(fukushi);
+});
+
 test("年代チップ（子ども / 高齢者）で検索結果を絞れる", async ({ page }) => {
   const total = await page.locator("#search-results .card").count();
 

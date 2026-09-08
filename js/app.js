@@ -237,6 +237,7 @@ const state = {
   searchKeyword: "",
   searchType: "すべて",
   searchAge: "",         // "" | 年代タグ("児童(〜17歳)" 等)。検索結果を年代でしぼる
+  searchPurpose: "",     // "" | 目的・場面タグ("在宅での生活支援" 等)。もう1段階しぼる
   searchInBody: false,   // フリーワード検索で概要・対象者の本文まで対象にするか
   expandedId: null,
   chat: null,
@@ -458,6 +459,11 @@ function filteredSortedEntries() {
       if (entryAgeTags.length > 0 && !entryAgeTags.includes(state.searchAge)) return false;
     }
 
+    if (state.searchPurpose) {
+      // 目的・場面での絞り込みは「そのタグを持つ項目だけ」に限定する
+      if (!(e.tags || []).includes(state.searchPurpose)) return false;
+    }
+
     if (state.gradeTecho === GRADE_OTHER) {
       // どの手帳(等級)にも紐づかない項目だけを表示する
       const tags = e.tags || [];
@@ -547,6 +553,13 @@ function renderSearchTab() {
     <div class="chip-row" id="age-chip-row">
       ${AGE_OPTIONS.map((o) => `<button class="type-chip ${o.value === state.searchAge ? "is-active" : ""}" data-age="${escapeAttr(o.value)}">${o.label}</button>`).join("")}
     </div>
+    <div class="grade-filter-row">
+      <select id="purpose-select" class="grade-select">
+        <option value="">目的・場面で絞り込む(任意)</option>
+        ${TAG_GROUPS.situation.tags.map((t) => `<option value="${escapeAttr(t)}" ${t === state.searchPurpose ? "selected" : ""}>${escapeHtml(t)}</option>`).join("")}
+      </select>
+      ${state.searchPurpose ? `<button id="purpose-clear" class="btn btn--sm btn--ghost" type="button">✕ 解除</button>` : ""}
+    </div>
     <div class="grade-filter-row" id="grade-filter-row">
       <select id="grade-techo-select" class="grade-select">
         <option value="">手帳・等級で絞り込む(任意)</option>
@@ -588,6 +601,14 @@ function renderSearchTab() {
       state.searchAge = btn.dataset.age;
       renderSearchTab();
     });
+  });
+  document.getElementById("purpose-select").addEventListener("change", (ev) => {
+    state.searchPurpose = ev.target.value;
+    renderSearchTab();
+  });
+  document.getElementById("purpose-clear")?.addEventListener("click", () => {
+    state.searchPurpose = "";
+    renderSearchTab();
   });
   document.getElementById("grade-techo-select").addEventListener("change", (ev) => {
     state.gradeTecho = ev.target.value;
