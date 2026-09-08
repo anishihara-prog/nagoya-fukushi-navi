@@ -8,3 +8,9 @@ entries_export*.xlsx
 NagoyaApp*.xlsx
 _nagoyaapp-ref/
 node_modules/
+
+# test artifacts
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

@@ -3,9 +3,17 @@
   "private": true,
   "scripts": {
     "start": "bash serve.sh",
-    "export:xlsx": "node export_xlsx.js"
+    "export:xlsx": "node export_xlsx.js",
+    "test": "node --test test/unit/ test/integration/ test/data/",
+    "test:unit": "node --test test/unit/",
+    "test:integration": "node --test test/integration/",
+    "test:data": "node --test test/data/",
+    "test:e2e": "playwright test",
+    "test:all": "npm test && npm run test:e2e"
   },
   "devDependencies": {
-    "exceljs": "^4.4.0"
+    "@playwright/test": "^1.63.0",
+    "exceljs": "^4.4.0",
+    "jsdom": "^29.0.0"
   }
 }
