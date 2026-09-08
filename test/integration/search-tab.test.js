@@ -111,6 +111,77 @@ describe("種別チップ", () => {
   });
 });
 
+describe("年代しぼり込み", () => {
+  const AGE_TAGS = ["児童(〜17歳)", "成人(18〜64歳)", "65歳以上"];
+
+  function clickAge(ctx, value) {
+    const btn = [...ctx.document.querySelectorAll("#age-chip-row .type-chip")].find(
+      (b) => b.dataset.age === value
+    );
+    btn.dispatchEvent(clickEv(ctx.window));
+  }
+
+  test("チップが4つ（全年代 / 子ども / 成人 / 高齢者）", async () => {
+    const ctx = await openSearchTab();
+    const labels = [...ctx.document.querySelectorAll("#age-chip-row .type-chip")].map((b) =>
+      b.textContent
+    );
+    assert.deepEqual(labels, ["全年代", "子ども", "成人", "高齢者"]);
+  });
+
+  test("「子ども」を選ぶと児童向けだけになり、件数が減る", async () => {
+    const ctx = await openSearchTab();
+    const before = ctx.document.querySelectorAll("#search-results .card").length;
+    clickAge(ctx, "児童(〜17歳)");
+    await ctx.wait();
+    const after = ctx.document.querySelectorAll("#search-results .card").length;
+    assert.ok(after < before);
+    const ok = ctx.G(`
+      filteredSortedEntries().every(e => {
+        const a = (e.tags||[]).filter(t => ${JSON.stringify(AGE_TAGS)}.includes(t));
+        return a.length === 0 || a.includes("児童(〜17歳)");
+      })
+    `);
+    assert.equal(ok, true);
+    // アクティブ表示
+    const active = [...ctx.document.querySelectorAll("#age-chip-row .type-chip")].find((b) =>
+      b.classList.contains("is-active")
+    );
+    assert.equal(active.dataset.age, "児童(〜17歳)");
+  });
+
+  test("「全年代」に戻すと全件に戻る", async () => {
+    const ctx = await openSearchTab();
+    const total = ctx.G("state.entries.length");
+    clickAge(ctx, "65歳以上");
+    await ctx.wait();
+    assert.ok(ctx.document.querySelectorAll("#search-results .card").length < total);
+    clickAge(ctx, "");
+    await ctx.wait();
+    assert.equal(ctx.document.querySelectorAll("#search-results .card").length, total);
+  });
+
+  test("種別チップと併用できる（制度・手帳 × 子ども）", async () => {
+    const ctx = await openSearchTab();
+    const typeBtn = [...ctx.document.querySelectorAll("#type-chip-row .type-chip")].find(
+      (b) => b.dataset.type === "制度・手帳"
+    );
+    typeBtn.dispatchEvent(clickEv(ctx.window));
+    await ctx.wait();
+    clickAge(ctx, "児童(〜17歳)");
+    await ctx.wait();
+    const ok = ctx.G(`
+      filteredSortedEntries().every(e => {
+        if (e.type !== "制度・手帳") return false;
+        const a = (e.tags||[]).filter(t => ${JSON.stringify(AGE_TAGS)}.includes(t));
+        return a.length === 0 || a.includes("児童(〜17歳)");
+      })
+    `);
+    assert.equal(ok, true);
+    assert.ok(ctx.G("filteredSortedEntries().length") > 0);
+  });
+});
+
 describe("手帳・等級フィルタ", () => {
   async function selectTecho(ctx, techo, level) {
     const { document, window, wait } = ctx;

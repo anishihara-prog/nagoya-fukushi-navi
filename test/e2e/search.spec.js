@@ -35,6 +35,23 @@ test("種別チップ『相談窓口』で相談窓口だけになる", async ({
   await expect(page.locator("#search-results .badge--制度・手帳")).toHaveCount(0);
 });
 
+test("年代チップ（子ども / 高齢者）で検索結果を絞れる", async ({ page }) => {
+  const total = await page.locator("#search-results .card").count();
+
+  await page.click('#age-chip-row [data-age="児童(〜17歳)"]');
+  const child = await page.locator("#search-results .card").count();
+  expect(child).toBeGreaterThan(0);
+  expect(child).toBeLessThan(total);
+  await expect(page.locator('#age-chip-row [data-age="児童(〜17歳)"]')).toHaveClass(/is-active/);
+
+  await page.click('#age-chip-row [data-age="65歳以上"]');
+  const senior = await page.locator("#search-results .card").count();
+  expect(senior).not.toBe(child);
+
+  await page.click('#age-chip-row [data-age=""]');
+  expect(await page.locator("#search-results .card").count()).toBe(total);
+});
+
 test("手帳種別で絞ると件数が減り、『それ以外』で手帳非依存の項目に切り替わる", async ({ page }) => {
   const total = await page.locator("#search-results .card").count();
 

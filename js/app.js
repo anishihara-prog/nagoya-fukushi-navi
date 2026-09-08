@@ -198,6 +198,15 @@ const FOLLOWUP_MAP = {
 // ---------- タグの分類(編集フォームで共通利用) ----------
 const TYPE_OPTIONS = ["すべて", "制度・手帳", "福祉サービス", "相談窓口"];
 
+// 検索タブの年代しぼり込み(value は entries の年代タグ、"" は全年代)
+const AGE_OPTIONS = [
+  { value: "", label: "全年代" },
+  { value: "児童(〜17歳)", label: "子ども" },
+  { value: "成人(18〜64歳)", label: "成人" },
+  { value: "65歳以上", label: "高齢者" },
+];
+const AGE_TAGS = AGE_OPTIONS.filter((o) => o.value).map((o) => o.value);
+
 const TAG_GROUPS = {
   disability: {
     label: "障害種別・状況(複数選択可)",
@@ -227,6 +236,7 @@ const state = {
   activeTab: "search",
   searchKeyword: "",
   searchType: "すべて",
+  searchAge: "",         // "" | 年代タグ("児童(〜17歳)" 等)。検索結果を年代でしぼる
   searchInBody: false,   // フリーワード検索で概要・対象者の本文まで対象にするか
   expandedId: null,
   chat: null,
@@ -441,6 +451,13 @@ function filteredSortedEntries() {
   let list = state.entries.filter((e) => {
     if (state.searchType !== "すべて" && e.type !== state.searchType) return false;
 
+    if (state.searchAge) {
+      // 項目に年代タグがあるのに、選んだ年代が含まれないものは除外する。
+      // 年代タグが無い項目は「年代を問わない」ものとして残す。
+      const entryAgeTags = (e.tags || []).filter((t) => AGE_TAGS.includes(t));
+      if (entryAgeTags.length > 0 && !entryAgeTags.includes(state.searchAge)) return false;
+    }
+
     if (state.gradeTecho === GRADE_OTHER) {
       // どの手帳(等級)にも紐づかない項目だけを表示する
       const tags = e.tags || [];
@@ -527,6 +544,9 @@ function renderSearchTab() {
     <div class="chip-row" id="type-chip-row">
       ${TYPE_OPTIONS.map((t) => `<button class="type-chip ${t === state.searchType ? "is-active" : ""}" data-type="${t}">${t}</button>`).join("")}
     </div>
+    <div class="chip-row" id="age-chip-row">
+      ${AGE_OPTIONS.map((o) => `<button class="type-chip ${o.value === state.searchAge ? "is-active" : ""}" data-age="${escapeAttr(o.value)}">${o.label}</button>`).join("")}
+    </div>
     <div class="grade-filter-row" id="grade-filter-row">
       <select id="grade-techo-select" class="grade-select">
         <option value="">手帳・等級で絞り込む(任意)</option>
@@ -560,6 +580,12 @@ function renderSearchTab() {
   document.querySelectorAll("#type-chip-row .type-chip").forEach((btn) => {
     btn.addEventListener("click", () => {
       state.searchType = btn.dataset.type;
+      renderSearchTab();
+    });
+  });
+  document.querySelectorAll("#age-chip-row .type-chip").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      state.searchAge = btn.dataset.age;
       renderSearchTab();
     });
   });
