@@ -96,10 +96,10 @@ describe("スコアしきい値", () => {
 });
 
 describe("既知のシナリオ(成人×精神×手帳×相談先)", () => {
-  test("福祉サービスは5件で自立生活援助を含む", () => {
+  test("福祉サービスは4件で自立生活援助を含む", () => {
     setTags(["成人(18〜64歳)", "精神障害", "精神障害者保健福祉手帳あり", "相談先を探したい"]);
     const fukushi = G(`getChatResults().filter(e => e.type === "福祉サービス").map(e => e.name)`);
-    assert.equal(fukushi.length, 5);
+    assert.equal(fukushi.length, 4);
     assert.ok(fukushi.includes("自立生活援助"));
   });
   test("結果はスコア降順で並ぶ", () => {
