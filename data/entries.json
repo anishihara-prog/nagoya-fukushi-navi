@@ -4305,7 +4305,8 @@
     "updatedBy": "NagoyaApp",
     "updatedAt": "2026-08-28",
     "sortOrder": 58,
-    "welnetUrlLabel": "名古屋市公式サイトで詳しく見る"
+    "welnetUrlLabel": "名古屋市公式サイトで詳しく見る",
+    "general": true
   },
   {
     "id": "e157",
