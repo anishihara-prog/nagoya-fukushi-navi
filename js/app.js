@@ -1247,6 +1247,9 @@ function entryCardHtml(e, matchScore) {
 function bindCardEvents() {
   document.querySelectorAll("[data-toggle]").forEach((el) => {
     el.addEventListener("click", () => {
+      // テキストを範囲選択した直後のクリックでは開閉しない(項目名などをコピーできるように)
+      const sel = window.getSelection && window.getSelection();
+      if (sel && !sel.isCollapsed && sel.toString().trim().length > 0) return;
       const id = el.dataset.toggle;
       state.expandedId = state.expandedId === id ? null : id;
       // 詳細の開閉では画面位置を保つ（自動で最下部までスクロールさせない・

@@ -456,3 +456,50 @@ describe("手帳・等級フィルタ", () => {
     );
   });
 });
+
+describe("カード詳細の開閉と項目名のコピー", () => {
+  test("ヘッダーのクリックで詳細が開閉する", async () => {
+    const ctx = await openSearchTab();
+    const head = ctx.document.querySelector("#search-results .card__head");
+    const id = head.dataset.toggle;
+    head.dispatchEvent(clickEv(ctx.window));
+    await ctx.wait();
+    assert.ok(
+      ctx.document.querySelector(`[data-card="${id}"] .card__detail`),
+      "詳細が開かない"
+    );
+    ctx.document
+      .querySelector(`[data-card="${id}"] .card__head`)
+      .dispatchEvent(clickEv(ctx.window));
+    await ctx.wait();
+    assert.equal(ctx.document.querySelector(`[data-card="${id}"] .card__detail`), null);
+  });
+
+  test("項目名を範囲選択した状態のクリックでは開閉しない（コピーできる）", async () => {
+    const ctx = await openSearchTab();
+    const { document, window } = ctx;
+    const head = document.querySelector("#search-results .card__head");
+    const id = head.dataset.toggle;
+    const title = document.querySelector(`[data-card="${id}"] .card__title`);
+
+    const range = document.createRange();
+    range.selectNodeContents(title);
+    const selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
+    assert.ok(selection.toString().trim().length > 0, "選択テキストが空");
+
+    head.dispatchEvent(clickEv(window));
+    await ctx.wait();
+
+    assert.equal(
+      document.querySelector(`[data-card="${id}"] .card__detail`),
+      null,
+      "選択中なのに詳細が開いてしまった"
+    );
+    assert.ok(
+      window.getSelection().toString().trim().length > 0,
+      "選択が解除されている（コピーできない）"
+    );
+  });
+});

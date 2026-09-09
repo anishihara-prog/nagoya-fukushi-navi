@@ -119,6 +119,19 @@ test("手帳種別で絞ると件数が減り、『それ以外』で手帳非�
   expect(await page.locator("#search-results .card").count()).toBe(total);
 });
 
+test("項目名をドラッグ選択してもカードが展開しない（コピーできる）", async ({ page }) => {
+  const title = page.locator("#search-results .card__title").first();
+  const box = await title.boundingBox();
+  await page.mouse.move(box.x + 2, box.y + box.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(box.x + box.width - 2, box.y + box.height / 2, { steps: 8 });
+  await page.mouse.up();
+
+  await expect(page.locator("#search-results .card").first().locator(".card__detail")).toHaveCount(0);
+  const selected = await page.evaluate(() => window.getSelection().toString().trim());
+  expect(selected.length).toBeGreaterThan(0);
+});
+
 test("カードの詳細を開くと窓口情報が表示され、開いた場所にとどまる", async ({ page }) => {
   await page.fill("#search-input", "配食");
   const card = page.locator("#search-results .card").first();
