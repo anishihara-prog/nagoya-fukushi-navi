@@ -116,8 +116,8 @@ button{ font-family: inherit; }
 }
 .search-count.is-flash{ animation: search-count-flash .55s ease; }
 @keyframes search-count-flash{
-  0%   { background: var(--color-primary-soft); color: var(--color-primary); }
-  70%  { background: var(--color-primary-soft); color: var(--color-primary); }
+  0%   { background: #FCE1EC; color: #B02A63; }
+  70%  { background: #FCE1EC; color: #B02A63; }
   100% { background: transparent; color: var(--color-text-soft); }
 }
 @media (prefers-reduced-motion: reduce){
