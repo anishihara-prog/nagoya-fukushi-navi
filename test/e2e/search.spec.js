@@ -18,6 +18,14 @@ test("キーワード『配食』で配食サービスに絞り込める", async
   ]);
 });
 
+test("検索すると『◯件を表示しました』のフィードバックが出る", async ({ page }) => {
+  await expect(page.locator("#search-count")).toContainText("全");
+  await page.fill("#search-input", "配食");
+  await expect(page.locator("#search-count")).toContainText("「配食」の検索結果：1件を表示しました");
+  await page.fill("#search-input", "");
+  await expect(page.locator("#search-count")).toContainText("件を表示しています");
+});
+
 test("『本文も検索』オフでは概要だけの語はヒットせず、オンでヒットする", async ({ page }) => {
   await page.fill("#search-input", "安否確認");
   await expect(page.locator("#search-results .card")).toHaveCount(0);

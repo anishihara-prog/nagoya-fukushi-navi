@@ -514,6 +514,22 @@ function renderSearchResults() {
     ? list.map((e) => entryCardHtml(e)).join("")
     : emptyStateHtml("「" + (kw || "条件") + "」に一致する情報が見つかりません。");
   bindCardEvents();
+  updateSearchCount(list.length, kw);
+}
+
+// 検索結果の件数表示を更新する。更新のたびに一瞬ハイライトして
+// 「絞り込みが反映された」ことがわかるようにする。
+function updateSearchCount(n, kw) {
+  const el = document.getElementById("search-count");
+  if (!el) return;
+  const hasFilter =
+    kw || state.searchType !== "すべて" || state.searchAge || state.searchPurpose || state.gradeTecho;
+  el.textContent = hasFilter
+    ? (kw ? `「${kw}」の検索結果：${n}件を表示しました` : `絞り込み結果：${n}件を表示しました`)
+    : `全${n}件を表示しています`;
+  el.classList.remove("is-flash");
+  void el.offsetWidth; // アニメーションを再生させるためのリフロー
+  el.classList.add("is-flash");
 }
 
 function gradeFilterNoteHtml() {
@@ -577,8 +593,11 @@ function renderSearchTab() {
       ${state.gradeTecho || state.gradeLevel ? `<button id="grade-clear" class="btn btn--sm btn--ghost" type="button">✕ 解除</button>` : ""}
     </div>
     ${gradeFilterNoteHtml()}
+    <div id="search-count" class="search-count" role="status" aria-live="polite"></div>
     <div id="search-results">${list.length ? list.map((e) => entryCardHtml(e)).join("") : emptyStateHtml("「" + (kw || "条件") + "」に一致する情報が見つかりません。")}</div>
   `;
+
+  updateSearchCount(list.length, kw);
 
   const searchInput = document.getElementById("search-input");
   let isComposing = false;

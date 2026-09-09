@@ -49,6 +49,27 @@ describe("キーワード検索", () => {
     );
   });
 
+  test("検索するたびに件数フィードバック（「◯件を表示しました」）が出る", async () => {
+    const ctx = await openSearchTab();
+    const countEl = ctx.document.getElementById("search-count");
+    assert.ok(countEl, "#search-count が無い");
+    assert.match(countEl.textContent, /全\d+件を表示しています/);
+
+    setSearch(ctx, "配食");
+    await ctx.wait();
+    assert.match(countEl.textContent, /「配食」の検索結果：\d+件を表示しました/);
+    assert.equal(
+      Number(countEl.textContent.match(/(\d+)件/)[1]),
+      ctx.document.querySelectorAll("#search-results .card").length
+    );
+    assert.equal(countEl.getAttribute("aria-live"), "polite");
+    assert.ok(countEl.classList.contains("is-flash"), "更新時のハイライトが付かない");
+
+    setSearch(ctx, "ヒットしない語zzz");
+    await ctx.wait();
+    assert.match(countEl.textContent, /0件を表示しました/);
+  });
+
   test("スペース区切りは AND 検索（すべての語を含むものだけ）", async () => {
     const ctx = await openSearchTab();
     setSearch(ctx, "グループホーム");
