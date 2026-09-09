@@ -248,9 +248,9 @@ const state = {
 
 // ---------- 等級での絞り込み ----------
 const GRADE_OPTIONS = {
-  shintai: { label: "身体障害者手帳", field: "gradeShintai", techoTag: "身体障害者手帳あり", levels: [1, 2, 3, 4, 5, 6], unit: "級" },
-  aigo:    { label: "愛護手帳(療育手帳)", field: "gradeAigo", techoTag: "愛護手帳あり", levels: [1, 2, 3, 4], unit: "度" },
-  seishin: { label: "精神障害者保健福祉手帳", field: "gradeSeishin", techoTag: "精神障害者保健福祉手帳あり", levels: [1, 2, 3], unit: "級" },
+  shintai: { label: "身体障害者手帳", field: "gradeShintai", techoTag: "身体障害者手帳あり", disabilityTag: "身体障害", levels: [1, 2, 3, 4, 5, 6], unit: "級" },
+  aigo:    { label: "愛護手帳(療育手帳)", field: "gradeAigo", techoTag: "愛護手帳あり", disabilityTag: "知的障害", levels: [1, 2, 3, 4], unit: "度" },
+  seishin: { label: "精神障害者保健福祉手帳", field: "gradeSeishin", techoTag: "精神障害者保健福祉手帳あり", disabilityTag: "精神障害", levels: [1, 2, 3], unit: "級" },
 };
 // 「等級で絞り込む」の特別な選択肢: どの手帳にも紐づかない項目だけを表示する
 const GRADE_OTHER = "other";
@@ -474,14 +474,19 @@ function filteredSortedEntries() {
       );
       if (boundToTecho) return false;
     } else if (gradeInfo) {
-      // 選んだ手帳用の項目だけに絞る
-      // (その手帳の「○○手帳あり」タグを持つ、またはその手帳の等級が記載されている)
+      // 選んだ手帳(=その障害種別)向けの項目だけに絞る。
+      // その手帳の「○○手帳あり」タグ、対応する障害種別タグ(身体障害 等)、
+      // またはその手帳の等級が記載されているもの。
+      const tags = e.tags || [];
       const gradeArr = e[gradeInfo.field];
       const hasGradeArr = Array.isArray(gradeArr) && gradeArr.length > 0;
-      const forThisTecho = (e.tags || []).includes(gradeInfo.techoTag) || hasGradeArr;
+      const forThisTecho =
+        tags.includes(gradeInfo.techoTag) ||
+        tags.includes(gradeInfo.disabilityTag) ||
+        hasGradeArr;
       if (!forThisTecho) return false;
-      // 等級も選ばれていれば、等級が記載されている項目はその等級を含むものだけ。
-      // 等級の記載が無い項目は、その手帳向けであれば等級を問わず表示する。
+      // 等級も選ばれていれば、等級が記載されている項目だけをその等級で更にしぼる。
+      // 等級の記載が無い項目(その障害・手帳向け)は、全等級で表示する。
       if (gradeLevel && hasGradeArr && !gradeArr.includes(gradeLevel)) return false;
     }
 
@@ -518,9 +523,9 @@ function gradeFilterNoteHtml() {
   const info = GRADE_OPTIONS[state.gradeTecho];
   if (!info) return "";
   if (state.gradeLevel) {
-    return `<p class="grade-filter-note">※「${info.label}」${state.gradeLevel}${info.unit}で利用できる項目だけを表示しています。等級の記載が無い項目も、その手帳向けであれば表示されます。最終的な対象判定は各項目の「対象者」欄でご確認ください。</p>`;
+    return `<p class="grade-filter-note">※「${info.label}」${state.gradeLevel}${info.unit}で利用できる項目だけを表示しています。等級の記載が無い項目は、その障害(${info.disabilityTag})向けであれば等級を問わず表示されます。最終的な対象判定は各項目の「対象者」欄でご確認ください。</p>`;
   }
-  return `<p class="grade-filter-note">※「${info.label}」に対応する項目だけを表示しています。等級を選ぶとさらに絞り込めます。</p>`;
+  return `<p class="grade-filter-note">※「${info.label}」(${info.disabilityTag})に対応する項目だけを表示しています。等級を選ぶと、等級の記載がある項目をさらに絞り込めます。</p>`;
 }
 
 function gradeLevelOptionsHtml() {

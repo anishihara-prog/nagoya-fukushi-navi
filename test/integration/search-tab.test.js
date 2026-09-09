@@ -267,23 +267,25 @@ describe("手帳・等級フィルタ", () => {
     }
   }
 
-  test("手帳種別を選ぶだけで、その手帳用の項目だけに絞られる", async () => {
+  test("手帳種別を選ぶだけで、その障害(手帳)向けの項目だけに絞られる", async () => {
     const ctx = await openSearchTab();
     await selectTecho(ctx, "seishin");
     const shown = ctx.G(`filteredSortedEntries().map(e => e.id)`);
     assert.ok(shown.length > 0 && shown.length < ctx.G("state.entries.length"));
-    // すべて「精神障害者保健福祉手帳あり」タグ か gradeSeishin を持つ
+    // すべて「精神障害者保健福祉手帳あり」タグ か「精神障害」タグ か gradeSeishin を持つ
     const allForSeishin = ctx.G(`
       filteredSortedEntries().every(e =>
         (e.tags||[]).includes("精神障害者保健福祉手帳あり") ||
+        (e.tags||[]).includes("精神障害") ||
         (Array.isArray(e.gradeSeishin) && e.gradeSeishin.length > 0)
       )
     `);
     assert.equal(allForSeishin, true);
-    // 身体手帳専用(身体タグのみ・精神と無関係)の項目は出ない
+    // 精神と無関係(身体タグのみ・精神障害タグも精神手帳タグも等級も無い)の項目は出ない
     const bodyOnly = ctx.G(`
       state.entries.find(e =>
-        (e.tags||[]).includes("身体障害者手帳あり") &&
+        (e.tags||[]).includes("身体障害") &&
+        !(e.tags||[]).includes("精神障害") &&
         !(e.tags||[]).includes("精神障害者保健福祉手帳あり") &&
         !(Array.isArray(e.gradeSeishin) && e.gradeSeishin.length)
       )?.id
@@ -291,12 +293,12 @@ describe("手帳・等級フィルタ", () => {
     if (bodyOnly) assert.ok(!shown.includes(bodyOnly), `${bodyOnly} が混入`);
   });
 
-  test("身体障害者手帳 6級 を選ぶと、身体手帳向けかつ6級対象の項目だけになる", async () => {
+  test("身体障害者手帳 6級: 等級記載のある項目は6級対象のみ、記載の無い身体障害向けは全等級で表示", async () => {
     const ctx = await openSearchTab();
     await selectTecho(ctx, "shintai", 6);
     const shown = ctx.G(`filteredSortedEntries().map(e => e.id)`);
 
-    // 6級対象外の等級記載がある項目は消える
+    // 6級対象外の「等級記載がある」項目は消える
     const violating = ctx.G(`
       state.entries.filter(e =>
         Array.isArray(e.gradeShintai) && e.gradeShintai.length && !e.gradeShintai.includes(6)
@@ -304,14 +306,27 @@ describe("手帳・等級フィルタ", () => {
     `);
     for (const id of violating) assert.ok(!shown.includes(id), `${id} が残っている`);
 
-    // 残ったものは全て身体手帳向け
+    // 残ったものは全て身体障害向け(身体手帳タグ / 身体障害タグ / 等級記載)
     const allForShintai = ctx.G(`
       filteredSortedEntries().every(e =>
         (e.tags||[]).includes("身体障害者手帳あり") ||
+        (e.tags||[]).includes("身体障害") ||
         (Array.isArray(e.gradeShintai) && e.gradeShintai.length > 0)
       )
     `);
     assert.equal(allForShintai, true);
+
+    // 「身体障害」タグあり・等級記載なし の項目は、どの等級を選んでも表示される
+    const disNoGrade = ctx.G(`
+      state.entries.find(e =>
+        (e.tags||[]).includes("身体障害") &&
+        !(Array.isArray(e.gradeShintai) && e.gradeShintai.length)
+      )?.id
+    `);
+    assert.ok(disNoGrade && shown.includes(disNoGrade), `${disNoGrade} が6級で消えた`);
+    // 1級でも同じく表示される
+    await selectTecho(ctx, "shintai", 1);
+    assert.ok(ctx.G(`filteredSortedEntries().map(e=>e.id)`).includes(disNoGrade));
   });
 
   test("『それ以外』でどの手帳にも紐づかない項目だけ表示（手帳の等級・手帳ありタグを持たない）", async () => {
