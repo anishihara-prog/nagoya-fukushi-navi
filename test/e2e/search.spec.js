@@ -18,6 +18,13 @@ test("キーワード『配食』で配食サービスに絞り込める", async
   ]);
 });
 
+test("よみがな『ほそうぐ』で『補装具費の支給』がヒットする", async ({ page }) => {
+  await page.fill("#search-input", "ほそうぐ");
+  await expect(
+    page.locator("#search-results .card__title", { hasText: "補装具費の支給" })
+  ).toBeVisible();
+});
+
 test("検索すると『◯件を表示しました』のフィードバックが出る", async ({ page }) => {
   await expect(page.locator("#search-count")).toContainText("全");
   await page.fill("#search-input", "配食");

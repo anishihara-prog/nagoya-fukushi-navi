@@ -49,6 +49,24 @@ describe("キーワード検索", () => {
     );
   });
 
+  test("よみがな（aliases）でも検索できる：「ほそうぐ」→ 補装具費の支給", async () => {
+    const ctx = await openSearchTab();
+    setSearch(ctx, "ほそうぐ");
+    await ctx.wait();
+    const names = [...ctx.document.querySelectorAll("#search-results .card__title")].map((el) =>
+      el.textContent
+    );
+    assert.ok(names.includes("補装具費の支給"), names.join(" | "));
+    // カタカナ「ホソウグ」でも同じ（normalizeForSearch でかな統一）
+    setSearch(ctx, "ホソウグ");
+    await ctx.wait();
+    assert.ok(
+      [...ctx.document.querySelectorAll("#search-results .card__title")]
+        .map((el) => el.textContent)
+        .includes("補装具費の支給")
+    );
+  });
+
   test("検索するたびに件数フィードバック（「◯件を表示しました」）が出る", async () => {
     const ctx = await openSearchTab();
     const countEl = ctx.document.getElementById("search-count");

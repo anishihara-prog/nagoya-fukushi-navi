@@ -93,6 +93,17 @@ describe("URL フィールド", () => {
       }
     }
   });
+
+  test("aliases があれば空でない文字列の配列", () => {
+    for (const e of entries) {
+      if (e.aliases === undefined) continue;
+      assert.ok(Array.isArray(e.aliases), `${e.id}: aliases が配列でない`);
+      for (const a of e.aliases) {
+        assert.equal(typeof a, "string", `${e.id}: aliases の要素が文字列でない`);
+        assert.ok(a.trim().length > 0, `${e.id}: aliases に空文字がある`);
+      }
+    }
+  });
 });
 
 describe("タグ語彙の整合", () => {

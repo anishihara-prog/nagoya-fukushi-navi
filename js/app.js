@@ -494,9 +494,9 @@ function filteredSortedEntries() {
     const codes = (e.serviceCodes || []).join(" ");
     const codeNames = (e.serviceCodes || []).map(c => SERVICE_CODE_MAP[c] || "").join(" ");
     const linkLabels = (e.extraLinks || []).map(l => l.label || "").join(" ");
-    // 既定は「名称・タグ・コード・関連リンク名」だけを対象にして絞り込みすぎを防ぐ。
-    // 「本文も検索」がオンのときだけ概要・対象者の文章まで広げる。
-    const fields = [e.name, codes, codeNames, linkLabels, ...(e.tags || [])];
+    // 既定は「名称・別名(よみがな/略称)・タグ・コード・関連リンク名」だけを対象にして
+    // 絞り込みすぎを防ぐ。「本文も検索」がオンのときだけ概要・対象者の文章まで広げる。
+    const fields = [e.name, ...(e.aliases || []), codes, codeNames, linkLabels, ...(e.tags || [])];
     if (state.searchInBody) fields.push(e.overview, e.target);
     const hay = normalizeForSearch(fields.join(" "));
     // スペース区切りは AND 検索(すべての語を含むものだけ)
@@ -1296,6 +1296,10 @@ function openEditModal(entry) {
           <input id="f-name" type="text" value="${escapeAttr(e.name)}" placeholder="例: 居宅介護・移動支援">
         </div>
         <div class="form-field">
+          <label for="f-aliases">検索用の別名・よみがな(任意、カンマ区切り)</label>
+          <input id="f-aliases" type="text" value="${escapeAttr((e.aliases || []).join("、"))}" placeholder="例: ほそうぐ、ぎしそうぐ、義肢">
+        </div>
+        <div class="form-field">
           <label for="f-type">分類</label>
           <select id="f-type">
             ${["サービス", "制度", "手続き", "相談窓口"].map((t) => `<option value="${t}" ${t === e.type ? "selected" : ""}>${t}</option>`).join("")}
@@ -1390,6 +1394,8 @@ function openEditModal(entry) {
     const updated = {
       id: e.id || `e${Date.now()}`,
       name,
+      aliases: document.getElementById("f-aliases").value
+        .split(/[,、]/).map(s => s.trim()).filter(Boolean),
       type: document.getElementById("f-type").value,
       serviceCodes,
       overview:   document.getElementById("f-overview").value.trim(),
