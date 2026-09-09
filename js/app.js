@@ -197,6 +197,8 @@ const FOLLOWUP_MAP = {
 
 // ---------- タグの分類(編集フォームで共通利用) ----------
 const TYPE_OPTIONS = ["すべて", "制度・手帳", "福祉サービス", "相談窓口"];
+// 検索結果の並び順（分類別）。制度・手帳 → 福祉サービス → 相談窓口
+const TYPE_RANK = { "制度・手帳": 0, "福祉サービス": 1, "相談窓口": 2 };
 
 // 検索タブの年代しぼり込み(value は entries の年代タグ、"" は全年代)
 const AGE_OPTIONS = [
@@ -503,10 +505,11 @@ function filteredSortedEntries() {
     const terms = normalizeForSearch(kw).split(/[\s　]+/).filter(Boolean);
     return terms.every((t) => hay.includes(t));
   });
-  // 障害の有無を問わない一般制度(general)は末尾に回す。同カテゴリ内は sortOrder 順。
+  // 並び順: 障害者向け→一般制度(general) → 分類(制度・手帳→福祉サービス→相談窓口) → sortOrder
   return list.sort(
     (a, b) =>
       (a.general ? 1 : 0) - (b.general ? 1 : 0) ||
+      (TYPE_RANK[a.type] ?? 9) - (TYPE_RANK[b.type] ?? 9) ||
       (a.sortOrder ?? 99) - (b.sortOrder ?? 99)
   );
 }

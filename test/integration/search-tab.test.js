@@ -72,6 +72,30 @@ describe("キーワード検索", () => {
     for (const n of nodes.slice(di + 1)) if (idOf(n)) assert.equal(isGeneral(idOf(n)), true);
   });
 
+  test("分類順（制度・手帳 → 福祉サービス → 相談窓口）に並ぶ", async () => {
+    const ctx = await openSearchTab();
+    const rank = { "制度・手帳": 0, "福祉サービス": 1, "相談窓口": 2 };
+    const rows = ctx.G(
+      "filteredSortedEntries().map(e => ({ type: e.type, general: !!e.general, sortOrder: e.sortOrder ?? 99 }))"
+    );
+    // 各行のソートキー（配列）が単調非減少であること
+    const key = (r) => [r.general ? 1 : 0, rank[r.type] ?? 9, r.sortOrder];
+    const lte = (x, y) =>
+      x[0] !== y[0] ? x[0] < y[0] : x[1] !== y[1] ? x[1] < y[1] : x[2] <= y[2];
+    for (let i = 1; i < rows.length; i++) {
+      assert.ok(
+        lte(key(rows[i - 1]), key(rows[i])),
+        `${i}行目で順序が崩れている: ${JSON.stringify(rows[i - 1])} → ${JSON.stringify(rows[i])}`
+      );
+    }
+    // 非 general 区間の type 出現順
+    const seq = [];
+    for (const r of rows.filter((r) => !r.general)) {
+      if (seq[seq.length - 1] !== r.type) seq.push(r.type);
+    }
+    assert.deepEqual(seq, ["制度・手帳", "福祉サービス", "相談窓口"]);
+  });
+
   test("一般制度だけに絞られたときは見出しを出さない", async () => {
     const ctx = await openSearchTab();
     setSearch(ctx, "ひとり親家庭手当"); // general な e146 だけがヒット
