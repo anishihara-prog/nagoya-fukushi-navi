@@ -1174,7 +1174,8 @@
     "updatedBy": "福祉のしおり",
     "updatedAt": "2026-08-28",
     "sortOrder": 29,
-    "welnetUrlLabel": "名古屋市公式サイトで詳しく見る"
+    "welnetUrlLabel": "名古屋市公式サイトで詳しく見る",
+    "general": true
   },
   {
     "id": "e42",
@@ -1197,7 +1198,8 @@
     ],
     "updatedBy": "福祉のしおり",
     "updatedAt": "2026-08-20",
-    "sortOrder": 57
+    "sortOrder": 57,
+    "general": true
   },
   {
     "id": "e43",
@@ -3972,7 +3974,8 @@
     ],
     "updatedBy": "福祉のしおり",
     "updatedAt": "2026-08-27",
-    "sortOrder": 31
+    "sortOrder": 31,
+    "general": true
   },
   {
     "id": "e145",
@@ -3995,7 +3998,8 @@
     ],
     "updatedBy": "福祉のしおり",
     "updatedAt": "2026-08-27",
-    "sortOrder": 32
+    "sortOrder": 32,
+    "general": true
   },
   {
     "id": "e146",
@@ -4018,7 +4022,8 @@
     ],
     "updatedBy": "福祉のしおり",
     "updatedAt": "2026-08-27",
-    "sortOrder": 33
+    "sortOrder": 33,
+    "general": true
   },
   {
     "id": "e147",
@@ -4099,7 +4104,8 @@
         "label": "ひきこもり支援ポータルサイト「re link」",
         "url": "https://hikikomori.city.nagoya.jp/"
       }
-    ]
+    ],
+    "general": true
   },
   {
     "id": "e150",
@@ -4124,7 +4130,8 @@
     "updatedBy": "NagoyaApp",
     "updatedAt": "2026-08-28",
     "sortOrder": 52,
-    "welnetUrlLabel": "名古屋市公式サイトで詳しく見る"
+    "welnetUrlLabel": "名古屋市公式サイトで詳しく見る",
+    "general": true
   },
   {
     "id": "e151",
@@ -4155,7 +4162,8 @@
         "label": "なごサポ公式サイト",
         "url": "https://nagosapo.icds.jp/"
       }
-    ]
+    ],
+    "general": true
   },
   {
     "id": "e152",
@@ -4185,7 +4193,8 @@
         "label": "まえジョブ公式サイト",
         "url": "https://maejob.icds.jp/index.html"
       }
-    ]
+    ],
+    "general": true
   },
   {
     "id": "e153",
@@ -4211,7 +4220,8 @@
     "updatedBy": "NagoyaApp",
     "updatedAt": "2026-08-28",
     "sortOrder": 58,
-    "welnetUrlLabel": "名古屋市公式サイトで詳しく見る"
+    "welnetUrlLabel": "名古屋市公式サイトで詳しく見る",
+    "general": true
   },
   {
     "id": "e154",
@@ -4241,7 +4251,8 @@
         "label": "電話相談 ハートフレンドなごや",
         "url": "https://nagoya.fureai-cloud.jp/_view/sodan/home/index"
       }
-    ]
+    ],
+    "general": true
   },
   {
     "id": "e155",
@@ -4269,7 +4280,8 @@
     "updatedBy": "NagoyaApp",
     "updatedAt": "2026-08-28",
     "sortOrder": 52,
-    "welnetUrlLabel": "名古屋市公式サイトで詳しく見る"
+    "welnetUrlLabel": "名古屋市公式サイトで詳しく見る",
+    "general": true
   },
   {
     "id": "e156",
@@ -4324,7 +4336,8 @@
         "label": "いきいき支援センター一覧",
         "url": "https://www.kaigo-wel.city.nagoya.jp/view/kaigo/yobou/toiawase/"
       }
-    ]
+    ],
+    "general": true
   },
   {
     "id": "e158",
@@ -4350,7 +4363,8 @@
     "updatedBy": "NagoyaApp",
     "updatedAt": "2026-08-28",
     "sortOrder": 65,
-    "welnetUrlLabel": "名古屋市公式サイトで詳しく見る"
+    "welnetUrlLabel": "名古屋市公式サイトで詳しく見る",
+    "general": true
   },
   {
     "id": "e159",

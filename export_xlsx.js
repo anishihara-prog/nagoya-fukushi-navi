@@ -23,8 +23,9 @@ const columns = [
   ["updatedBy", "更新元"],
   ["updatedAt", "更新日"],
   ["sortOrder", "並び順"],
+  ["general", "一般制度"],
 ];
-const COL_WIDTHS = [6, 10, 32, 12, 34, 42, 34, 26, 30, 30, 34, 30, 12, 14, 12, 8];
+const COL_WIDTHS = [6, 10, 32, 12, 34, 42, 34, 26, 30, 30, 34, 30, 12, 14, 12, 8, 8];
 
 function toCellValues(e) {
   return columns.map(([key]) => {

@@ -104,6 +104,15 @@ describe("URL フィールド", () => {
       }
     }
   });
+
+  test("general があれば true のみ（false は付けない）", () => {
+    for (const e of entries) {
+      if (e.general === undefined) continue;
+      assert.equal(e.general, true, `${e.id}: general は true のみ許可`);
+    }
+    // 少なくとも数件は一般制度フラグが付いている
+    assert.ok(entries.filter((e) => e.general).length >= 5);
+  });
 });
 
 describe("タグ語彙の整合", () => {

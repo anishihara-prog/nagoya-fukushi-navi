@@ -503,16 +503,35 @@ function filteredSortedEntries() {
     const terms = normalizeForSearch(kw).split(/[\s　]+/).filter(Boolean);
     return terms.every((t) => hay.includes(t));
   });
-  return list.sort((a, b) => (a.sortOrder ?? 99) - (b.sortOrder ?? 99));
+  // 障害の有無を問わない一般制度(general)は末尾に回す。同カテゴリ内は sortOrder 順。
+  return list.sort(
+    (a, b) =>
+      (a.general ? 1 : 0) - (b.general ? 1 : 0) ||
+      (a.sortOrder ?? 99) - (b.sortOrder ?? 99)
+  );
+}
+
+// 検索結果のカード列。障害者向け→一般制度の境目に見出しを差し込む。
+function searchResultsHtml(list, kw) {
+  if (!list.length) {
+    return emptyStateHtml("「" + (kw || "条件") + "」に一致する情報が見つかりません。");
+  }
+  const firstGeneral = list.findIndex((e) => e.general);
+  return list
+    .map((e, i) => {
+      const divider =
+        i === firstGeneral && firstGeneral > 0
+          ? `<div class="results-divider">障害の有無を問わず利用できる制度</div>`
+          : "";
+      return divider + entryCardHtml(e);
+    })
+    .join("");
 }
 
 function renderSearchResults() {
   const kw = state.searchKeyword.trim();
   const list = filteredSortedEntries();
-  const results = document.getElementById("search-results");
-  results.innerHTML = list.length
-    ? list.map((e) => entryCardHtml(e)).join("")
-    : emptyStateHtml("「" + (kw || "条件") + "」に一致する情報が見つかりません。");
+  document.getElementById("search-results").innerHTML = searchResultsHtml(list, kw);
   bindCardEvents();
   updateSearchCount(list.length, kw);
 }
@@ -594,7 +613,7 @@ function renderSearchTab() {
     </div>
     ${gradeFilterNoteHtml()}
     <div id="search-count" class="search-count" role="status" aria-live="polite"></div>
-    <div id="search-results">${list.length ? list.map((e) => entryCardHtml(e)).join("") : emptyStateHtml("「" + (kw || "条件") + "」に一致する情報が見つかりません。")}</div>
+    <div id="search-results">${searchResultsHtml(list, kw)}</div>
   `;
 
   updateSearchCount(list.length, kw);
@@ -1300,6 +1319,12 @@ function openEditModal(entry) {
           <input id="f-aliases" type="text" value="${escapeAttr((e.aliases || []).join("、"))}" placeholder="例: ほそうぐ、ぎしそうぐ、義肢">
         </div>
         <div class="form-field">
+          <label class="search-scope" style="margin:0;">
+            <input id="f-general" type="checkbox" ${e.general ? "checked" : ""}>
+            障害の有無を問わない一般制度（検索結果では下部にまとめる）
+          </label>
+        </div>
+        <div class="form-field">
           <label for="f-type">分類</label>
           <select id="f-type">
             ${["サービス", "制度", "手続き", "相談窓口"].map((t) => `<option value="${t}" ${t === e.type ? "selected" : ""}>${t}</option>`).join("")}
@@ -1396,6 +1421,7 @@ function openEditModal(entry) {
       name,
       aliases: document.getElementById("f-aliases").value
         .split(/[,、]/).map(s => s.trim()).filter(Boolean),
+      general: document.getElementById("f-general").checked || undefined,
       type: document.getElementById("f-type").value,
       serviceCodes,
       overview:   document.getElementById("f-overview").value.trim(),

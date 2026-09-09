@@ -49,6 +49,37 @@ describe("キーワード検索", () => {
     );
   });
 
+  test("障害者向け→一般制度の順に並び、境目に見出しが入る", async () => {
+    const ctx = await openSearchTab();
+
+    // filteredSortedEntries: general は必ず非 general の後ろ
+    const flags = ctx.G("filteredSortedEntries().map(e => !!e.general)");
+    const firstGeneral = flags.indexOf(true);
+    const lastNonGeneral = flags.lastIndexOf(false);
+    assert.ok(firstGeneral > lastNonGeneral, "general 項目が途中に混ざっている");
+
+    // #search-results に区切り見出しが1つだけ
+    const dividers = ctx.document.querySelectorAll("#search-results .results-divider");
+    assert.equal(dividers.length, 1);
+    assert.equal(dividers[0].textContent, "障害の有無を問わず利用できる制度");
+
+    // 見出しより前は general でない / 後は全部 general
+    const nodes = [...ctx.document.querySelectorAll("#search-results > *")];
+    const di = nodes.findIndex((n) => n.classList.contains("results-divider"));
+    const idOf = (n) => n.getAttribute("data-card");
+    const isGeneral = (id) => ctx.G(`!!state.entries.find(e => e.id === ${JSON.stringify(id)}).general`);
+    for (const n of nodes.slice(0, di)) if (idOf(n)) assert.equal(isGeneral(idOf(n)), false);
+    for (const n of nodes.slice(di + 1)) if (idOf(n)) assert.equal(isGeneral(idOf(n)), true);
+  });
+
+  test("一般制度だけに絞られたときは見出しを出さない", async () => {
+    const ctx = await openSearchTab();
+    setSearch(ctx, "ひとり親家庭手当"); // general な e146 だけがヒット
+    await ctx.wait();
+    assert.ok(ctx.document.querySelectorAll("#search-results .card").length >= 1);
+    assert.equal(ctx.document.querySelectorAll("#search-results .results-divider").length, 0);
+  });
+
   test("よみがな（aliases）でも検索できる：「ほそうぐ」→ 補装具費の支給", async () => {
     const ctx = await openSearchTab();
     setSearch(ctx, "ほそうぐ");

@@ -18,6 +18,26 @@ test("キーワード『配食』で配食サービスに絞り込める", async
   ]);
 });
 
+test("結果は障害者向けが上・一般制度が下で、境目に見出しが入る", async ({ page }) => {
+  const divider = page.locator("#search-results .results-divider");
+  await expect(divider).toHaveCount(1);
+  await expect(divider).toHaveText("障害の有無を問わず利用できる制度");
+
+  // 「生活保護」カードは見出しより後ろ（DOM順）
+  const order = await page.$$eval("#search-results > *", (nodes) =>
+    nodes.map((n) =>
+      n.classList.contains("results-divider")
+        ? "__divider__"
+        : n.querySelector(".card__title")?.textContent || ""
+    )
+  );
+  const di = order.indexOf("__divider__");
+  const seikatsu = order.findIndex((t) => t === "生活保護");
+  expect(seikatsu).toBeGreaterThan(di);
+  // 先頭付近（見出しより前）に障害福祉サービス系がある
+  expect(order.slice(0, di).some((t) => t.length > 0)).toBe(true);
+});
+
 test("よみがな『ほそうぐ』で『補装具費の支給』がヒットする", async ({ page }) => {
   await page.fill("#search-input", "ほそうぐ");
   await expect(
