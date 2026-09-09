@@ -423,20 +423,17 @@ describe("手帳・等級フィルタ", () => {
     assert.ok(ctx.G(`filteredSortedEntries().map(e=>e.id)`).includes(disNoGrade));
   });
 
-  test("『それ以外』でどの手帳にも紐づかない項目だけ表示（手帳の等級・手帳ありタグを持たない）", async () => {
+  test("『それ以外』は一般制度(general)の項目だけを表示する", async () => {
     const ctx = await openSearchTab();
     await selectTecho(ctx, "other");
-    const ok = ctx.G(`
-      filteredSortedEntries().every(e => {
-        const tags = e.tags || [];
-        const boundTag = ["身体障害者手帳あり","愛護手帳あり","精神障害者保健福祉手帳あり"].some(t => tags.includes(t));
-        const boundField = ["gradeShintai","gradeAigo","gradeSeishin"].some(f => Array.isArray(e[f]) && e[f].length);
-        return !boundTag && !boundField;
-      })
-    `);
-    assert.equal(ok, true);
-    // 相談窓口系(e4 障害者基幹相談支援センター)は含まれる
-    assert.ok(ctx.G(`filteredSortedEntries().some(e => e.id === "e4")`));
+    // 全件 general
+    assert.equal(ctx.G(`filteredSortedEntries().every(e => e.general === true)`), true);
+    const ids = ctx.G(`filteredSortedEntries().map(e => e.id)`);
+    // 一般制度は含まれる
+    assert.ok(ids.includes("e40"), "e40 生活保護 が出ない");
+    // 障害福祉の項目(general でない)は出ない
+    assert.ok(!ids.includes("e4"), "e4 障害者基幹相談支援センター が混入");
+    assert.ok(!ids.includes("e45"), "e45 なごや福祉用具プラザ が混入");
     // レベル選択は無効化されている
     assert.equal(ctx.document.getElementById("grade-level-select").disabled, true);
   });
@@ -446,7 +443,7 @@ describe("手帳・等級フィルタ", () => {
     await selectTecho(ctx, "other");
     assert.match(
       ctx.document.querySelector(".grade-filter-note").textContent,
-      /どの手帳.*紐づかない/
+      /一般制度/
     );
     ctx.document.getElementById("grade-clear").dispatchEvent(clickEv(ctx.window));
     await ctx.wait();

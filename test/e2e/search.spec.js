@@ -109,11 +109,18 @@ test("手帳種別で絞ると件数が減り、『それ以外』で手帳非�
   expect(seishinCount).toBeLessThan(total);
 
   await page.selectOption("#grade-techo-select", "other");
-  await expect(page.locator(".grade-filter-note")).toContainText("どの手帳");
+  await expect(page.locator(".grade-filter-note")).toContainText("一般制度");
   await expect(page.locator("#grade-level-select")).toBeDisabled();
   const otherCount = await page.locator("#search-results .card").count();
   expect(otherCount).toBeGreaterThan(0);
   expect(otherCount).toBeLessThan(total);
+  // 一般制度は出る / 障害福祉の項目は出ない
+  await expect(
+    page.locator("#search-results .card__title", { hasText: "生活保護" })
+  ).toBeVisible();
+  await expect(
+    page.locator("#search-results .card__title", { hasText: "なごや福祉用具プラザ" })
+  ).toHaveCount(0);
 
   await page.click("#grade-clear");
   expect(await page.locator("#search-results .card").count()).toBe(total);

@@ -467,14 +467,8 @@ function filteredSortedEntries() {
     }
 
     if (state.gradeTecho === GRADE_OTHER) {
-      // どの手帳(等級)にも紐づかない項目だけを表示する
-      const tags = e.tags || [];
-      const boundToTecho = Object.values(GRADE_OPTIONS).some(
-        (info) =>
-          tags.includes(info.techoTag) ||
-          (Array.isArray(e[info.field]) && e[info.field].length > 0)
-      );
-      if (boundToTecho) return false;
+      // 「それ以外」= 障害の有無を問わない一般制度(general)だけ
+      if (!e.general) return false;
     } else if (gradeInfo) {
       // 選んだ手帳(=その障害種別)向けの項目だけに絞る。
       // その手帳の「○○手帳あり」タグ、対応する障害種別タグ(身体障害 等)、
@@ -556,7 +550,7 @@ function updateSearchCount(n, kw) {
 
 function gradeFilterNoteHtml() {
   if (state.gradeTecho === GRADE_OTHER) {
-    return `<p class="grade-filter-note">※どの手帳(等級)にも紐づかない項目だけを表示しています(相談窓口・手当など、手帳の有無を問わず利用できるもの)。</p>`;
+    return `<p class="grade-filter-note">※障害の有無を問わず利用できる一般制度だけを表示しています(生活保護・各種手当・高齢者や若者の相談窓口など)。</p>`;
   }
   const info = GRADE_OPTIONS[state.gradeTecho];
   if (!info) return "";
