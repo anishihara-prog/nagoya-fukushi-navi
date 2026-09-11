@@ -282,7 +282,10 @@
     ],
     "updatedBy": "サンプルデータ",
     "updatedAt": "2026-08-25",
-    "sortOrder": 42
+    "sortOrder": 42,
+    "aliases": [
+      "GH"
+    ]
   },
   {
     "id": "e10",

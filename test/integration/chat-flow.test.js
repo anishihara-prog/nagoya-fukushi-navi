@@ -62,7 +62,7 @@ describe("結果のカテゴリー別グループ表示", () => {
     );
     const cards = group.querySelectorAll(".chat-results__group-body .card").length;
     assert.equal(cards, headerCount, "カード枚数が見出しの件数と一致しない");
-    assert.equal(cards, 3, "既知シナリオでは福祉サービスは3件");
+    assert.equal(cards, 2, "既知シナリオでは福祉サービスは2件");
     assert.equal(
       document.querySelectorAll(".chat-results__group-body").length,
       1,

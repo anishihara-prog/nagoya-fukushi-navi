@@ -16,6 +16,9 @@ describe("normalizeForSearch", () => {
   test("カタカナをひらがな化する", () => {
     assert.equal(G('normalizeForSearch("グループホーム")'), "ぐるーぷほーむ");
   });
+  test("半角カナを全角ひらがな相当に統一する(濁点・半濁点含む)", () => {
+    assert.equal(G('normalizeForSearch("ｸﾞﾙｰﾌﾟﾎｰﾑ")'), "ぐるーぷほーむ");
+  });
   test("空・null は空文字", () => {
     assert.equal(G("normalizeForSearch('')"), "");
     assert.equal(G("normalizeForSearch(null)"), "");

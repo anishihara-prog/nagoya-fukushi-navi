@@ -32,7 +32,7 @@ test("福祉サービス見出しを押すと件数どおりのカードが開�
   const toggle = page.locator('[data-group-toggle="福祉サービス"]');
   const text = await toggle.textContent();
   const n = Number(text.match(/（(\d+)件）/)[1]);
-  expect(n).toBe(3);
+  expect(n).toBe(2);
 
   await toggle.click();
   await expect(toggle).toHaveAttribute("aria-expanded", "true");

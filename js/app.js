@@ -816,13 +816,15 @@ function renderChatTab() {
       <div class="chat-results__header">${wardLabel}利用できる可能性のあるサービス（${matched.length}件）</div>
       ${matched.length
         ? groupedHtml
-        : emptyStateHtml("条件に合うサービスが見つかりませんでした。検索タブからキーワードで探すか、基幹相談支援センターにご相談ください。")}
-      <button class="btn btn--ghost" id="btn-chat-restart" style="width:100%;margin-top:12px;">↺ 最初からやり直す</button>`;
+        : emptyStateHtml("条件に合うサービスが見つかりませんでした。検索タブからキーワードで探すか、基幹相談支援センターにご相談ください。")}`;
   }
 
-  const backHtml = chat.snapshots.length > 0
+  const showBack = chat.snapshots.length > 0;
+  const showRestart = chat.phase === "done";
+  const backHtml = (showBack || showRestart)
     ? `<div class="chat-back-row">
-         <button class="btn btn--sm btn--ghost" id="btn-chat-back">← 前の質問に戻る</button>
+         ${showBack ? `<button class="btn btn--sm btn--ghost" id="btn-chat-back">← 前の質問に戻る</button>` : ""}
+         ${showRestart ? `<button class="btn btn--sm btn--ghost" id="btn-chat-restart">↺ 最初からやり直す</button>` : ""}
        </div>`
     : "";
 
@@ -1475,10 +1477,56 @@ function showToast(message, type = "info") {
 // ユーティリティ
 // =====================================================
 
-// カタカナ→ひらがな・全角英数→半角に統一して比較用文字列を作る
+// 半角カナ→全角カナの変換テーブル(濁点・半濁点は次の文字と合成する)
+const HALF_KANA_MAP = {
+  "｡": "。", "｢": "「", "｣": "」", "､": "、", "･": "・",
+  "ｦ": "ヲ", "ｧ": "ァ", "ｨ": "ィ", "ｩ": "ゥ", "ｪ": "ェ", "ｫ": "ォ",
+  "ｬ": "ャ", "ｭ": "ュ", "ｮ": "ョ", "ｯ": "ッ", "ｰ": "ー",
+  "ｱ": "ア", "ｲ": "イ", "ｳ": "ウ", "ｴ": "エ", "ｵ": "オ",
+  "ｶ": "カ", "ｷ": "キ", "ｸ": "ク", "ｹ": "ケ", "ｺ": "コ",
+  "ｻ": "サ", "ｼ": "シ", "ｽ": "ス", "ｾ": "セ", "ｿ": "ソ",
+  "ﾀ": "タ", "ﾁ": "チ", "ﾂ": "ツ", "ﾃ": "テ", "ﾄ": "ト",
+  "ﾅ": "ナ", "ﾆ": "ニ", "ﾇ": "ヌ", "ﾈ": "ネ", "ﾉ": "ノ",
+  "ﾊ": "ハ", "ﾋ": "ヒ", "ﾌ": "フ", "ﾍ": "ヘ", "ﾎ": "ホ",
+  "ﾏ": "マ", "ﾐ": "ミ", "ﾑ": "ム", "ﾒ": "メ", "ﾓ": "モ",
+  "ﾔ": "ヤ", "ﾕ": "ユ", "ﾖ": "ヨ",
+  "ﾗ": "ラ", "ﾘ": "リ", "ﾙ": "ル", "ﾚ": "レ", "ﾛ": "ロ",
+  "ﾜ": "ワ", "ﾝ": "ン",
+};
+const HALF_KANA_DAKUTEN_MAP = {
+  "ｶ": "ガ", "ｷ": "ギ", "ｸ": "グ", "ｹ": "ゲ", "ｺ": "ゴ",
+  "ｻ": "ザ", "ｼ": "ジ", "ｽ": "ズ", "ｾ": "ゼ", "ｿ": "ゾ",
+  "ﾀ": "ダ", "ﾁ": "ヂ", "ﾂ": "ヅ", "ﾃ": "デ", "ﾄ": "ド",
+  "ﾊ": "バ", "ﾋ": "ビ", "ﾌ": "ブ", "ﾍ": "ベ", "ﾎ": "ボ",
+};
+const HALF_KANA_HANDAKUTEN_MAP = {
+  "ﾊ": "パ", "ﾋ": "ピ", "ﾌ": "プ", "ﾍ": "ペ", "ﾎ": "ポ",
+};
+
+function halfKanaToFullKana(str) {
+  let result = "";
+  for (let i = 0; i < str.length; i++) {
+    const c = str[i];
+    const next = str[i + 1];
+    if (next === "ﾞ" && HALF_KANA_DAKUTEN_MAP[c]) {
+      result += HALF_KANA_DAKUTEN_MAP[c];
+      i++;
+    } else if (next === "ﾟ" && HALF_KANA_HANDAKUTEN_MAP[c]) {
+      result += HALF_KANA_HANDAKUTEN_MAP[c];
+      i++;
+    } else if (HALF_KANA_MAP[c]) {
+      result += HALF_KANA_MAP[c];
+    } else {
+      result += c;
+    }
+  }
+  return result;
+}
+
+// 半角カナ→全角カナ、カタカナ→ひらがな・全角英数→半角に統一して比較用文字列を作る
 function normalizeForSearch(str) {
   if (!str) return "";
-  return String(str)
+  return halfKanaToFullKana(String(str))
     .replace(/[ァ-ヶ]/g, c => String.fromCharCode(c.charCodeAt(0) - 0x60))
     .replace(/[Ａ-Ｚａ-ｚ０-９]/g, c => String.fromCharCode(c.charCodeAt(0) - 0xFEE0))
     .toLowerCase();
