@@ -73,3 +73,25 @@ nagoya-fukushi-navi/
 
 `data/entries.json` に入っている10件は試作用のサンプルです。内容は一般的な公開情報を参考に作成していますが、
 実際の運用前には、各区役所・基幹相談支援センター等で最新の正確な情報に必ず更新してください。
+
+## リンク切れ・HP更新の検知
+
+`data/entries.json` の `welnetUrl` / `extraLinks` に登録した外部リンクを毎週月曜(GitHub Actions)に自動巡回し、
+前回チェック時との比較で次の変化を検知します。
+
+- リンク切れ(HTTPエラー・到達不能)
+- リンク先URLの変更(リダイレクト先が変わった)
+- ページ本文の更新(本文テキストのハッシュが変化した)
+
+変化があった場合のみ GitHub Issue が自動作成されます。状態は `data/link-check-state.json` にコミットされ、
+このファイルの git 履歴が「いつ何が変わったか」の記録になります。
+
+手動で実行する場合:
+
+```bash
+npm run check-links
+```
+
+ワークフロー定義: `.github/workflows/check-links.yml`(手動実行は Actions タブから `workflow_dispatch` でも可)。
+本文ハッシュ比較のため、対象ページの軽微な表記ゆれ(日付表示など)でも「更新あり」と誤検知することがあります。
+実際に内容を確認したうえで、必要なら `data/entries.json` の該当項目を更新してください。

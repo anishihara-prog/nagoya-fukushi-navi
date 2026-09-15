@@ -4,6 +4,7 @@
   "scripts": {
     "start": "bash serve.sh",
     "export:xlsx": "node export_xlsx.js",
+    "check-links": "node scripts/check-links.js",
     "test": "node --test test/unit/ test/integration/ test/data/",
     "test:unit": "node --test test/unit/",
     "test:integration": "node --test test/integration/",

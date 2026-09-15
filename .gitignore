@@ -15,6 +15,9 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 
+# リンクチェックの実行レポート(state は data/link-check-state.json にコミットして残す)
+/link-check-report.md
+
 # 無関係な作業ディレクトリ(誤コミット防止)
 poster-app/
 Claude outputs/

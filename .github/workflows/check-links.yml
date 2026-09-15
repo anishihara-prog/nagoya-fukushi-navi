@@ -1,0 +1,43 @@
+name: リンクチェック
+
+on:
+  schedule:
+    # 毎週月曜 09:00 JST (00:00 UTC)
+    - cron: "0 0 * * 1"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  check-links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: リンクチェックを実行
+        id: check
+        run: node scripts/check-links.js
+
+      - name: 状態ファイルの変更をコミット
+        if: steps.check.outputs.has_changes == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/link-check-state.json
+          git diff --cached --quiet || git commit -m "リンクチェック: 状態を更新 ($(date +'%Y-%m-%d'))"
+          git push
+
+      - name: Issueを作成
+        if: steps.check.outputs.has_changes == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create \
+            --title "リンクチェック結果 $(date +'%Y-%m-%d'): 変化あり" \
+            --body-file link-check-report.md
