@@ -258,6 +258,7 @@ const GRADE_OPTIONS = {
 const GRADE_OTHER = "other";
 
 const appEl = document.getElementById("app");
+const footerEl = document.querySelector(".app-footer");
 
 // ---------- 初期化 ----------
 async function init() {
@@ -407,6 +408,7 @@ const RELATED_LINKS = [
 
 // ---------- レンダリング振り分け ----------
 function render() {
+  if (footerEl) footerEl.hidden = state.activeTab === "chat";
   if (state.activeTab === "search") return renderSearchTab();
   if (state.activeTab === "chat")   return renderChatTab();
   if (state.activeTab === "links")  return renderLinksTab();
