@@ -24,7 +24,7 @@ npm run test:all       # 上記すべて
 | 階層 | 場所 | 内容 |
 |---|---|---|
 | ユニット | `test/unit/` | `app.js` の純粋関数（`normalizeForSearch` / `formatGradeLevels` / `substituteWard` / `escapeHtml`）と `getChatResults()` の絞り込みロジック（年代・障害種別のハード条件、困りごと必須、スコアしきい値、`重複・不明` の扱い、並び順） |
-| 統合 | `test/integration/` | jsdom 上でタブ操作・描画を検証。ケース相談フル、カテゴリー別グループの折り畳み、詳細カード開閉、検索タブ（キーワード / 種別チップ / 等級フィルタ）、`data-store` の localStorage キャッシュ |
+| 統合 | `test/integration/` | jsdom 上でタブ操作・描画を検証。ケース相談フル、カテゴリー別グループの折り畳み、詳細カード開閉、検索タブ（キーワード / 種別チップ / 等級フィルタ） |
 | データ整合 | `test/data/` | `data/entries.json` の構造（id 一意・必須項目・type・URL 形式・extraLinks 形状・pretty-print）、タグ語彙が `app.js` の定義と一致するか（全角/半角の取り違え検出）、整理済み事項のリグレッション防止 |
 | E2E | `test/e2e/` | 実ブラウザ（Chromium）で検索と ケース相談の主要フロー |
 
