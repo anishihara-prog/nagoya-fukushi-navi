@@ -301,3 +301,11 @@ button{ font-family: inherit; }
 .links-card__name{ font-size: 14.5px; font-weight: 700; line-height: 1.4; }
 .links-card__arrow{ font-size: 16px; color: var(--color-accent); flex-shrink: 0; }
 .links-card__desc{ font-size: 12.5px; color: var(--color-text-soft); margin: 6px 0 0; line-height: 1.6; }
+
+/* ---------- Footer ---------- */
+.app-footer{
+  max-width: var(--maxw); margin: 24px auto 0; padding: 16px 16px 28px;
+  text-align: center; font-size: 12px; color: var(--color-text-soft);
+}
+.app-footer p{ margin: 2px 0; }
+.app-footer a{ color: var(--color-text-soft); }
