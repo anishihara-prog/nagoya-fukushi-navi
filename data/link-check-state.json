@@ -23,6 +23,12 @@
     "status": 200,
     "contentHash": "sha256:404a73b357736c9e20ebf7b9a98f75468eeecd21c094e6d7e535d88f385b5d7a"
   },
+  "https://nagoyalink.net/": {
+    "finalUrl": "https://nagoyalink.net/",
+    "ok": true,
+    "status": 200,
+    "contentHash": "sha256:8f1f1e5fc2a55ffb1096b1ffa44d5d5c042c6abece901fe9083ad0535d6ebfb9"
+  },
   "https://www.city.nagoya.jp/bousaiportal/jigyousha/1013604.html": {
     "finalUrl": "https://www.city.nagoya.jp/bousaiportal/jigyousha/1013604.html",
     "ok": true,
@@ -94,6 +100,12 @@
     "ok": true,
     "status": 200,
     "contentHash": "sha256:226381e5fafc929cde2de6a4755fcfa187eb7edd3b8e8fb5e91cbe5c026a3106"
+  },
+  "https://www.city.nagoya.jp/kodomo/wakamono/1034346/1016984/1016987.html": {
+    "finalUrl": "https://www.city.nagoya.jp/kodomo/wakamono/1034346/1016984/1016987.html",
+    "ok": true,
+    "status": 200,
+    "contentHash": "sha256:70c414ad8ad3f76750f0a83ab6e6d06d0c0302dc407b6f5f8ac61b2ede8a1544"
   },
   "https://www.city.nagoya.jp/kodomo/wakamono/1034346/1016984/1037093/1016989.html": {
     "finalUrl": "https://www.city.nagoya.jp/kodomo/wakamono/1034346/1016984/1037093/1016989.html",
