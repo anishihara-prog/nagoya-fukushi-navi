@@ -83,8 +83,20 @@ nagoya-fukushi-navi/
 - リンク先URLの変更(リダイレクト先が変わった)
 - ページ本文の更新(本文テキストのハッシュが変化した)
 
-変化があった場合のみ GitHub Issue が自動作成されます。状態は `data/link-check-state.json` にコミットされ、
-このファイルの git 履歴が「いつ何が変わったか」の記録になります。
+変化があった場合のみ GitHub Issue が自動作成され、`anishihara-prog` が担当者(assignee)に設定されます。
+状態は `data/link-check-state.json` にコミットされ、このファイルの git 履歴が「いつ何が変わったか」の記録になります。
+
+### Gmailで通知を受け取るには
+
+GitHub独自の通知メール機能を使うため、追加のコード・シークレット設定は不要です。次を確認してください。
+
+1. GitHubアカウントの通知先メールアドレスにGmailアドレスを登録する
+   (Settings → Emails でGmailアドレスを追加し、Settings → Notifications → 「Notification email」で選択)
+2. Settings → Notifications で「Issues」のメール通知が有効になっていることを確認する
+   (「担当者に指定されたIssue」は既定の "Participating and @mentions" でも通知対象)
+
+これで、自動作成されたIssueに `anishihara-prog` が担当者として設定されるたびにGmailへメールが届きます。
+担当者を変える場合は `.github/workflows/check-links.yml` の `--assignee` を書き換えてください。
 
 手動で実行する場合:
 

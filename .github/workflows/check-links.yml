@@ -40,4 +40,5 @@ jobs:
         run: |
           gh issue create \
             --title "リンクチェック結果 $(date +'%Y-%m-%d'): 変化あり" \
-            --body-file link-check-report.md
+            --body-file link-check-report.md \
+            --assignee anishihara-prog
