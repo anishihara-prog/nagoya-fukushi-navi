@@ -2,8 +2,8 @@ name: リンクチェック
 
 on:
   schedule:
-    # 毎週月曜 09:00 JST (00:00 UTC)
-    - cron: "0 0 * * 1"
+    # 毎月7日・22日 09:00 JST (00:00 UTC)
+    - cron: "0 0 7,22 * *"
   workflow_dispatch: {}
 
 permissions:
