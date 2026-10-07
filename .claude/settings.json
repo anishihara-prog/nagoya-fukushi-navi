@@ -27,7 +27,13 @@
       "Bash(apt-get install *)",
       "Bash(sudo apt-get install -y qrencode)",
       "Bash(pip install *)",
-      "Bash(python3 -m pip install qrcode)"
+      "Bash(python3 -m pip install qrcode)",
+      "WebFetch(domain:maejob.icds.jp)",
+      "Bash(node -e \"JSON.parse\\(require\\('fs'\\).readFileSync\\('data/entries.json','utf8'\\)\\); console.log\\('valid JSON'\\)\")",
+      "Bash(gh api *)",
+      "Bash(gh run *)",
+      "Bash(curl -s https://anishihara-prog.github.io/nagoya-fukushi-navi/data/entries.json -o /tmp/live-entries.json)",
+      "Read(//tmp/**)"
     ],
     "additionalDirectories": [
       "/tmp"
