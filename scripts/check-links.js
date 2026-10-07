@@ -2,16 +2,13 @@
 /*
  * data/entries.json 内のリンク(welnetUrl / extraLinks)を巡回し、
  * 前回チェック時との差分から次の3種類の変化を検知するスクリプト。
- *   - リンク切れ(HTTPエラー・到達不能)
- *   - リンク先URLの変更(リダイレクト先が変わった)
- *   - ページ本文の更新(本文テキストのハッシュが変わった)
+ *    - リンク切れ(HTTPエラー・到達不能)
+ *    - リンク先URLの変更(リダイレクト先が変わった)
+ *    - ページ本文の更新(本文テキストのハッシュが変わった)
  *
- * 使い方:
- *   node scripts/check-links.js
- *
- * 状態は data/link-check-state.json に保存し、次回実行時と比較する。
- * GitHub Actions から呼ぶ場合、差分があれば GITHUB_OUTPUT に
- * has_changes=true を書き込み、レポートを link-check-report.md に出力する。
+ * 【Gemini AI 連携】
+ * ページ内容が更新された場合、GEMINI_API_KEY が存在すれば
+ * Gemini API を使用して制度の重要変化（電話番号・対象条件・窓口等）があるかを自動分析する。
  */
 "use strict";
 
@@ -48,7 +45,7 @@ function extractLinksFromEntries(entries) {
   return map;
 }
 
-// HTML から比較用の本文テキストを取り出す(厳密なパースは不要、差分検知の指紋が取れればよい)
+// HTML から比較用の本文テキストを取り出す
 function extractVisibleText(html) {
   return html
     .replace(/<!--[\s\S]*?-->/g, " ")
@@ -79,13 +76,15 @@ async function fetchLinkInfo(url) {
     });
     const ok = res.ok;
     let contentHash = null;
+    let textContent = "";
     if (ok) {
       const html = await res.text();
-      contentHash = hashText(extractVisibleText(html));
+      textContent = extractVisibleText(html);
+      contentHash = hashText(textContent);
     }
-    return { ok, status: res.status, finalUrl: res.url || url, contentHash, error: null };
+    return { ok, status: res.status, finalUrl: res.url || url, contentHash, textContent, error: null };
   } catch (err) {
-    return { ok: false, status: null, finalUrl: null, contentHash: null, error: err.message || String(err) };
+    return { ok: false, status: null, finalUrl: null, contentHash: null, textContent: "", error: err.message || String(err) };
   } finally {
     clearTimeout(timer);
   }
@@ -113,7 +112,44 @@ function refLabel(refs) {
   return refs.map((r) => `${r.entryId} ${r.entryName}`).join(" / ");
 }
 
-function buildReport(results) {
+// Gemini API を呼び出して変更重要度を解析
+async function analyzeContentWithGemini(url, refs, pageText, apiKey) {
+  if (!apiKey || !pageText) return null;
+
+  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+  const refNames = refs.map((r) => `${r.entryId}:${r.entryName}`).join(", ");
+  
+  const prompt = `あなたは福祉ナビゲーションアプリのデータメンテナです。
+対象サービス: [${refNames}]
+対象URL: ${url}
+
+以下のWebページテキストを確認し、福祉サービス利用者や相談員にとって重要な変更（例: 申請条件・電話番号・担当窓口・金額・受付時間などの変更や制度廃止）が含まれている可能性があるか判定してください。
+単なるデザイン変更、定例の年度更新（年号のみ変更）、新着ニュース一覧の更新など、実質的な制度情報に変化がない場合は「対応不要」としてください。
+
+【Webページテキスト（抜粋）】
+${pageText.slice(0, 3000)}
+
+【回答フォーマット】
+以下の形式で簡潔に1行で出力してください（マークダウンの箇条書き等の余計な文字は不要です）。
+ステータス: [要対応 / 対応不要 / 要確認] | 理由: (1〜2文で具体的に解説)`;
+
+  try {
+    const res = await fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+      }),
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || null;
+  } catch {
+    return null;
+  }
+}
+
+function buildReport(results, aiAnalysisMap = {}) {
   const byTag = (tag) => results.filter((r) => r.tags.includes(tag));
   const newBroken = byTag("newBroken");
   const stillBroken = byTag("stillBroken");
@@ -137,6 +173,9 @@ function buildReport(results) {
     for (const r of list) {
       lines.push(`- ${describe(r)}`);
       lines.push(`  関連: ${refLabel(r.refs)}`);
+      if (aiAnalysisMap[r.url]) {
+        lines.push(`  └ 🤖 **AI判定**: ${aiAnalysisMap[r.url]}`);
+      }
     }
     lines.push("");
   };
@@ -166,8 +205,10 @@ async function main() {
   const linkMap = extractLinksFromEntries(entries);
   const prevState = fs.existsSync(STATE_PATH) ? JSON.parse(fs.readFileSync(STATE_PATH, "utf8")) : {};
 
+  const apiKey = process.env.GEMINI_API_KEY;
   const nextState = {};
   const results = [];
+  const aiAnalysisMap = {};
   const urls = [...linkMap.keys()].sort();
 
   for (const url of urls) {
@@ -175,12 +216,23 @@ async function main() {
     nextState[url] = { finalUrl: curr.finalUrl, ok: curr.ok, status: curr.status, contentHash: curr.contentHash };
     const tags = classifyChange(prevState[url], nextState[url]);
     results.push({ url, refs: linkMap.get(url), curr, tags });
-    await delay(REQUEST_DELAY_MS);
+
+    // ページ更新が検知され、かつ GEMINI_API_KEY がセットされている場合は AI 判定を実行
+    if (tags.includes("contentChanged") && apiKey && curr.textContent) {
+      console.log(`[AI Analysis] Analyzing ${url}...`);
+      const analysis = await analyzeContentWithGemini(url, linkMap.get(url), curr.textContent, apiKey);
+      if (analysis) {
+        aiAnalysisMap[url] = analysis;
+      }
+      await delay(1000); // API レートリミット対策
+    } else {
+      await delay(REQUEST_DELAY_MS);
+    }
   }
 
   fs.writeFileSync(STATE_PATH, JSON.stringify(nextState, null, 2) + "\n");
 
-  const report = buildReport(results);
+  const report = buildReport(results, aiAnalysisMap);
   console.log(report.text);
   fs.writeFileSync(REPORT_PATH, report.text);
 
