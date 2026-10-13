@@ -25,6 +25,25 @@ describe("質問フロー", () => {
       new Set(["成人(18〜64歳)", "精神障害", "精神障害者保健福祉手帳あり", "相談先を探したい"])
     );
   });
+
+  test("手帳の等級を選ぶと、その等級に合う結果だけが残る", async () => {
+    const ctx = await loadApp();
+    await runChatFlow(ctx, {
+      age: "成人（18〜64歳）",
+      disability: ["身体障害"],
+      certificate: "身体障害者手帳あり",
+      certificateLevel: "6級",
+      situation: "まず相談先を探したい",
+    });
+    const ids = ctx.G("getChatResults().map(e => e.id)");
+    const violating = ctx.G(`
+      state.entries.filter(e =>
+        Array.isArray(e.gradeShintai) && e.gradeShintai.length && !e.gradeShintai.includes(6)
+      ).map(e => e.id)
+    `);
+    for (const id of violating) assert.ok(!ids.includes(id), `${id} が 6級条件で混ざっている`);
+    assert.ok(ids.length > 0, "6級の候補が0件");
+  });
 });
 
 describe("結果のカテゴリー別グループ表示", () => {

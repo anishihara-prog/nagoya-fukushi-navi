@@ -83,6 +83,7 @@ async function runChatFlow(ctx, answers = {}) {
     age: "成人（18〜64歳）",
     disability: ["精神障害"],
     certificate: "精神障害者保健福祉手帳あり",
+    certificateLevel: "1級",
     severity: "中程度（多くの場面でサポートが必要）",
     ward: null, // null ならスキップ
     situation: "まず相談先を探したい",
@@ -121,6 +122,12 @@ async function runChatFlow(ctx, answers = {}) {
 
   opt(a.certificate);
   await wait();
+
+  if (a.certificate !== "手帳はない・まだ未申請") {
+    const gradeLabel = a.certificateLevel ?? "1級";
+    opt(gradeLabel);
+    await wait();
+  }
 
   opt(a.severity);
   await wait();

@@ -111,6 +111,12 @@ const CHAT_FLOW = [
     ],
   },
   {
+    id: "grade",
+    botText: "手帳の等級を教えてください。",
+    type: "single",
+    options: [],
+  },
+  {
     id: "severity",
     botText: "日常生活での介護・支援の必要度を教えてください。",
     type: "single",
@@ -256,6 +262,11 @@ const GRADE_OPTIONS = {
 };
 // 「等級で絞り込む」の特別な選択肢: どの手帳にも紐づかない項目だけを表示する
 const GRADE_OTHER = "other";
+const CERTIFICATE_GRADE_KEY_BY_TAG = {
+  "身体障害者手帳あり": "shintai",
+  "愛護手帳あり": "aigo",
+  "精神障害者保健福祉手帳あり": "seishin",
+};
 
 const appEl = document.getElementById("app");
 const footerEl = document.querySelector(".app-footer");
@@ -684,6 +695,8 @@ function initChat() {
     collectedTags: new Set(),
     multiTemp: new Set(),
     followupKey: null,
+    certificateType: "",
+    certificateLevel: "",
     ward: "",
     openGroups: new Set(),   // 結果のカテゴリー別グループで開いているもの
     snapshots: [],
@@ -699,9 +712,16 @@ function renderChatTab() {
   const chat = state.chat;
 
   // 現在の質問ステップ
-  const currentStep = chat.phase === "followup"
+  let currentStep = chat.phase === "followup"
     ? FOLLOWUP_MAP[chat.followupKey]
     : (chat.phase === "question" ? CHAT_FLOW[chat.stepIndex] : null);
+  if (currentStep && currentStep.id === "grade" && chat.certificateType) {
+    const info = GRADE_OPTIONS[chat.certificateType];
+    currentStep = {
+      ...currentStep,
+      options: info.levels.map((lv) => ({ label: `${lv}${info.unit}` })),
+    };
+  }
 
   // 過去のメッセージ
   const historyHtml = chat.history.map(msg =>
@@ -902,9 +922,16 @@ function renderChatTab() {
 function handleChatSelect(label) {
   pushSnapshot();
   const chat = state.chat;
-  const step = chat.phase === "followup"
+  let step = chat.phase === "followup"
     ? FOLLOWUP_MAP[chat.followupKey]
     : CHAT_FLOW[chat.stepIndex];
+  if (step && step.id === "grade" && chat.certificateType) {
+    const info = GRADE_OPTIONS[chat.certificateType];
+    step = {
+      ...step,
+      options: info.levels.map((lv) => ({ label: `${lv}${info.unit}` })),
+    };
+  }
   const opt = step.options.find(o => o.label === label);
   if (!opt) return;
 
@@ -918,6 +945,51 @@ function handleChatSelect(label) {
     if (hint) chat.history.push({ role: "bot", text: hint });
     chat.history.push({ role: "bot", text: "ありがとうございます。利用できる可能性のあるサービスをまとめました。" });
     chat.phase = "done";
+
+  } else if (step.id === "certificate") {
+    const gradeKey = CERTIFICATE_GRADE_KEY_BY_TAG[opt.tags?.[0] || ""];
+    chat.certificateType = gradeKey || "";
+    chat.certificateLevel = "";
+    if (gradeKey) {
+      const info = GRADE_OPTIONS[gradeKey];
+      chat.history.push({ role: "bot", text: `${info.label}の等級を教えてください。` });
+      chat.stepIndex++;
+      renderChatTab();
+      scrollChatToBottom();
+      return;
+    }
+    if (chat.stepIndex === CHAT_FLOW.length - 1) {
+      // situation ステップ完了
+      if (opt.followup) {
+        chat.followupKey = opt.followup;
+        chat.history.push({ role: "bot", text: FOLLOWUP_MAP[opt.followup].botText });
+        chat.phase = "followup";
+      } else {
+        chat.history.push({ role: "bot", text: "ありがとうございます。利用できる可能性のあるサービスをまとめました。" });
+        chat.phase = "done";
+      }
+    } else {
+      // 次の質問へ
+      chat.stepIndex++;
+      chat.history.push({ role: "bot", text: CHAT_FLOW[chat.stepIndex].botText });
+    }
+
+  } else if (step.id === "grade") {
+    const match = label.match(/\d+/);
+    chat.certificateLevel = match ? match[0] : "";
+    if (chat.stepIndex === CHAT_FLOW.length - 1) {
+      if (opt.followup) {
+        chat.followupKey = opt.followup;
+        chat.history.push({ role: "bot", text: FOLLOWUP_MAP[opt.followup].botText });
+        chat.phase = "followup";
+      } else {
+        chat.history.push({ role: "bot", text: "ありがとうございます。利用できる可能性のあるサービスをまとめました。" });
+        chat.phase = "done";
+      }
+    } else {
+      chat.stepIndex++;
+      chat.history.push({ role: "bot", text: CHAT_FLOW[chat.stepIndex].botText });
+    }
 
   } else if (chat.stepIndex === CHAT_FLOW.length - 1) {
     // situation ステップ完了
@@ -967,6 +1039,8 @@ function pushSnapshot() {
     stepIndex: chat.stepIndex,
     followupKey: chat.followupKey,
     collectedTags: new Set(chat.collectedTags),
+    certificateType: chat.certificateType,
+    certificateLevel: chat.certificateLevel,
     ward: chat.ward,
     historyLength: chat.history.length,
   });
@@ -980,6 +1054,8 @@ function handleChatBack() {
   chat.stepIndex = prev.stepIndex;
   chat.followupKey = prev.followupKey;
   chat.collectedTags = prev.collectedTags;
+  chat.certificateType = prev.certificateType;
+  chat.certificateLevel = prev.certificateLevel;
   chat.ward = prev.ward;
   chat.history = chat.history.slice(0, prev.historyLength);
   chat.multiTemp = new Set();
@@ -1046,6 +1122,21 @@ function getChatResults() {
       if (disabilityFilterActive && selectedDisabilityTags.length > 0) {
         const entryDisabilityTags = [...entryTags].filter(t => disabilityTagSet.has(t));
         if (entryDisabilityTags.length > 0 && !selectedDisabilityTags.some(t => entryTags.has(t))) return null;
+      }
+
+      // 手帳の等級が選ばれている場合は、その手帳の等級に合う項目だけに絞る。
+      if (state.chat.certificateType) {
+        const info = GRADE_OPTIONS[state.chat.certificateType];
+        if (info) {
+          const gradeArr = e[info.field] || [];
+          const hasGradeArr = Array.isArray(gradeArr) && gradeArr.length > 0;
+          const forThisTecho =
+            entryTags.has(info.techoTag) ||
+            entryTags.has(info.disabilityTag) ||
+            hasGradeArr;
+          if (!forThisTecho) return null;
+          if (state.chat.certificateLevel && hasGradeArr && !gradeArr.includes(Number(state.chat.certificateLevel))) return null;
+        }
       }
 
       // プロフィールタグが2つ以上一致する場合のみ表示
