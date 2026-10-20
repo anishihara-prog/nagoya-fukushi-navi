@@ -294,7 +294,7 @@ const state = {
   expandedId: null,
   chat: null,
   suppressChatAutoScroll: false,   // 詳細カード開閉時に自動スクロールを抑止するフラグ
-  gradeTecho: "",   // "" | "shintai" | "aigo" | "seishin" | "other"(どの手帳にも紐づかない項目)
+  gradeTecho: "",   // "" | "shintai" | "aigo" | "seishin" | "nanbyo" | "other"
   gradeLevel: "",   // "" | 数値の文字列
 };
 
@@ -306,6 +306,7 @@ const GRADE_OPTIONS = {
 };
 // 「等級で絞り込む」の特別な選択肢: どの手帳にも紐づかない項目だけを表示する
 const GRADE_OTHER = "other";
+const GRADE_NANBYO = "nanbyo";
 const CERTIFICATE_GRADE_KEY_BY_TAG = {
   "身体障害者手帳あり": "shintai",
   "愛護手帳あり": "aigo",
@@ -520,7 +521,9 @@ function filteredSortedEntries() {
       if (!(e.tags || []).includes(state.searchPurpose)) return false;
     }
 
-    if (state.gradeTecho === GRADE_OTHER) {
+    if (state.gradeTecho === GRADE_NANBYO) {
+      if (!(e.tags || []).includes("難病")) return false;
+    } else if (state.gradeTecho === GRADE_OTHER) {
       // 「それ以外」= 障害の有無を問わない一般制度(general)だけ
       if (!e.general) return false;
     } else if (gradeInfo) {
@@ -603,6 +606,9 @@ function updateSearchCount(n, kw) {
 }
 
 function gradeFilterNoteHtml() {
+  if (state.gradeTecho === GRADE_NANBYO) {
+    return `<p class="grade-filter-note">※「難病」タグが付いた情報を表示しています。対象となる疾病・要件は各項目の「対象者」欄でご確認ください。</p>`;
+  }
   if (state.gradeTecho === GRADE_OTHER) {
     return `<p class="grade-filter-note">※障害の有無を問わず利用できる一般制度だけを表示しています(生活保護・各種手当・高齢者や若者の相談窓口など)。</p>`;
   }
@@ -615,7 +621,7 @@ function gradeFilterNoteHtml() {
 }
 
 function gradeLevelOptionsHtml() {
-  if (state.gradeTecho === GRADE_OTHER) {
+  if (state.gradeTecho === GRADE_OTHER || state.gradeTecho === GRADE_NANBYO) {
     return `<select id="grade-level-select" class="grade-select" disabled><option value="">―</option></select>`;
   }
   const info = GRADE_OPTIONS[state.gradeTecho];
@@ -655,8 +661,9 @@ function renderSearchTab() {
     </div>
     <div class="grade-filter-row" id="grade-filter-row">
       <select id="grade-techo-select" class="grade-select">
-        <option value="">手帳・等級で絞り込む(任意)</option>
+        <option value="">手帳・難病で絞り込む(任意)</option>
         ${Object.entries(GRADE_OPTIONS).map(([key, info]) => `<option value="${key}" ${key === state.gradeTecho ? "selected" : ""}>${info.label}</option>`).join("")}
+        <option value="${GRADE_NANBYO}" ${state.gradeTecho === GRADE_NANBYO ? "selected" : ""}>難病</option>
         <option value="${GRADE_OTHER}" ${state.gradeTecho === GRADE_OTHER ? "selected" : ""}>それ以外(手帳を問わない項目)</option>
       </select>
       <span id="grade-level-wrap">${gradeLevelOptionsHtml()}</span>

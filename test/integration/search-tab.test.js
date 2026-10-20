@@ -461,6 +461,23 @@ describe("手帳・等級フィルタ", () => {
     assert.equal(ctx.document.getElementById("grade-level-select").disabled, true);
   });
 
+  test("『難病』は難病タグが付いた利用可能情報だけに絞り込む", async () => {
+    const ctx = await openSearchTab();
+    await selectTecho(ctx, "nanbyo");
+    const shown = ctx.G(`filteredSortedEntries().map(e => e.id)`);
+    assert.ok(shown.length > 0 && shown.length < ctx.G("state.entries.length"));
+    assert.ok(shown.includes("e32"), "e32 特定医療費の助成（指定難病）が出ない");
+    assert.equal(
+      ctx.G(`filteredSortedEntries().every(e => (e.tags||[]).includes("難病"))`),
+      true
+    );
+    assert.match(
+      ctx.document.querySelector(".grade-filter-note").textContent,
+      /難病/
+    );
+    assert.equal(ctx.document.getElementById("grade-level-select").disabled, true);
+  });
+
   test("『それ以外』選択時に注意書きが出て、解除で全件に戻る", async () => {
     const ctx = await openSearchTab();
     await selectTecho(ctx, "other");
