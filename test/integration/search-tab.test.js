@@ -49,6 +49,29 @@ describe("キーワード検索", () => {
     );
   });
 
+  test("『生活困窮者自立支援』で相談窓口が検索できる", async () => {
+    const ctx = await openSearchTab();
+    setSearch(ctx, "生活困窮者自立支援");
+    await ctx.wait();
+    const names = [...ctx.document.querySelectorAll("#search-results .card__title")].map((el) =>
+      el.textContent
+    );
+    assert.ok(
+      names.includes("生活困窮者自立支援（名古屋市仕事・暮らし自立サポートセンター）"),
+      names.join(" | ")
+    );
+  });
+
+  test("『家賃補助』で住居確保給付金が検索できる", async () => {
+    const ctx = await openSearchTab();
+    setSearch(ctx, "家賃補助");
+    await ctx.wait();
+    const names = [...ctx.document.querySelectorAll("#search-results .card__title")].map((el) =>
+      el.textContent
+    );
+    assert.ok(names.includes("住居確保給付金（家賃補助）"), names.join(" | "));
+  });
+
   test("障害者向け→一般制度の順に並び、境目に見出しが入る", async () => {
     const ctx = await openSearchTab();
 

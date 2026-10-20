@@ -81,11 +81,14 @@ async function runChatFlow(ctx, answers = {}) {
   const { document, window, wait } = ctx;
   const a = {
     age: "成人（18〜64歳）",
+    income: "わからない・回答しない",
+    employment: "わからない・回答しない",
     disability: ["精神障害"],
     certificate: "精神障害者保健福祉手帳あり",
     certificateLevel: "1級",
     severity: "中程度（多くの場面でサポートが必要）",
     ward: null, // null ならスキップ
+    adultFamily: ["該当する方はいない／わからない"],
     situation: "まず相談先を探したい",
     followup: null,
     ...answers,
@@ -115,6 +118,12 @@ async function runChatFlow(ctx, answers = {}) {
   opt(a.age);
   await wait();
 
+  opt(a.income);
+  await wait();
+
+  opt(a.employment);
+  await wait();
+
   a.disability.forEach(opt);
   await wait();
   byId("btn-multi-next");
@@ -140,6 +149,10 @@ async function runChatFlow(ctx, answers = {}) {
   } else {
     byId("btn-text-skip");
   }
+  await wait();
+
+  a.adultFamily.forEach(opt);
+  byId("btn-multi-next");
   await wait();
 
   opt(a.situation);

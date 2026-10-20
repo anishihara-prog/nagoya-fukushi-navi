@@ -1,15 +1,20 @@
 const { test, expect } = require("@playwright/test");
 
-/** ケース相談を「成人 / 精神障害 / 精神手帳 / 中程度 / 区スキップ / まず相談先を探したい」で回す。 */
+/** ケース相談を「成人 / 所得・就労不明 / 精神障害 / 精神手帳 / 中程度 / 家族該当なし」で回す。 */
 async function runFlow(page) {
   await page.goto("/");
   await page.click('.tabbar__btn[data-tab="chat"]');
   await page.click('.chat-option-btn:has-text("成人（18〜64歳）")');
+  await page.click('.chat-option-btn:has-text("わからない・回答しない")');
+  await page.click('.chat-option-btn:has-text("わからない・回答しない")');
   await page.click('.chat-option-btn:has-text("精神障害")');
   await page.click("#btn-multi-next");
   await page.click('.chat-option-btn:has-text("精神障害者保健福祉手帳あり")');
+  await page.click('.chat-option-btn:has-text("1級")');
   await page.click('.chat-option-btn:has-text("中程度")');
   await page.click("#btn-text-skip");
+  await page.click('.chat-option-btn:has-text("該当する方はいない／わからない")');
+  await page.click("#btn-multi-next");
   await page.click('.chat-option-btn:has-text("まず相談先を探したい")');
   await expect(page.locator(".chat-results__header")).toBeVisible();
 }

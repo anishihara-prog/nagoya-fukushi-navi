@@ -85,6 +85,26 @@ const CHAT_FLOW = [
     ],
   },
   {
+    id: "income",
+    botText: "世帯の所得状況について、当てはまるものを教えてください。",
+    type: "single",
+    options: [
+      { label: "低所得", tags: ["世帯低所得"] },
+      { label: "住民税非課税", tags: ["世帯住民税非課税"] },
+      { label: "わからない・回答しない", tags: [] },
+    ],
+  },
+  {
+    id: "employment",
+    botText: "現在の就労状況について教えてください。",
+    type: "single",
+    options: [
+      { label: "求職中・無職", tags: ["求職中・無職"] },
+      { label: "休業などで収入が減った", tags: ["休業等による収入減少"] },
+      { label: "わからない・回答しない", tags: [] },
+    ],
+  },
+  {
     id: "disability",
     botText: "障害の種別・状況を教えてください（複数選択可）。",
     type: "multi",
@@ -137,6 +157,19 @@ const CHAT_FLOW = [
     ],
   },
   {
+    id: "adultFamily",
+    botText: "同居する成人家族に、ひきこもり状態の方がいれば年齢を選んでください（複数選択可）。",
+    type: "multi",
+    allMatchTag: "同居成人家族ひきこもり:全対象",
+    exclusiveOption: "該当する方はいない／わからない",
+    options: [
+      { label: "15〜39歳", tags: ["同居成人家族ひきこもり:15-39"] },
+      { label: "40〜49歳", tags: ["同居成人家族ひきこもり:40-49"] },
+      { label: "50歳以上", tags: ["同居成人家族ひきこもり:50+"] },
+      { label: "該当する方はいない／わからない", tags: [] },
+    ],
+  },
+  {
     id: "situation",
     botText: "今、一番お困りのこと・希望を教えてください。",
     type: "single",
@@ -149,6 +182,8 @@ const CHAT_FLOW = [
       { label: "医療費を減らしたい",                  tags: ["医療・医療費"],          followup: null },
       { label: "手帳を取りたい・更新したい",          tags: ["手帳の取得・更新"],      followup: null },
       { label: "年金・手当のことを知りたい",          tags: ["年金・手当などお金"],    followup: null },
+      { label: "生活費・家計のことで困っている", tags: ["生活困窮の相談", "住居確保給付金"], followup: null },
+      { label: "家賃の支払いに困っている（住居確保給付金）", tags: ["住居確保給付金"], followup: null },
       { label: "ひきこもり・不登校のことで相談したい", tags: ["ひきこもり・不登校の相談"], followup: null },
       { label: "介護・高齢期の生活で困っている",       tags: ["介護・高齢期の生活支援"], followup: null },
       { label: "緊急で困っている",                    tags: ["緊急時の対応"],          followup: null },
@@ -233,7 +268,16 @@ const TAG_GROUPS = {
     tags: [
       "相談先を探したい", "在宅での生活支援", "外出・移動の支援", "日中の活動先",
       "住まい(グループホーム等)", "就労の支援", "年金・手当などお金", "医療・医療費",
-      "手帳の取得・更新", "ひきこもり・不登校の相談", "介護・高齢期の生活支援", "緊急時の対応",
+      "手帳の取得・更新", "生活困窮の相談", "住居確保給付金", "ひきこもり・不登校の相談", "介護・高齢期の生活支援", "緊急時の対応",
+    ],
+  },
+  livelihood: {
+    label: "生活・就労・家族の状況",
+    tags: [
+      "世帯低所得", "世帯住民税非課税", "求職中・無職", "休業等による収入減少",
+      "同居成人家族ひきこもり:全対象",
+      "同居成人家族ひきこもり:15-39", "同居成人家族ひきこもり:40-49",
+      "同居成人家族ひきこもり:50+",
     ],
   },
 };
@@ -878,8 +922,14 @@ function renderChatTab() {
     } else {
       btn.addEventListener("click", () => {
         const label = btn.dataset.option;
-        if (chat.multiTemp.has(label)) chat.multiTemp.delete(label);
-        else chat.multiTemp.add(label);
+        if (currentStep.exclusiveOption === label) {
+          chat.multiTemp.clear();
+          chat.multiTemp.add(label);
+        } else {
+          if (currentStep.exclusiveOption) chat.multiTemp.delete(currentStep.exclusiveOption);
+          if (chat.multiTemp.has(label)) chat.multiTemp.delete(label);
+          else chat.multiTemp.add(label);
+        }
         renderChatTab();
         scrollChatToBottom();
       });
@@ -970,7 +1020,7 @@ function handleChatSelect(label) {
       }
     } else {
       // 次の質問へ
-      chat.stepIndex++;
+      chat.stepIndex += 2;
       chat.history.push({ role: "bot", text: CHAT_FLOW[chat.stepIndex].botText });
     }
 
@@ -1082,6 +1132,17 @@ function handleChatTextNext(value) {
 
 function getChatResults() {
   const tags = state.chat.collectedTags;
+  const familyHikikomoriPrefix = "同居成人家族ひきこもり:";
+  const familyHikikomoriAllTag = CHAT_FLOW.find(s => s.id === "adultFamily").allMatchTag;
+  const selectedFamilyHikikomoriTags = [...tags].filter(t => t.startsWith(familyHikikomoriPrefix));
+  const incomeAndEmploymentTags = new Set([
+    "世帯低所得",
+    "世帯住民税非課税",
+    "求職中・無職",
+    "休業等による収入減少",
+  ]);
+  const selectedIncomeAndEmploymentTags = [...tags].filter(t => incomeAndEmploymentTags.has(t));
+  const specialSituationTags = new Set(["生活困窮の相談", "住居確保給付金"]);
 
   // 「困りごと」ステップで選ばれたタグを特定し、必須条件にする
   const situationTagSet = new Set(
@@ -1107,25 +1168,34 @@ function getChatResults() {
     .map(e => {
       const entryTags = new Set(e.tags || []);
       const score = [...tags].filter(t => entryTags.has(t)).length;
+      const matchesFamilyHikikomori =
+        selectedFamilyHikikomoriTags.length > 0 &&
+        (entryTags.has(familyHikikomoriAllTag) ||
+          selectedFamilyHikikomoriTags.some(t => entryTags.has(t)));
+      const matchesProfileCondition =
+        selectedIncomeAndEmploymentTags.some(t => entryTags.has(t)) ||
+        [...tags].some(t => specialSituationTags.has(t) && entryTags.has(t));
+      const matchesIndependentCondition = matchesFamilyHikikomori || matchesProfileCondition;
 
       // 困りごとタグが一致しない場合は除外
       if (selectedSituationTags.length > 0 &&
-          !selectedSituationTags.some(t => entryTags.has(t))) return null;
+          !selectedSituationTags.some(t => entryTags.has(t)) &&
+          !matchesIndependentCondition) return null;
 
       // 年代: 項目に年代タグがあるのに、選んだ年代が含まれない場合は除外
-      if (selectedAgeTags.length > 0) {
+      if (!matchesFamilyHikikomori && selectedAgeTags.length > 0) {
         const entryAgeTags = [...entryTags].filter(t => ageTagSet.has(t));
         if (entryAgeTags.length > 0 && !selectedAgeTags.some(t => entryTags.has(t))) return null;
       }
 
       // 障害種別: 項目に障害種別タグがあるのに、選んだ種別がどれも含まれない場合は除外
-      if (disabilityFilterActive && selectedDisabilityTags.length > 0) {
+      if (!matchesFamilyHikikomori && disabilityFilterActive && selectedDisabilityTags.length > 0) {
         const entryDisabilityTags = [...entryTags].filter(t => disabilityTagSet.has(t));
         if (entryDisabilityTags.length > 0 && !selectedDisabilityTags.some(t => entryTags.has(t))) return null;
       }
 
       // 手帳の等級が選ばれている場合は、その手帳の等級に合う項目だけに絞る。
-      if (state.chat.certificateType) {
+      if (!matchesIndependentCondition && state.chat.certificateType) {
         const info = GRADE_OPTIONS[state.chat.certificateType];
         if (info) {
           const gradeArr = e[info.field] || [];
@@ -1140,7 +1210,7 @@ function getChatResults() {
       }
 
       // プロフィールタグが2つ以上一致する場合のみ表示
-      if (score < 2) return null;
+      if (score < 2 && !matchesIndependentCondition) return null;
 
       return { e, score };
     })

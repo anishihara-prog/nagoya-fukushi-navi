@@ -44,6 +44,69 @@ describe("質問フロー", () => {
     for (const id of violating) assert.ok(!ids.includes(id), `${id} が 6級条件で混ざっている`);
     assert.ok(ids.length > 0, "6級の候補が0件");
   });
+
+  test("生活費・家計の相談で生活困窮者自立支援が表示される", async () => {
+    const ctx = await loadApp();
+    await runChatFlow(ctx, {
+      disability: ["ひきこもり・不登校"],
+      certificate: "手帳はない・まだ未申請",
+      situation: "生活費・家計のことで困っている",
+    });
+    const ids = ctx.G("getChatResults().map(e => e.id)");
+    assert.ok(ids.includes("e161"), ids.join(" | "));
+    assert.ok(ids.includes("e162"), ids.join(" | "));
+  });
+
+  test("低所得条件で生活困窮者自立支援が表示される", async () => {
+    const ctx = await loadApp();
+    await runChatFlow(ctx, {
+      disability: [],
+      certificate: "手帳はない・まだ未申請",
+      income: "低所得",
+      situation: "まず相談先を探したい",
+    });
+    assert.ok(ctx.G("getChatResults().map(e => e.id)").includes("e161"));
+  });
+
+  test("住民税非課税条件でも生活困窮者自立支援が表示される", async () => {
+    const ctx = await loadApp();
+    await runChatFlow(ctx, {
+      disability: [],
+      certificate: "手帳はない・まだ未申請",
+      income: "住民税非課税",
+      situation: "まず相談先を探したい",
+    });
+    assert.ok(ctx.G("getChatResults().map(e => e.id)").includes("e161"));
+  });
+
+  test("求職中・無職の条件で住居確保給付金が表示される", async () => {
+    const ctx = await loadApp();
+    await runChatFlow(ctx, {
+      disability: [],
+      certificate: "手帳はない・まだ未申請",
+      employment: "求職中・無職",
+      situation: "まず相談先を探したい",
+    });
+    assert.ok(ctx.G("getChatResults().map(e => e.id)").includes("e162"));
+  });
+
+  test("同居成人家族の年齢帯に合うひきこもり支援を表示する", async () => {
+    const ctx = await loadApp();
+    await runChatFlow(ctx, {
+      age: "65歳以上",
+      disability: [],
+      certificate: "手帳はない・まだ未申請",
+      adultFamily: ["40〜49歳"],
+      situation: "まず相談先を探したい",
+    });
+    const ids = ctx.G("getChatResults().map(e => e.id)");
+    assert.ok(ids.includes("e29"), ids.join(" | "));
+    assert.ok(ids.includes("e149"), ids.join(" | "));
+    assert.ok(ids.includes("e151"), ids.join(" | "));
+    assert.ok(ids.includes("e152"), ids.join(" | "));
+    assert.ok(!ids.includes("e150"), ids.join(" | "));
+    assert.ok(!ids.includes("e153"), ids.join(" | "));
+  });
 });
 
 describe("結果のカテゴリー別グループ表示", () => {

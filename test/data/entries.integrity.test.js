@@ -136,4 +136,26 @@ describe("既知の整理済み事項(リグレッション防止)", () => {
     assert.match(e120.overview, /特別支援教育就学奨励費/);
     assert.ok((e120.extraLinks || []).some((l) => /就学奨励費/.test(l.label)));
   });
+  test("NagoyaApp由来の生活困窮・住居・家族ひきこもり情報が登録されている", () => {
+    const e161 = entries.find((e) => e.id === "e161");
+    assert.ok(e161, "生活困窮者自立支援の窓口情報が無い");
+    assert.match(e161.name, /生活困窮者自立支援/);
+    assert.ok(e161.tags.includes("生活困窮の相談"));
+    assert.ok(e161.tags.includes("世帯低所得"));
+    assert.ok(e161.tags.includes("世帯住民税非課税"));
+
+    const e162 = entries.find((e) => e.id === "e162");
+    assert.ok(e162, "住居確保給付金が無い");
+    assert.ok(e162.tags.includes("求職中・無職"));
+    assert.match(e162.welnetUrl, /1016738\.html$/);
+
+    const hikikomoriIds = ["e20", "e29", "e149", "e160"];
+    for (const id of hikikomoriIds) {
+      const entry = entries.find((e) => e.id === id);
+      assert.ok(
+        entry.tags.includes("同居成人家族ひきこもり:全対象"),
+        `${id}: 家族のひきこもり検索条件が無い`
+      );
+    }
+  });
 });
