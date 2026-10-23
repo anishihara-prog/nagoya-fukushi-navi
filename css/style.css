@@ -309,3 +309,36 @@ button{ font-family: inherit; }
 }
 .app-footer p{ margin: 2px 0; }
 .app-footer a{ color: var(--color-text-soft); }
+
+/* ---------- Feedback form ---------- */
+.feedback__open-wrap{ margin: 0 0 12px; }
+.feedback{
+  width: min(92vw, 480px); max-height: 90vh; overflow-y: auto;
+  border: 0; border-radius: var(--radius-lg); padding: 18px 16px;
+  background: var(--color-surface); color: var(--color-text);
+  box-shadow: var(--shadow-modal); text-align: left; font-size: 14px;
+}
+.feedback::backdrop{ background: rgba(20,51,53,.45); }
+.feedback__head{ display:flex; align-items:center; justify-content:space-between; margin-bottom: 8px; }
+.feedback__title{ margin:0; font-size: 18px; }
+.feedback__close{ background:none; border:0; font-size:20px; line-height:1; cursor:pointer; color: var(--color-text-soft); min-width:40px; min-height:40px; }
+.feedback__field{ margin-top: 14px; }
+.feedback__label{ display:block; font-size:13px; font-weight:700; margin-bottom:6px; }
+.feedback__req{ color: var(--color-danger); font-size:11px; font-weight:500; }
+.feedback__opt{ color: var(--color-text-soft); font-size:11px; font-weight:500; }
+.feedback__options{ display:flex; flex-wrap:wrap; gap:6px; }
+.feedback__option{
+  border:1px solid var(--color-border); background:#fff; color: var(--color-text-soft);
+  border-radius: var(--radius-sm); padding: 8px 10px; font-size:13px; cursor:pointer; min-height:40px;
+}
+.feedback__option.is-selected{ border-color: var(--color-primary); background: var(--color-primary-soft); color: var(--color-primary-dark); font-weight:700; }
+.feedback__input{
+  width:100%; border:1px solid var(--color-border); border-radius: var(--radius-sm);
+  padding: 10px 12px; font: inherit; color: var(--color-text); background:#fff;
+}
+.feedback__textarea{ min-height: 110px; resize: vertical; }
+.feedback__privacy{ margin: 12px 0 0; font-size:12px; color: var(--color-text-soft); line-height:1.6; }
+.feedback__notice{ margin: 12px 0 0; font-size:13px; color: #1D7A5B; }
+.feedback__notice.is-error{ color: var(--color-danger); }
+.feedback__submit{ width:100%; margin-top: 16px; min-height: 46px; }
+.feedback__submit:disabled{ opacity:.6; cursor:default; }
