@@ -62,6 +62,7 @@ const FeedbackForm = (() => {
 
     let usability = "";
     let submitting = false;
+    let sent = false;
 
     const openBtn = el("button", { type: "button", class: "btn btn--ghost btn--sm feedback__open", text: "💬 フィードバックを送る" });
 
@@ -124,7 +125,7 @@ const FeedbackForm = (() => {
     dialog.addEventListener("cancel", (event) => { if (submitting) event.preventDefault(); });
 
     submitBtn.addEventListener("click", async () => {
-      if (submitting) return;
+      if (submitting || sent) return;
       const values = { usability, comment: comment.value, email: email.value.trim(), name: name.value, age: age.value };
       const error = validate(values);
       if (error) { showNotice(error, true); return; }
@@ -135,6 +136,7 @@ const FeedbackForm = (() => {
       showNotice("", false);
       try {
         await send(buildPayload(values));
+        sent = true;
         reset();
         showNotice("ご意見ありがとうございました。送信しました。", false);
       } catch (e) {
@@ -142,8 +144,8 @@ const FeedbackForm = (() => {
         showNotice("送信できませんでした。通信環境を確認して、もう一度お試しください。", true);
       } finally {
         submitting = false;
-        submitBtn.disabled = false;
-        submitBtn.textContent = "送信する";
+        submitBtn.disabled = sent;
+        submitBtn.textContent = sent ? "送信済" : "送信する";
       }
     });
 
