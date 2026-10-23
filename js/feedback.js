@@ -3,7 +3,7 @@
    -----------------------------------------------------------
    フィードバックフォーム。入力内容を Google Apps Script(ウェブアプリ)に
    送信し、スプレッドシートのアプリ別タブ(appName)に保存する。
-   app.js には依存しない(フッターにボタンを差し込むだけ)。
+   app.js には依存しない(検索エリア右側にボタンを差し込むだけ)。
    ========================================================= */
 
 const FeedbackForm = (() => {
@@ -57,8 +57,8 @@ const FeedbackForm = (() => {
   }
 
   function mount() {
-    const footer = document.querySelector(".app-footer");
-    if (!footer) return;
+    const main = document.getElementById("app");
+    if (!main) return;
 
     let usability = "";
     let submitting = false;
@@ -147,8 +147,8 @@ const FeedbackForm = (() => {
       }
     });
 
-    footer.insertBefore(el("p", { class: "feedback__open-wrap" }, [openBtn]), footer.firstChild);
-    footer.appendChild(dialog);
+    main.parentNode.insertBefore(el("div", { class: "feedback__anchor" }, [openBtn]), main);
+    document.body.appendChild(dialog);
   }
 
   mount();

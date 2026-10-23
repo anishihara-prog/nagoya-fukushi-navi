@@ -311,7 +311,11 @@ button{ font-family: inherit; }
 .app-footer a{ color: var(--color-text-soft); }
 
 /* ---------- Feedback form ---------- */
-.feedback__open-wrap{ margin: 0 0 12px; }
+.feedback__anchor{ position: relative; max-width: var(--maxw); margin: 0 auto; height: 0; }
+.feedback__open{ position: absolute; right: 14px; top: 130px; z-index: 5; box-shadow: var(--shadow-card); }
+@media (max-width: 640px){
+  .feedback__open{ position: fixed; top: auto; right: 12px; bottom: 12px; }
+}
 .feedback{
   width: min(92vw, 480px); max-height: 90vh; overflow-y: auto;
   border: 0; border-radius: var(--radius-lg); padding: 18px 16px;
