@@ -3384,12 +3384,16 @@
       "年金・手当などお金"
     ],
     "updatedBy": "福祉のしおり",
-    "updatedAt": "2026-08-31",
+    "updatedAt": "2026-11-10",
     "sortOrder": 135,
     "extraLinks": [
       {
         "label": "特別支援教育就学奨励費（名古屋市公式サイト）",
         "url": "https://www.city.nagoya.jp/kodomo/schools/1017010/1017016.html"
+      },
+      {
+        "label": "特別支援学校・特別支援学級・通級指導教室の設置校一覧（令和8年度）",
+        "url": "https://www.city.nagoya.jp/kodomo/schools/1017010/1051545.html"
       }
     ]
   },

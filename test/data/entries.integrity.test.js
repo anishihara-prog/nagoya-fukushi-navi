@@ -135,6 +135,7 @@ describe("既知の整理済み事項(リグレッション防止)", () => {
     assert.ok(e120, "e120 が無い");
     assert.match(e120.overview, /特別支援教育就学奨励費/);
     assert.ok((e120.extraLinks || []).some((l) => /就学奨励費/.test(l.label)));
+    assert.ok((e120.extraLinks || []).some((l) => l.url === "https://www.city.nagoya.jp/kodomo/schools/1017010/1051545.html"));
   });
   test("NagoyaApp由来の生活困窮・住居・家族ひきこもり情報が登録されている", () => {
     const e161 = entries.find((e) => e.id === "e161");
