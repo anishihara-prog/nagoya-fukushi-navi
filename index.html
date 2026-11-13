@@ -12,6 +12,13 @@
     <div class="app-header__inner">
       <h1 class="app-title">障害福祉支援ナビ <span class="app-title__sub">なごや</span></h1>
       <p class="app-tagline">福祉サービス・手続き・ケース別支援を検索</p>
+      <div class="visitor-count" aria-live="polite">
+        <span aria-hidden="true">👥</span>
+        <span id="visitor-count-status">来場者数を読み込み中...</span>
+        <strong id="visitor-count-value"></strong>
+        <button id="visitor-count-retry" class="visitor-count__retry" type="button" hidden>再試行</button>
+        <small id="visitor-count-note" class="visitor-count__note" hidden>端末・ブラウザごとに1回集計</small>
+      </div>
     </div>
   </header>
 
@@ -36,5 +43,6 @@
   <script src="js/data-store.js"></script>
   <script src="js/app.js"></script>
   <script src="js/feedback.js"></script>
+  <script src="js/visitor-count.js"></script>
 </body>
 </html>

@@ -56,6 +56,18 @@ button{ font-family: inherit; }
 }
 .app-title__sub{ font-size:13px; font-weight:500; color:#BFE0DE; }
 .app-tagline{ margin:4px 0 0; font-size:13px; color:#BFE0DE; }
+.visitor-count{
+  display:flex; flex-wrap:wrap; align-items:center; gap:4px 8px; width:fit-content;
+  max-width:100%; margin-top:10px; padding:6px 10px;
+  background:var(--color-primary-soft); color:var(--color-primary-dark);
+  border-radius:var(--radius-sm); font-size:12px;
+}
+.visitor-count strong{ font-size:14px; }
+.visitor-count__note{ flex-basis:100%; font-size:11px; color:var(--color-text-soft); }
+.visitor-count__retry{
+  border:0; background:none; padding:2px; color:var(--color-primary-dark);
+  font:inherit; font-weight:700; text-decoration:underline; cursor:pointer;
+}
 
 /* ---------- Tabs ---------- */
 .tabbar{
